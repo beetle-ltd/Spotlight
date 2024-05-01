@@ -5,7 +5,7 @@ import Page404 from "./pages/Page404";
 
 const App: React.FC = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto ">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
