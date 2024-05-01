@@ -9,6 +9,7 @@ export default function IconWithText({
   text: string;
 }) {
   const { toast } = useToast();
+
   function copyToClipboard(text: string) {
     const textarea = document.createElement("textarea");
     textarea.value = text;
@@ -17,6 +18,7 @@ export default function IconWithText({
     document.execCommand("copy");
     document.body.removeChild(textarea);
   }
+
   return (
     <Tooltip>
       <TooltipTrigger>
