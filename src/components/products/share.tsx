@@ -16,7 +16,7 @@ const Share = ({ closePopUp }: TShareProps) => {
           <MdCancel size={20} />
         </Button>
       </div>
-      <div className="w-full flex flex-wrap gap-x-4 gap-y-3">
+      <div className="w-full flex flex-wrap gap-x-4 gap-y-5">
         {shareMediums.map((medium) => (
           <Medium medium={medium} />
         ))}
