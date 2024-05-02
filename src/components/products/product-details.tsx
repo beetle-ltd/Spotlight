@@ -3,12 +3,16 @@ import { VscWand } from "react-icons/vsc";
 import { IProducts } from "../blocks/product-gallery";
 import InStock from "../instock";
 import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import Share from "./share";
+import { useState } from "react";
 
 type Props = {
   item: IProducts;
 };
 
 const ProductDetails = ({ item }: Props) => {
+  const [popup, setPopup] = useState<boolean>(false);
   return (
     <div className="sm:flex h-full">
       <div className="w-full h-full relative">
@@ -36,14 +40,21 @@ const ProductDetails = ({ item }: Props) => {
             <VscWand size={18} />
             Get business card
           </Button>
-          <Button
-            variant={"ghost"}
-            size={"lg"}
-            className="gap-3 items-center w-full bg-gray-200"
-          >
-            <IoShareSocialOutline size={18} />
-            Share
-          </Button>
+          <Popover open={popup} onOpenChange={setPopup}>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"ghost"}
+                size={"lg"}
+                className="gap-3 items-center w-full bg-gray-200"
+              >
+                <IoShareSocialOutline size={18} />
+                Share
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Share closePopUp={(val) => setPopup(val)} />
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </div>
