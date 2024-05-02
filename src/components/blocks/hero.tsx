@@ -7,7 +7,7 @@ import { VscWand } from "react-icons/vsc";
 
 function Hero() {
   return (
-    <div className="my-10">
+    <div className="my-10 sm:flex sm:items-start gap-x-8">
       <div className="flex justify-center">
         <ShopLogo />
       </div>
@@ -21,7 +21,7 @@ function Hero() {
           We are the best dealers in hair products from chinese hair to indian
           and ghanian hair. We have custom hair gel and creams to help you.
         </Paragraph>
-        <div className="mt-3 flex flex-col gap-y-2 justify-start">
+        <div className="mt-3 flex flex-col gap-y-2 justify-start sm:items-start">
           <IconWithText text="+234-000-000-000">
             <FiPhone />
             <p className="text-sm">+234-000-000-000</p>
