@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -12,6 +12,17 @@ function SearchBar() {
   const handleClick = (val: boolean) => {
     setOpen(val);
   };
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   if (isDesktop) {
     return (
