@@ -2,10 +2,11 @@ import { useState } from "react";
 import Tab from "../tab";
 import Gallery from "../gallery";
 
+export type TProductType = "video" | "image";
 export interface IProducts {
   id: number;
   link: string;
-  type: string;
+  type: TProductType;
 }
 function ProductGallery() {
   const [activeTab, setActiveTab] = useState<string>("all");
