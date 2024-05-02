@@ -5,6 +5,10 @@ import Gallery from "../gallery";
 export type TProductType = "video" | "image";
 export interface IProducts {
   id: number;
+  title?: string;
+  description?: string;
+  categories?: string[];
+  price?: number;
   link: string;
   type: TProductType;
 }
@@ -13,8 +17,12 @@ function ProductGallery() {
   const items: IProducts[] = [
     {
       id: 1,
+      title: "Smoothie Jaycee Drink",
+      description: "Refreshing smoothie with a twist",
       link: "https://images.unsplash.com/photo-1528158737955-bd50edbb9a85?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       type: "video",
+      categories: ["shoes", "bags", "sepulchure"],
+      price: 50000,
     },
     {
       id: 2,
