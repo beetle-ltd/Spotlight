@@ -4,9 +4,9 @@ import SearchBar from "../searchbar";
 
 function Header() {
   return (
-    <div className="w-full flex justify-between items-center py-5">
+    <div className="w-full flex items-center py-5">
       <Logo />
-      <div className="flex items-center gap-x-6">
+      <div className="flex flex-1 items-center justify-end gap-x-6">
         <SearchBar />
         <FaRegCompass size={24} className="cursor-pointer" />
       </div>
