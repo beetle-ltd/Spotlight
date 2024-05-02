@@ -1,5 +1,5 @@
 import { IProducts } from "./blocks/product-gallery";
-import Product from "./product";
+import Product from "./products/product";
 
 type Props = {
   products: IProducts[];
