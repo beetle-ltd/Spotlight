@@ -15,7 +15,7 @@ function Hero() {
         <h1 className="text-xl">Tiwa Hair</h1>
         <Paragraph>
           Tiwahair is a generative hair business that import synthetic, natural
-          , brazillian made hair accessories.
+          ,brazillian made hair accessories.
         </Paragraph>
         <Paragraph>
           We are the best dealers in hair products from chinese hair to indian
