@@ -9,10 +9,10 @@ function Hero() {
   return (
     <div className="my-10 sm:flex sm:items-start gap-x-8">
       <div className="flex justify-center">
-        <ShopLogo />
+        <ShopLogo className="sm:p-10" />
       </div>
       <div>
-        <h1 className="text-xl">Tiwa Hair</h1>
+        <h1 className="text-xl sm:text-3xl">Tiwa Hair</h1>
         <Paragraph>
           Tiwahair is a generative hair business that import synthetic, natural
           ,brazillian made hair accessories.
@@ -46,7 +46,9 @@ function Hero() {
 }
 
 function Paragraph({ children }: { children: string }) {
-  return <p className="text-[#555] leading-7 text-sm pb-1">{children}</p>;
+  return (
+    <p className="text-[#555] leading-7 text-sm sm:text-md pb-1">{children}</p>
+  );
 }
 
 export default Hero;

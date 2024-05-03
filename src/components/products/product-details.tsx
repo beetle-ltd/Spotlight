@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
+import { useLocation } from "react-router-dom";
 import { IProducts } from "../blocks/product-gallery";
 import InStock from "../instock";
+import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import Share from "./share";
-import { useState } from "react";
 
 type Props = {
   item: IProducts;
@@ -13,6 +15,8 @@ type Props = {
 
 const ProductDetails = ({ item }: Props) => {
   const [popup, setPopup] = useState<boolean>(false);
+  const location = useLocation();
+
   return (
     <div className="sm:flex h-full">
       <div className="w-full h-full relative">
@@ -22,7 +26,14 @@ const ProductDetails = ({ item }: Props) => {
         />
         <InStock />
       </div>
-      <div className="container sm:flex flex-col justify-center">
+      <div className="container text-justify sm:flex flex-col justify-center">
+        {location.pathname === "/explore" && (
+          <div className="flex self-start items-center gap-x-3 pt-3">
+            <ShopLogo size={"sm"} />
+            <p className="text-xl">Tiwa Hair</p>
+          </div>
+        )}
+
         <h1 className="text-3xl font-semibold">{item?.title}</h1>
         <p className="text-[#222] text-lg leading-7 pb-1">
           {item?.description}
