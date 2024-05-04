@@ -18,15 +18,15 @@ const ProductDetails = ({ item }: Props) => {
   const location = useLocation();
 
   return (
-    <div className="sm:flex h-full">
-      <div className="w-full h-full relative">
+    <div className="sm:flex h-full border-0">
+      <div className="w-full h-full relative rounded-md">
         <img
           src={item.link}
           className="max-h-[500px] xl:max-h-[700px] aspect-[3/4] w-full object-cover"
         />
         <InStock />
       </div>
-      <div className="container text-justify sm:flex flex-col justify-center">
+      <div className="container mx-auto text-justify sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
           <div className="flex self-start items-center gap-x-3 pt-3">
             <ShopLogo size={"sm"} />
@@ -46,8 +46,8 @@ const ProductDetails = ({ item }: Props) => {
           <IoPricetag />
           <p> &#8358;{item?.price || 50}</p>
         </div>
-        <div className="flex items-center gap-x-3  pb-5">
-          <Button className="items-center gap-3 w-full" size={"lg"}>
+        <div className="w-full flex items-center pb-5 gap-x-3">
+          <Button className="items-center gap-x-3" size={"default"}>
             <VscWand size={18} />
             Get business card
           </Button>
@@ -55,8 +55,8 @@ const ProductDetails = ({ item }: Props) => {
             <PopoverTrigger asChild>
               <Button
                 variant={"ghost"}
-                size={"lg"}
-                className="gap-3 items-center w-full bg-gray-200"
+                size={"default"}
+                className="gap-x-3 items-center bg-gray-200"
               >
                 <IoShareSocialOutline size={18} />
                 Share

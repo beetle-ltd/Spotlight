@@ -81,3 +81,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+dialog {
+  border: 0 !important;
+}
+
+div[role="dialog"] {
+  border: 0 !important;
+}
