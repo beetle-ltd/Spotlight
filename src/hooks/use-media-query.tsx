@@ -1,7 +1,13 @@
 import * as React from "react";
 
+/**
+ *
+ * @param query - The media query to test for
+ * @returns {value} - a boolean that tells true / false
+ */
+
 export function useMediaQuery(query: string) {
-  const [value, setValue] = React.useState(false);
+  const [value, setValue] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     function onChange(event: MediaQueryListEvent) {

@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+import { Calendar } from "lucide-react";
 import { forwardRef, useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { Button } from "./ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command";
 
 function SearchBar() {
   const [open, setOpen] = useState<boolean>(false);
@@ -25,18 +33,27 @@ function SearchBar() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  if (isDesktop) {
-    return (
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <SearchBarDesktop handleClick={handleClick} />
-        </PopoverTrigger>
-        <PopoverContent>Autocomplete</PopoverContent>
-      </Popover>
-    );
-  }
-
-  return <SearchBarMobile handleClick={handleClick} />;
+  return (
+    <>
+      {isDesktop ? (
+        <SearchBarDesktop handleClick={handleClick} />
+      ) : (
+        <SearchBarMobile handleClick={handleClick} />
+      )}
+      <CommandDialog className="" open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Suggestions">
+            <CommandItem>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>Calendar</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </>
+  );
 }
 
 type TSearchBarProps = {

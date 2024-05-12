@@ -7,8 +7,8 @@ import { VscWand } from "react-icons/vsc";
 
 function Hero() {
   return (
-    <div className="my-10 sm:flex sm:items-start gap-x-8">
-      <div className="flex justify-center">
+    <div className="my-16 sm:flex sm:items-start gap-x-8 ">
+      <div className="flex justify-center items-center h-full">
         <ShopLogo className="sm:p-10" />
       </div>
       <div>
