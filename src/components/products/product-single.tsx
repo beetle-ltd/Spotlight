@@ -1,6 +1,9 @@
 import { IoPricetag } from "react-icons/io5";
+import videoFile from "../../assets/videos/vid1.mp4";
 import { IProducts } from "../blocks/product-gallery";
+import Video from "./attachments/video";
 import { ProductIcon } from "./product";
+import Image from "./attachments/image";
 
 const ProductSingle = ({
   item,
@@ -28,10 +31,18 @@ const ProductSingle = ({
       <div className="absolute top-2 right-4">
         <ProductIcon type={item.type} />
       </div>
-      <img
-        src={item.link}
-        className="h-full w-full object-cover transition-all hover:scale-105 aspect-[3/4]"
-      />
+      {item.link.includes("mp4") ? (
+        <Video
+          src={videoFile}
+          poster="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29jb251dCUyMGJvdHRsZXxlbnwwfHwwfHx8MA%3D%3D"
+        />
+      ) : (
+        <Image
+          src={item.link}
+          alt={item.title}
+          styles="transition-all hover:scale-105 aspect-[3/4]"
+        />
+      )}
     </div>
   );
 };

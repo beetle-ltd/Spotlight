@@ -2,11 +2,13 @@ import { useState } from "react";
 import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
 import { useLocation } from "react-router-dom";
+import videoFile from "../../assets/videos/vid1.mp4";
 import { IProducts } from "../blocks/product-gallery";
 import InStock from "../instock";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
 
 type Props = {
@@ -20,11 +22,16 @@ const ProductDetails = ({ item }: Props) => {
   return (
     <div className="sm:flex h-full border-0">
       <div className="w-full h-full relative rounded-md">
-        <img
-          src={item.link}
-          className="max-h-[500px] xl:max-h-[700px] aspect-[3/4] w-full object-cover"
-        />
-        <InStock />
+        {item.link.includes("mp4") ? (
+          <VideoDetail src={videoFile} alt={item.title} />
+        ) : (
+          <img
+            src={item.link}
+            className="h-full w-full object-cover transition-all hover:scale-105 aspect-[3/4]"
+          />
+        )}
+
+        {/* <InStock /> */}
       </div>
       <div className="container mx-auto text-justify sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
