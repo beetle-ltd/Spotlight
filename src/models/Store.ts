@@ -1,4 +1,4 @@
-import { Product } from "./Products";
+import { IProduct } from "./Products";
 
 /**
  * `Store` represents the model of a store
@@ -39,7 +39,7 @@ export interface Store {
    * `products` describes the products of the store
    * @description It is optionally included on read, update and delete operation for a store
    */
-  readonly products: Product[];
+  readonly products: IProduct[];
   /**
    * `link` describes the unique link generated for store
    * @description

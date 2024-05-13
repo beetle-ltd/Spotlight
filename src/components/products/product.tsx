@@ -1,15 +1,16 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { IProduct } from "@/models/Products";
+import { AttachmentType } from "@/models/enums";
 import { useState } from "react";
 import { IoVideocam } from "react-icons/io5";
 import { PiImagesFill } from "react-icons/pi";
-import { IProducts, TProductType } from "../blocks/product-gallery";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import ProductDetails from "./product-details";
 import ProductSingle from "./product-single";
 
 type Props = {
-  item: IProducts;
+  item: IProduct;
 };
 
 function Product({ item }: Props) {
@@ -39,10 +40,19 @@ function Product({ item }: Props) {
   );
 }
 
-export function ProductIcon({ type }: { type: TProductType }) {
+export function ProductIcon({
+  type,
+  size,
+}: {
+  type: AttachmentType;
+  size: number;
+}) {
+  if (type === AttachmentType.PICTURE && size <= 1) {
+    return;
+  }
   return (
     <div className="text-white text-xl">
-      {type === "image" ? <PiImagesFill /> : <IoVideocam />}
+      {type === AttachmentType.PICTURE ? <PiImagesFill /> : <IoVideocam />}
     </div>
   );
 }

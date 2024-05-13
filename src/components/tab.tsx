@@ -1,7 +1,9 @@
+import { TTab } from "./blocks/product-gallery";
+
 type Props = {
   activeTab: string;
-  handleTabClick: (tab: string) => void;
-  tab: string;
+  handleTabClick: (tab: TTab) => void;
+  tab: TTab;
   children: React.ReactNode;
 };
 

@@ -1,7 +1,7 @@
 import { AttachmentType } from "./enums";
 
 export interface Attachment {
-  id: number;
+  id: string;
   /**
    * `url` describes the url of the store logo
    * @description The url of the image and/or video on AWS S3

@@ -1,5 +1,5 @@
 import { Container } from "@/App";
-import { items } from "@/components/blocks/product-gallery";
+import { Products } from "@/constants/products-constants";
 import Gallery from "@/components/gallery";
 import Logo from "@/components/logo";
 import { LuSearch } from "react-icons/lu";
@@ -31,7 +31,7 @@ export default function Explore() {
       </Container>
 
       <div className="w-full sm:w-[70%] mt-10 mx-auto ">
-        <Gallery products={items} />
+        <Gallery products={Products} />
       </div>
     </div>
   );

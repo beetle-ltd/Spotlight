@@ -4,8 +4,8 @@ import { Currency } from "./enums";
 /**
  * `Product` represents the model of a product
  *  */
-export interface Product {
-  readonly id: number;
+export interface IProduct {
+  readonly id: string;
   /**
    * `name` describes the name of the product
    * @example
