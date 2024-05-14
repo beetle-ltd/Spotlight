@@ -1,6 +1,7 @@
 import { IProduct } from "@/models/Products";
 import { AttachmentType, Currency } from "@/models/enums";
-
+import video1 from "../assets/videos/vid1.mp4";
+import video2 from "../assets/videos/vid2.mp4";
 export const Products: IProduct[] = [
   {
     id: "bde4f7c3-5c4e-4a78-a48e-2a1b9f082f8d",
@@ -33,12 +34,17 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "942d8b0a-23e6-477f-952b-21b90cfc4a2e",
-        url: "https://example.com/product-image1.jpg",
+        url: "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/MWG2II5FBJOWZJMS2ZJRD3QFCI.jpg",
         type: AttachmentType.PICTURE,
       },
       {
         id: "38ebf777-ca83-433d-a44d-f60854dc9b16",
-        url: "https://example.com/product-image2.jpg",
+        url: "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/MWG2II5FBJOWZJMS2ZJRD3QFCI.jpg",
+        type: AttachmentType.PICTURE,
+      },
+      {
+        id: "38ebf777-ca83-433d-a44d-f60854dc9b16",
+        url: "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/MWG2II5FBJOWZJMS2ZJRD3QFCI.jpg",
         type: AttachmentType.PICTURE,
       },
     ],
@@ -54,14 +60,14 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "e01a30bc-f414-4b40-9e17-935d2f15d27f",
-        url: "https://example.com/product-image3.jpg",
+        url: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         type: AttachmentType.PICTURE,
       },
-      {
-        id: "6ed49c91-f43a-49fc-88d1-0431a482b25a",
-        url: "https://example.com/product-image4.jpg",
-        type: AttachmentType.PICTURE,
-      },
+      // {
+      //   id: "6ed49c91-f43a-49fc-88d1-0431a482b25a",
+      //   url: "https://example.com/product-image4.jpg",
+      //   type: AttachmentType.PICTURE,
+      // },
     ],
   },
   {
@@ -75,7 +81,7 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "61a1d0ff-0525-45f0-8b86-d14b4e69774e",
-        url: "https://example.com/product-video1.mp4",
+        url: video1,
         pictureUrl: "https://example.com/product-video1-thumbnail.jpg",
         type: AttachmentType.VIDEO,
       },
@@ -92,8 +98,9 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "9c3dab4d-55cf-45ee-a36c-cc2c3c133159",
-        url: "https://example.com/product-video2.mp4",
-        pictureUrl: "https://example.com/product-video2-thumbnail.jpg",
+        url: video1,
+        pictureUrl:
+          "https://media.istockphoto.com/id/184147386/photo/slippers.jpg?s=612x612&w=0&k=20&c=7N-gi7O2VTtgTP1oSLWZPXjUyUuXIHRdpc8wXo7Qsgk=",
         type: AttachmentType.VIDEO,
       },
     ],
@@ -109,8 +116,9 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "6716c073-805a-439d-8055-fd0b29419d1d",
-        url: "https://example.com/product-video3.mp4",
-        pictureUrl: "https://example.com/product-video3-thumbnail.jpg",
+        url: video2,
+        pictureUrl:
+          "https://media.istockphoto.com/id/1450130413/photo/a-navy-blue-baseball-cap-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=xa45Lt2DWIdPRxF7A-30N1jOUBFr4HVIYZhbybC_lhE=",
         type: AttachmentType.VIDEO,
       },
     ],

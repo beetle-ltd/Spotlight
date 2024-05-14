@@ -1,7 +1,6 @@
 import { IProduct } from "@/models/Products";
 import { CurrencyToSymbolMapping } from "@/models/enums";
 import { IoPricetag } from "react-icons/io5";
-import videoFile from "../../assets/videos/vid1.mp4";
 import Image from "./attachments/image";
 import Video from "./attachments/video";
 import { ProductIcon } from "./product";
@@ -38,7 +37,10 @@ const ProductSingle = ({
         <ProductIcon type={attachmentType} size={attachmentSize} />
       </div>
       {attachmentType === "VIDEO" ? (
-        <Video src={videoFile} poster={item.attachments[0].pictureUrl || ""} />
+        <Video
+          src={item.attachments[0].url}
+          poster={item.attachments[0].pictureUrl || ""}
+        />
       ) : (
         <Image
           src={item.attachments[0].url}

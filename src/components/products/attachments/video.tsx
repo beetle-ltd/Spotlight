@@ -50,7 +50,7 @@ const Video = ({ src, alt, poster }: TVideoProps) => {
       playsInline
       poster={poster || ""}
       aria-label={alt}
-      className="h-full object-cover"
+      className="h-full w-full object-cover object-center"
       onMouseEnter={() => handleMouseEnter()}
       onMouseLeave={() => handleMouseLeave()}
     >

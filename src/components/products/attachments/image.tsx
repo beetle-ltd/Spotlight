@@ -9,7 +9,7 @@ const Image = ({ src, alt, styles }: TImageProps) => {
       <img
         src={src}
         alt={alt}
-        className={`h-full w-full object-cover ${styles || ""}`}
+        className={`h-full w-full  object-cover ${styles || ""}`}
       />
     </>
   );
