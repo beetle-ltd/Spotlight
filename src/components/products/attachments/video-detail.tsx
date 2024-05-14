@@ -38,7 +38,7 @@ const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
         autoPlay
         playsInline
         aria-label={alt}
-        className="h-full w-full object-cover cursor-pointer"
+        className="h-full w-full object-top object-cover cursor-pointer"
         onClick={handleVideoPlay}
       >
         <source src={src} type="video/mp4" />

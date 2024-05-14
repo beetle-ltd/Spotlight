@@ -34,9 +34,9 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
       </div>
       <div className="container mx-auto text-justify sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
-          <div className="flex self-start items-center gap-x-3 pt-3">
+          <div className="flex self-start items-center gap-x-2 pb-5">
             <ShopLogo size={"sm"} />
-            <p className="sm:text-xl">Tiwa Hair</p>
+            <p className="text-sm sm:text-xl">Tiwa Hair</p>
           </div>
         )}
 
@@ -52,7 +52,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
           <IoPricetag />
           <p> &#8358;{item.price}</p>
         </div>
-        <div className="w-full flex items-center pb-5 gap-x-3">
+        <div className="w-full grid grid-cols-2 items-center pb-5 gap-x-3">
           <Button className="items-center gap-x-3" size={"default"}>
             <VscWand size={18} />
             Get business card

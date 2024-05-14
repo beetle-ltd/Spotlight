@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="w-full flex items-center py-5">
+    <div className="w-full flex items-center py-2 sm:py-5">
       <Logo />
       <div className="flex flex-1 items-center justify-end gap-x-6">
         <SearchBar />

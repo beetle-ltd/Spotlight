@@ -9,7 +9,7 @@ const shopLogoVariants = cva(
     variants: {
       size: {
         default: "p-5",
-        sm: "w-12 h-12 border-[.1px] border-gray-500",
+        sm: "w-10 h-10 border-[.1px] border-gray-500",
         lg: "p-10",
       },
     },
