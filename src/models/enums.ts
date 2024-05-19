@@ -13,6 +13,7 @@ export enum AttachmentType {
 }
 
 /**
+    // toas
  * `Currency` describes the represenctation of the currency of the product
  *  */
 export enum Currency {

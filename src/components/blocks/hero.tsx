@@ -1,3 +1,4 @@
+import React from "react";
 import { FiPhone } from "react-icons/fi";
 import ShopLogo from "../shop-logo";
 import IconWithText from "../icon-with-text";
