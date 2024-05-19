@@ -4,35 +4,34 @@ import IconWithText from "../icon-with-text";
 import { MdMailOutline } from "react-icons/md";
 import { Button } from "../ui/button";
 import { VscWand } from "react-icons/vsc";
+import { Store } from "@/models/Store";
+import { BASE_URL } from "@/constants/api-constants";
 
-function Hero() {
+interface IHeroProps {
+  store: Store;
+}
+
+function Hero({ store }: IHeroProps) {
   return (
     <div className="mt-10 mb-16 sm:flex sm:items-start gap-x-8 ">
       <div className="flex justify-center items-center h-full pb-5">
-        <ShopLogo className="sm:p-10" />
+        <ShopLogo logoImg={store.logo} alt={store.name} />
       </div>
       <div>
-        <h1 className="text-xl sm:text-3xl">Tiwa Hair</h1>
-        <Paragraph>
-          Tiwahair is a generative hair business that import synthetic, natural
-          ,brazillian made hair accessories.
-        </Paragraph>
-        <Paragraph>
-          We are the best dealers in hair products from chinese hair to indian
-          and ghanian hair. We have custom hair gel and creams to help you.
-        </Paragraph>
+        <h1 className="text-xl sm:text-3xl">{store.name}</h1>
+        <Paragraph>{store.bio}</Paragraph>
         <div className="mt-3 flex flex-col gap-y-2 justify-start sm:items-start">
-          <IconWithText text="+234-000-000-000">
+          <IconWithText text={store.phoneNumber}>
             <FiPhone />
-            <p className="text-sm">+234-000-000-000</p>
+            <p className="text-sm">{store.phoneNumber}</p>
           </IconWithText>
-          <IconWithText text="mail@mail.com">
+          <IconWithText text={store.email}>
             <MdMailOutline />
-            <p className="text-sm">mail@mail.com</p>
+            <p className="text-sm">{store.email}</p>
           </IconWithText>
-          <IconWithText text="https://spotlight.com/tiwahair">
+          <IconWithText text={`${BASE_URL}/stores/${store.link}`}>
             <p className="text-sm text-[#62ADF1]">
-              https://spotlight.com/tiwahair
+              {`${BASE_URL}/stores/${store.link}`}
             </p>
           </IconWithText>
           <Button className="mt-3 flex gap-x-2 items-center" size={"lg"}>

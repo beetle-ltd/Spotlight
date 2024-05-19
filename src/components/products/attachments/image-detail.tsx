@@ -20,14 +20,10 @@ const ImageDetail = ({ productName, attachments }: TImageDetailProps) => {
 
   return (
     <Carousel>
-      <CarouselContent>
+      <CarouselContent className="h-full">
         {attachments.map((attachment) => (
-          <CarouselItem key={attachment.id}>
-            <Image
-              src={attachment.url}
-              alt={productName}
-              styles="sm:h-[600px]"
-            />
+          <CarouselItem key={attachment.id} className="h-full">
+            <Image src={attachment.url} alt={productName} />
           </CarouselItem>
         ))}
       </CarouselContent>

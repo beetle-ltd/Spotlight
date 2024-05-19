@@ -1,16 +1,15 @@
-import { VariantProps, cva } from "class-variance-authority";
-import ShopLogoTest from "./../assets/shop_logo_test.svg";
-import { FC } from "react";
 import { cn } from "@/lib/utils";
+import { VariantProps, cva } from "class-variance-authority";
+import { FC } from "react";
 
 const shopLogoVariants = cva(
-  "border border-gray-800 rounded-full bg-yellow-300",
+  "border-2 border-gray-700 rounded-full overflow-hidden bg-red-500 flex items-center justify-center",
   {
     variants: {
       size: {
-        default: "p-5",
-        sm: "w-10 h-10 border-[.1px] border-gray-500",
-        lg: "p-10",
+        default: "w-40 h-40",
+        sm: "w-10 h-10",
+        lg: "w-64 h-64",
       },
     },
     defaultVariants: {
@@ -21,12 +20,25 @@ const shopLogoVariants = cva(
 
 interface ShopLogoProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof shopLogoVariants> {}
+    VariantProps<typeof shopLogoVariants> {
+  logoImg: string;
+  alt: string;
+}
 
-const ShopLogo: FC<ShopLogoProps> = ({ className, size }) => {
+const ShopLogo: FC<ShopLogoProps> = ({
+  className,
+  size,
+  logoImg,
+  alt,
+  ...props
+}) => {
   return (
-    <div className={cn(shopLogoVariants({ className, size }))}>
-      <img src={ShopLogoTest} alt="shop-logo-test" />
+    <div className={cn(shopLogoVariants({ className, size }))} {...props}>
+      <img
+        src={logoImg}
+        alt={`${alt}-logo-image`}
+        className="w-full h-full object-cover"
+      />
     </div>
   );
 };

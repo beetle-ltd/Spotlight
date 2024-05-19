@@ -2,6 +2,7 @@ import { IProduct } from "@/models/Products";
 import { AttachmentType, Currency } from "@/models/enums";
 import video1 from "../assets/videos/vid1.mp4";
 import video2 from "../assets/videos/vid2.mp4";
+import video3 from "../assets/videos/vid1.mp4";
 export const Products: IProduct[] = [
   {
     id: "bde4f7c3-5c4e-4a78-a48e-2a1b9f082f8d",
@@ -81,7 +82,7 @@ export const Products: IProduct[] = [
     attachments: [
       {
         id: "61a1d0ff-0525-45f0-8b86-d14b4e69774e",
-        url: video1,
+        url: video3,
         pictureUrl: "https://example.com/product-video1-thumbnail.jpg",
         type: AttachmentType.VIDEO,
       },

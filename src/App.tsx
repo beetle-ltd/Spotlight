@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Explore from "./pages/Explore";
+import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
 
 const App: React.FC = () => {

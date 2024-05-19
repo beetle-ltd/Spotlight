@@ -1,12 +1,15 @@
-import { useState } from "react";
-import Tab from "../tab";
-import Gallery from "../gallery";
-import { Products } from "@/constants/products-constants";
+import { IProduct } from "@/models/Products";
 import { AttachmentType } from "@/models/enums";
+import { useState } from "react";
+import Gallery from "../gallery";
+import Tab from "../tab";
 
 export type TTab = "ALL" | "PICTURE" | "VIDEO";
 
-function ProductGallery() {
+interface IProductsGalleryProps {
+  products: IProduct[];
+}
+function ProductGallery({ products }: IProductsGalleryProps) {
   const [activeTab, setActiveTab] = useState<TTab>("ALL");
 
   const handleTabClick = (tab: TTab) => {
@@ -15,8 +18,8 @@ function ProductGallery() {
 
   const filteredProducts =
     activeTab === "ALL"
-      ? Products
-      : Products.filter((product) => product.attachments[0].type === activeTab);
+      ? products
+      : products.filter((product) => product.attachments[0].type === activeTab);
 
   return (
     <div className="w-full sm:w-[70%] mt-10 mx-auto ">

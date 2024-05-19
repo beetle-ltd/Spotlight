@@ -5,11 +5,11 @@ export enum AttachmentType {
   /**
    * The Video asset type
    */
-  VIDEO = "VIDEO",
+  VIDEO = "Video",
   /**
    * The Picture asset type
    */
-  PICTURE = "PICTURE",
+  PICTURE = "Picture",
 }
 
 /**

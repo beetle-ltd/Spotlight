@@ -23,7 +23,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
 
   return (
     <div className="sm:grid grid-cols-[55%,45%] h-full border-0 ">
-      <div className="w-full h-full sm:h-[600px] relative rounded-md bg-green-600 mb-5 sm:mb-0">
+      <div className="w-full h-full sm:h-[700px] relative rounded-md bg-green-600 mb-5 sm:mb-0">
         {attachmentType === AttachmentType.VIDEO ? (
           <VideoDetail src={item.attachments[0].url} alt={item.name} />
         ) : (
@@ -35,12 +35,12 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
       <div className="container mx-auto text-justify sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
           <div className="flex self-start items-center gap-x-2 pb-5">
-            <ShopLogo size={"sm"} />
+            <ShopLogo size={"sm"} logoImg="h" alt="d"/>
             <p className="text-sm sm:text-xl">Tiwa Hair</p>
           </div>
         )}
 
-        <h1 className="text-2xl sm:text-4xl font-semibold">{item.name}</h1>
+        <h1 className="text-2xl sm:text-3xl font-semibold">{item.name}</h1>
         <p className="text-[#222] text-sm sm:text-lg leading-7 pb-1">
           {item.description}
         </p>
@@ -54,7 +54,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
         </div>
         <div className="w-full grid grid-cols-2 items-center pb-5 gap-x-3">
           <Button className="items-center gap-x-3" size={"default"}>
-            <VscWand size={18} />
+            <VscWand size={16} />
             Get business card
           </Button>
           <Popover open={popup} onOpenChange={setPopup}>

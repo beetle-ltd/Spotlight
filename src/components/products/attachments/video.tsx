@@ -48,7 +48,7 @@ const Video = ({ src, alt, poster }: TVideoProps) => {
       muted
       preload="none"
       playsInline
-      poster={poster || ""}
+      poster={poster}
       aria-label={alt}
       className="h-full w-full object-cover object-center"
       onMouseEnter={() => handleMouseEnter()}

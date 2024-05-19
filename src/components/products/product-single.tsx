@@ -1,5 +1,5 @@
 import { IProduct } from "@/models/Products";
-import { CurrencyToSymbolMapping } from "@/models/enums";
+import { AttachmentType, CurrencyToSymbolMapping } from "@/models/enums";
 import { IoPricetag } from "react-icons/io5";
 import Image from "./attachments/image";
 import Video from "./attachments/video";
@@ -18,9 +18,11 @@ const ProductSingle = ({
     <div
       key={item.id}
       className={`relative aspect-ratio w-[100%] bg-gray-200 overflow-hidden cursor-pointer ${
-        attachmentType === "VIDEO" ? "row-span-2" : "row-span-1"
+        attachmentType === AttachmentType.VIDEO ? "row-span-2" : "row-span-1"
       }`}
-      style={{ aspectRatio: attachmentType === "VIDEO" ? "1/2" : "2/2" }}
+      style={{
+        aspectRatio: attachmentType === AttachmentType.VIDEO ? "1/2" : "2/2",
+      }}
       onClick={() => handleClick(true)}
     >
       {/* Replace with your actual content */}
@@ -36,7 +38,7 @@ const ProductSingle = ({
       <div className="absolute top-2 right-4">
         <ProductIcon type={attachmentType} size={attachmentSize} />
       </div>
-      {attachmentType === "VIDEO" ? (
+      {attachmentType === AttachmentType.VIDEO ? (
         <Video
           src={item.attachments[0].url}
           poster={item.attachments[0].pictureUrl || ""}
