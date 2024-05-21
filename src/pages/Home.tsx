@@ -7,21 +7,32 @@ import { useQuery } from "@tanstack/react-query";
 // import { BASE_URL } from "@/constants/api-constants";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { BASE_URL } from "@/constants/api-constants";
 
 export default function Home() {
   const { id } = useParams();
   const { toast } = useToast();
 
+  // store id in local storage
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    localStorage.setItem("store_id", id);
+  }, [id]);
+
   const fetchUserStore = async () => {
     try {
-      const response = await axios.get(
-        `http://13.60.94.217/api/v1/stores/links/${id}`
-      );
+      const response = await axios.get(`${BASE_URL}/api/v1/stores/links/${id}`);
       if (response.statusText === "OK") {
         return response.data;
       }
     } catch (error) {
       console.log(error);
+      toast({
+        description: "An error occured" + error,
+      });
     }
   };
 

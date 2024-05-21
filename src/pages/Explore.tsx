@@ -1,16 +1,50 @@
 import { Container } from "@/App";
-import { Products } from "@/constants/products-constants";
 import Gallery from "@/components/gallery";
 import Logo from "@/components/logo";
+import { BASE_URL } from "@/constants/api-constants.ts";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { LuSearch } from "react-icons/lu";
 
+import { toast } from "@/components/ui/use-toast.ts";
+
 export default function Explore() {
+  const id = localStorage.getItem("store_id") || "";
+  const fetchRecommendedProducts = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/v1/stores/links/${id}/product-recommendations?page=1&perPage=300`
+      );
+      if (response.statusText === "OK") {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["fetchRecommendedProducts"],
+    queryFn: fetchRecommendedProducts,
+  });
+
+  if (error) {
+    toast({
+      description: error.message,
+    });
+  }
+
+  if (isLoading) {
+    return "lOADING PLEASE WAIT";
+  }
+  const store = data.data;
+  const products = store.data;
+
   return (
     <div>
       <Container>
         <div className="flex flex-col gap-y-10 items-center py-5">
           <div className="hidden sm:block">
-            <Logo />
+            <Logo url={`/stores/${id}`} />
           </div>
           <div className="flex items-center bg-gray-100 p-2 sm:p-4 w-full rounded-md text-gray-500">
             <div className="flex flex-1 items-center gap-x-3">
@@ -31,7 +65,7 @@ export default function Explore() {
       </Container>
 
       <div className="w-full sm:w-[70%] mt-10 mx-auto ">
-        <Gallery products={Products} />
+        <Gallery products={products} />
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ const ProductSingle = ({
 }) => {
   const attachmentType = item.attachments[0].type;
   const attachmentSize = item.attachments.length;
+
   return (
     <div
       key={item.id}

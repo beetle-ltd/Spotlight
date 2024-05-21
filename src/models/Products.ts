@@ -1,5 +1,6 @@
 import { Attachment } from "./Attachment";
 import { Currency } from "./enums";
+import {Store} from "@/models/Store.ts";
 
 /**
  * `Product` represents the model of a product
@@ -44,4 +45,6 @@ export interface IProduct {
    * 50
    */
   readonly stocked: number;
+
+  readonly store: Store;
 }

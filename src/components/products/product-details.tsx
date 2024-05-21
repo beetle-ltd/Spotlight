@@ -4,13 +4,13 @@ import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
 import { useLocation } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
+import { AttachmentType } from "@/models/enums";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
-import { AttachmentType } from "@/models/enums";
-import ImageDetail from "./attachments/image-detail";
 
 type TProductDetailsProps = {
   item: IProduct;
@@ -35,8 +35,8 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
       <div className="container mx-auto text-justify sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
           <div className="flex self-start items-center gap-x-2 pb-5">
-            <ShopLogo size={"sm"} logoImg="h" alt="d"/>
-            <p className="text-sm sm:text-xl">Tiwa Hair</p>
+            <ShopLogo size={"sm"} logoImg={item.store.logo} alt="d" />
+            <p className="text-sm sm:text-xl">{item.store.name}</p>
           </div>
         )}
 
