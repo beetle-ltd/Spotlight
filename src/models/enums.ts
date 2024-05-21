@@ -12,6 +12,12 @@ export enum AttachmentType {
   PICTURE = "Picture",
 }
 
+export enum Tabs {
+  ALL = "ALL",
+  VIDEO = AttachmentType.VIDEO,
+  PICTURE = AttachmentType.PICTURE,
+}
+
 /**
     // toas
  * `Currency` describes the represenctation of the currency of the product

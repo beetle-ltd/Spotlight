@@ -49,6 +49,18 @@ function SearchBar() {
               <Calendar className="mr-2 h-4 w-4" />
               <span>Calendar</span>
             </CommandItem>
+            <CommandItem>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>TimeTable</span>
+            </CommandItem>
+            <CommandItem>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>Picture</span>
+            </CommandItem>
+            <CommandItem>
+              <Calendar className="mr-2 h-4 w-4" />
+              <span>Caren</span>
+            </CommandItem>
           </CommandGroup>
         </CommandList>
       </CommandDialog>

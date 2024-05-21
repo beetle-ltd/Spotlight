@@ -4,7 +4,7 @@ import { useState } from "react";
 import Gallery from "../gallery";
 import Tab from "../tab";
 
-export type TTab = "ALL" | "PICTURE" | "VIDEO";
+export type TTab = "ALL" | AttachmentType;
 
 interface IProductsGalleryProps {
   products: IProduct[];
@@ -23,7 +23,7 @@ function ProductGallery({ products }: IProductsGalleryProps) {
 
   return (
     <div className="w-full sm:w-[70%] mt-10 mx-auto ">
-      <div className="flex flex-row gap-x-3 mb-4 w-full  border-b-[.05px] border-gray-400 justify-center">
+      <div className="flex flex-row gap-x-3 mb-4 w-full   border-b-[.05px] border-gray-400 justify-center">
         <Tab activeTab={activeTab} handleTabClick={handleTabClick} tab="ALL">
           All
         </Tab>

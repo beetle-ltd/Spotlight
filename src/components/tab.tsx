@@ -10,7 +10,7 @@ type Props = {
 const Tab = ({ activeTab, handleTabClick, children, tab }: Props) => {
   return (
     <button
-      className={`px-3 py-2 mr-2 font-medium ${
+      className={`px-3 py-2 mr-2 font-medium  ${
         activeTab === tab
           ? "border-b-gray-400 rounded-t-3xl border-b-2 text-black "
           : "text-gray-500"
