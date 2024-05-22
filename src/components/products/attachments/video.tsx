@@ -1,14 +1,25 @@
+import { useIsVisible } from "@/hooks/use-is-visible";
+import { motion } from "framer-motion";
 import { debounce } from "lodash";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Blurhash } from "react-blurhash";
 
 type TVideoProps = {
+  hash: string;
   src: string;
   poster: string;
   alt?: string;
 };
 
-const Video = ({ src, alt, poster }: TVideoProps) => {
+const Video = ({ hash, src, alt, poster }: TVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoIsLoading, setVideoIsLoading] = useState(true);
+
+  const videoWrapper = useRef<HTMLDivElement>(null);
+  const videoIsVisibleOnScreen = useIsVisible({
+    ref: videoWrapper,
+    rootMargin: "500px",
+  });
 
   const handleMouseEnter = debounce(() => {
     if (videoRef.current) {
@@ -23,6 +34,10 @@ const Video = ({ src, alt, poster }: TVideoProps) => {
       videoRef.current.poster = poster;
     }
   }, 200);
+
+  const afterLoad = useCallback(() => {
+    setVideoIsLoading(false);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -42,22 +57,35 @@ const Video = ({ src, alt, poster }: TVideoProps) => {
   }, []);
 
   return (
-    <video
-      ref={videoRef}
-      loop
-      muted
-      preload="none"
-      playsInline
-      poster={poster}
-      aria-label={alt}
-      className="h-full w-full object-cover object-center"
-      onMouseEnter={() => handleMouseEnter()}
-      onMouseLeave={() => handleMouseLeave()}
-    >
-      <source src={src} type="video/mp4" />
-      Your browser does not support the video tag. Please try viewing this page
-      in a modern browser.
-    </video>
+    <div className="w-full h-full" ref={videoWrapper}>
+      {hash && videoIsLoading && (
+        <Blurhash hash={hash} width="100%" height="100%" />
+      )}
+      {videoIsVisibleOnScreen && (
+        <motion.video
+          initial={{ opacity: 0 }}
+          animate={{ opacity: videoIsLoading ? 0 : 1 }}
+          transition={{ opacity: { delay: 0.5, duration: 0.4 } }}
+          ref={videoRef}
+          loop
+          muted
+          // preload="none"
+          playsInline
+          controlsList="nodownload"
+          disableRemotePlayback
+          poster={poster}
+          aria-label={alt}
+          onLoadedData={afterLoad}
+          className="h-full w-full object-cover object-center"
+          onMouseEnter={() => handleMouseEnter()}
+          onMouseLeave={() => handleMouseLeave()}
+        >
+          <source src={src} type="video/mp4" />
+          Your browser does not support the video tag. Please try viewing this
+          page in a modern browser.
+        </motion.video>
+      )}
+    </div>
   );
 };
 

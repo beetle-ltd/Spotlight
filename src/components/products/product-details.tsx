@@ -4,13 +4,15 @@ import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
 import { useLocation } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
+import { shareMediums } from "@/constants/data-constants";
 import { AttachmentType } from "@/models/enums";
+import { WhatsappShareButton } from "react-share";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
-import Share from "./share";
+import Medium from "./medium";
 
 type TProductDetailsProps = {
   item: IProduct;
@@ -69,7 +71,15 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent>
-              <Share closePopUp={(val) => setPopup(val)} />
+              {/* <Share closePopUp={(val) => setPopup(val)} /> */}
+
+              <div className="flex items-center justify-between pb-3">
+                <WhatsappShareButton
+                  url={`${window.location}/explore/${item.id}`}
+                >
+                  <Medium medium={shareMediums[0].whatsapp} />
+                </WhatsappShareButton>
+              </div>
             </PopoverContent>
           </Popover>
         </div>

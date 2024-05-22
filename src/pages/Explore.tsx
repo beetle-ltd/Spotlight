@@ -7,9 +7,18 @@ import axios from "axios";
 import { LuSearch } from "react-icons/lu";
 
 import { toast } from "@/components/ui/use-toast.ts";
+import ProductDetails from "@/components/products/product-details";
+import withProductData from "@/hoc/with-product-data";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function Explore() {
   const id = localStorage.getItem("store_id") || "";
+  const { productId } = useParams();
+
   const fetchRecommendedProducts = async () => {
     try {
       const response = await axios.get(
@@ -41,9 +50,10 @@ export default function Explore() {
 
   return (
     <div>
+      {productId && <ModalManager productId={productId} />}
       <Container>
         <div className="flex flex-col gap-y-10 items-center py-5">
-          <div className="hidden sm:block">
+          <div className="block">
             <Logo url={`/stores/${id}`} />
           </div>
           <div className="flex items-center bg-gray-100 p-2 sm:p-4 w-full rounded-md text-gray-500">
@@ -68,5 +78,42 @@ export default function Explore() {
         <Gallery products={products} />
       </div>
     </div>
+  );
+}
+
+function ModalManager({ productId }: { productId: string }) {
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (productId) {
+      setOpen(true);
+    }
+  }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+    if (productId) {
+      navigate("/explore", { replace: true });
+    }
+  };
+
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const ProductDetailsDynamic = withProductData(ProductDetails);
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={handleClose} className="border-0">
+        <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
+          <ProductDetailsDynamic />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerContent>
+        <ProductDetailsDynamic />
+      </DrawerContent>
+    </Drawer>
   );
 }

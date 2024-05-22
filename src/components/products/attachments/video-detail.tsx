@@ -12,6 +12,9 @@ const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [videoIsLoading, setVideoIsLoading] = useState(true);
+
+  const onLoadedData = () => setVideoIsLoading(false);
 
   const handleVideoSound = () => {
     setIsMuted((prevMuted) => !prevMuted);
@@ -31,6 +34,9 @@ const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
 
   return (
     <>
+      {videoIsLoading && (
+        <div className="animate-pulse w-full h-full bg-gray-300"></div>
+      )}
       <video
         ref={videoRef}
         loop
@@ -38,6 +44,9 @@ const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
         autoPlay
         playsInline
         aria-label={alt}
+        onLoadedData={onLoadedData}
+        controlsList="nodownload"
+        disableRemotePlayback
         className="h-full w-full object-top object-cover cursor-pointer"
         onClick={handleVideoPlay}
       >

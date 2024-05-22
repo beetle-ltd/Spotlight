@@ -1,45 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface IntersectionObserverOptions {
-  root?: Element | null;
-  rootMargin?: string;
-  threshold?: number | number[];
+  ref: React.RefObject<HTMLDivElement>;
+  rootMargin: string;
 }
 
-export const useIsVisible = (
-  options?: IntersectionObserverOptions,
-  once = false
-) => {
-  const optionsRef = useRef(options);
-  const [isVisible, setIsVisible] = useState(false);
-  const targetRef = useRef<Element | null>(null);
+export const useIsVisible = ({
+  ref,
+  rootMargin,
+}: IntersectionObserverOptions) => {
+  const [isIntersecting, setIntersecting] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(() => true);
-          if (once) {
-            observer.unobserve(entry.target);
-            observer.disconnect();
-          }
-        } else {
-          setIsVisible(() => false);
-        }
-      });
-    }, optionsRef.current);
+    const observer = new IntersectionObserver(
+      ([entry]) => setIntersecting(entry.isIntersecting),
+      { rootMargin }
+    );
 
-    if (targetRef.current) {
-      observer.observe(targetRef.current);
+    if (ref.current) {
+      observer.observe(ref.current);
     }
-
     return () => {
-      if (targetRef.current) {
-        observer.unobserve(targetRef.current);
-      }
-      observer.disconnect(); // Clean up the IntersectionObserver
+      observer.disconnect();
     };
-  }, [once]);
+  }, []);
 
-  return { isVisible, targetRef };
+  return isIntersecting;
 };

@@ -41,11 +41,13 @@ const ProductSingle = ({
       </div>
       {attachmentType === AttachmentType.VIDEO ? (
         <Video
+          hash={item.attachments[0].blurHash}
           src={item.attachments[0].url}
           poster={item.attachments[0].pictureUrl || ""}
         />
       ) : (
         <Image
+          hash={item.attachments[0].blurHash}
           src={item.attachments[0].url}
           alt={item.name}
           styles="transition-all hover:scale-105 aspect-[3/4]"

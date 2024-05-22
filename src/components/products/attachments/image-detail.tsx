@@ -15,7 +15,13 @@ type TImageDetailProps = {
 const ImageDetail = ({ productName, attachments }: TImageDetailProps) => {
   const attachmentSize = attachments.length;
   if (attachmentSize <= 1) {
-    return <Image src={attachments[0].url} alt={productName} />;
+    return (
+      <Image
+        hash={attachments[0].blurHash}
+        src={attachments[0].url}
+        alt={productName}
+      />
+    );
   }
 
   return (
@@ -23,7 +29,11 @@ const ImageDetail = ({ productName, attachments }: TImageDetailProps) => {
       <CarouselContent className="h-full">
         {attachments.map((attachment) => (
           <CarouselItem key={attachment.id} className="h-full">
-            <Image src={attachment.url} alt={productName} />
+            <Image
+              hash={attachment.blurHash}
+              src={attachment.url}
+              alt={productName}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

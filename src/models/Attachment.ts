@@ -15,6 +15,11 @@ export interface Attachment {
    * `type` describes the type of attachment uploaded or created
    */
   readonly type: AttachmentType;
+
+  /**
+   * 'hash':blurhash
+   */
+  readonly blurHash: string;
 }
 
 /**
