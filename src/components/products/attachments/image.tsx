@@ -15,7 +15,7 @@ const Image = ({ hash, src, alt, styles }: TImageProps) => {
   const imgWrapper = useRef<HTMLDivElement>(null);
   const isImageVisibleOnScreen = useIsVisible({
     ref: imgWrapper,
-    rootMargin: "500px",
+    rootMargin: "300px",
   });
 
   const afterLoad = useCallback(() => {

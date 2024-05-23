@@ -1,18 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import Explore from "./pages/Explore";
-import Home from "./pages/Home";
-import Page404 from "./pages/Page404";
+import { Suspense } from "react";
+import Router from "./routes";
 
 const App: React.FC = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/stores/:id" element={<Home />} />
-        <Route path="/explore" element={<Explore />} />
-
-        <Route path="/explore/:productId" element={<Explore />} />
-        <Route path="/*" element={<Page404 />} />
-      </Routes>
+      <Suspense fallback="loading">
+        <Router />
+      </Suspense>
     </div>
   );
 };

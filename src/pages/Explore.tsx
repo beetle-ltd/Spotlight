@@ -110,7 +110,7 @@ function ModalManager({ productId }: { productId: string }) {
     );
   }
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onClose={handleClose}>
       <DrawerContent>
         <ProductDetailsDynamic />
       </DrawerContent>

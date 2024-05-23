@@ -8,8 +8,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";
 import "./index.css";
 import "./normalize.css";
-// import {DevSupport} from "@react-buddy/ide-toolbox";
-import { ComponentPreviews, useInitial } from "@/dev";
 
 const queryClient = new QueryClient();
 

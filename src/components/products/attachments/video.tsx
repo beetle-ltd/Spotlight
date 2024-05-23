@@ -18,7 +18,7 @@ const Video = ({ hash, src, alt, poster }: TVideoProps) => {
   const videoWrapper = useRef<HTMLDivElement>(null);
   const videoIsVisibleOnScreen = useIsVisible({
     ref: videoWrapper,
-    rootMargin: "500px",
+    rootMargin: "300px",
   });
 
   const handleMouseEnter = debounce(() => {

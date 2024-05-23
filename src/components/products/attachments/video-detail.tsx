@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
+import { Blurhash } from "react-blurhash";
 import { BiVolumeFull } from "react-icons/bi";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
 
 type TVideoDetailProps = {
+  hash: string;
   src: string;
   alt: string;
 };
 
-const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
+const VideoDetail = ({ hash, src, alt }: TVideoDetailProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(false);
@@ -34,8 +36,8 @@ const VideoDetail = ({ src, alt }: TVideoDetailProps) => {
 
   return (
     <>
-      {videoIsLoading && (
-        <div className="animate-pulse w-full h-full bg-gray-300"></div>
+      {hash && videoIsLoading && (
+        <Blurhash hash={hash} width="100%" height="100%" />
       )}
       <video
         ref={videoRef}
