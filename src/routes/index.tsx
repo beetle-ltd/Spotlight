@@ -7,7 +7,7 @@ const Page404 = lazy(() => import("../pages/Page404"));
 export default function Router() {
   return (
     <Routes>
-      <Route path="/stores/:id" element={<Home />} />
+      <Route path="/:storeName" element={<Home />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/explore/:productId" element={<Explore />} />
       <Route path="/*" element={<Page404 />} />

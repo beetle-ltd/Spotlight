@@ -1,28 +1,43 @@
 import { Container } from "@/App";
 import Gallery from "@/components/gallery";
 import Logo from "@/components/logo";
+import ModalManager from "@/components/modal-manager";
+import { toast } from "@/components/ui/use-toast.ts";
 import { BASE_URL } from "@/constants/api-constants.ts";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { LuSearch } from "react-icons/lu";
-
-import { toast } from "@/components/ui/use-toast.ts";
-import ProductDetails from "@/components/products/product-details";
-import withProductData from "@/hoc/with-product-data";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { useMediaQuery } from "@/hooks/use-media-query";
-
+import { useParams } from "react-router-dom";
 export default function Explore() {
-  const id = localStorage.getItem("store_id") || "";
+  const storeUsername = localStorage.getItem("store_name") || "";
   const { productId } = useParams();
 
+  // const {
+  //   bindInput,
+  //   bindOptions,
+  //   bindOption,
+  //   isBusy,
+  //   suggestions,
+  //   selectedIndex,
+  // } = useAutoComplete({
+  //   onChange: (value) => console.log(value),
+  //   delay: 1000,
+  //   source: async (search) => {
+  //     try {
+  //       const res = await fetch(
+  //         `${process.env.apiBase}/user/search?q=${search}`
+  //       );
+  //       const data = await res.json();
+  //       return data.map((d) => ({ value: d._id, label: d.name }));
+  //     } catch (e) {
+  //       return [];
+  //     }
+  //   },
+  // });
   const fetchRecommendedProducts = async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/api/v1/stores/links/${id}/product-recommendations?page=1&perPage=300`
+        `${BASE_URL}/api/v1/stores/links/product-recommendations?storeUsername=${storeUsername}&page=1&perPage=300`
       );
       if (response.statusText === "OK") {
         return response.data;
@@ -54,7 +69,7 @@ export default function Explore() {
       <Container>
         <div className="flex flex-col gap-y-10 items-center py-5">
           <div className="block">
-            <Logo url={`/stores/${id}`} />
+            <Logo url={`/${storeUsername}`} />
           </div>
           <div className="flex items-center bg-gray-100 p-2 sm:p-4 w-full rounded-md text-gray-500">
             <div className="flex flex-1 items-center gap-x-3">
@@ -78,42 +93,5 @@ export default function Explore() {
         <Gallery products={products} />
       </div>
     </div>
-  );
-}
-
-function ModalManager({ productId }: { productId: string }) {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (productId) {
-      setOpen(true);
-    }
-  }, []);
-
-  const handleClose = () => {
-    setOpen(false);
-    if (productId) {
-      navigate("/explore", { replace: true });
-    }
-  };
-
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const ProductDetailsDynamic = withProductData(ProductDetails);
-  if (isDesktop) {
-    return (
-      <Dialog open={open} onOpenChange={handleClose} className="border-0">
-        <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
-          <ProductDetailsDynamic />
-        </DialogContent>
-      </Dialog>
-    );
-  }
-  return (
-    <Drawer open={open} onClose={handleClose}>
-      <DrawerContent>
-        <ProductDetailsDynamic />
-      </DrawerContent>
-    </Drawer>
   );
 }

@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import LogoImg from "../assets/logo_test.svg";
 
 type TLogoProps = {
-   url: string;
-}
-const Logo: React.FC<TLogoProps> = ({url}) => {
+  url: string;
+};
+const Logo: React.FC<TLogoProps> = ({ url }) => {
   return (
     <>
       <Link to={url}>

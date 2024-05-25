@@ -11,20 +11,22 @@ import { useEffect } from "react";
 import { BASE_URL } from "@/constants/api-constants";
 
 export default function Home() {
-  const { id } = useParams();
+  const { storeName } = useParams();
   const { toast } = useToast();
 
-  // store id in local storage
+  // store storeName in local storage
   useEffect(() => {
-    if (!id) {
+    if (!storeName) {
       return;
     }
-    localStorage.setItem("store_id", id);
-  }, [id]);
+    localStorage.setItem("store_name", storeName);
+  }, [storeName]);
 
   const fetchUserStore = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/v1/stores/links/${id}`);
+      const response = await axios.get(
+        `${BASE_URL}/api/v1/stores/links?storeUsername=${storeName}`
+      );
       if (response.statusText === "OK") {
         return response.data;
       }
