@@ -28,9 +28,9 @@ function Hero({ store }: IHeroProps) {
             <MdMailOutline />
             <p className="text-sm">{store.email}</p>
           </IconWithText>
-          <IconWithText text={`${window.location.origin}/stores/${store.link}`}>
+          <IconWithText text={`${window.location.origin}/${store.link}`}>
             <p className="text-sm text-[#62ADF1]">
-              {`${window.location.origin}/stores/${store.link}`}
+              {`${window.location.origin}/${store.link}`}
             </p>
           </IconWithText>
           <Button className="flex gap-x-2 items-center" size={"lg"}>

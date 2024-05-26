@@ -45,11 +45,11 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
           </div>
         )}
 
-        <h1 className="text-2xl sm:text-3xl font-semibold">{item.name}</h1>
-        <p className="text-[#222] text-sm sm:text-lg leading-7 pb-1">
+        <h1 className="text-2xl sm:text-2xl font-semibold">{item.name}</h1>
+        <p className="text-[#222] text-sm sm:text-md leading-6 py-2">
           {item.description}
         </p>
-        <div className="text-[#031734] text-xs sm:text-sm">
+        <div className="text-[#031734] text-xs">
           {item.categories &&
             item?.categories.map((c, idx) => (
               <span key={c + "-" + idx} className="pr-2">
