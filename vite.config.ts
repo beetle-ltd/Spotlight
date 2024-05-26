@@ -7,6 +7,11 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      find: "./runtimeConfig",
+      replacement: "./runtimeConfig.browser",
     },
+  },
+  build: {
+    outDir: "build",
   },
 });

@@ -19,7 +19,7 @@ function Product({ item }: Props) {
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen} className="border-0">
+      <Dialog open={open} onOpenChange={setOpen}>
         <ProductSingle item={item} handleClick={(val) => setOpen(val)} />
         <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
           <ProductDetails item={item} />

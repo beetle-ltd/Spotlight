@@ -27,7 +27,7 @@ export default function ModalManager({ productId }: { productId: string }) {
   const ProductDetailsDynamic = withProductData(ProductDetails);
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={handleClose} className="border-0">
+      <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
           <ProductDetailsDynamic />
         </DialogContent>
