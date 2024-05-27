@@ -49,7 +49,7 @@ const VideoDetail = ({ hash, src, alt }: TVideoDetailProps) => {
         onLoadedData={onLoadedData}
         controlsList="nodownload"
         disableRemotePlayback
-        className="h-full w-full object-top object-cover cursor-pointer"
+        className="sm:h-full h-[700px]  w-full object-cover cursor-pointer"
         onClick={handleVideoPlay}
       >
         <source src={src} type="video/mp4" />
