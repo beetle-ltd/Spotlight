@@ -1,5 +1,6 @@
 import { IProduct } from "@/models/Products";
-import { useState, useRef } from "react";
+import { useState, useRef, RefObject } from "react";
+import { useNavigate } from "react-router-dom";
 
 const KEY_CODES = {
   DOWN: 40,
@@ -11,11 +12,14 @@ const KEY_CODES = {
 };
 export function useAutoComplete({ delay = 500, source, onChange }) {
   const [myTimeout, setMyTimeOut] = useState(setTimeout(() => {}, 0));
-  const listRef = useRef<HTMLDataListElement>();
+  // const listRef = useRef<HTMLDataListElement>();
+  const listRef = useRef<RefObject<HTMLUListElement>>();
   const [suggestions, setSuggestions] = useState<IProduct[]>([]);
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [textValue, setTextValue] = useState("");
+
+  const navigate = useNavigate();
 
   function delayInvoke(callback: () => void) {
     if (myTimeout) {
@@ -28,20 +32,25 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
     if (index > -1) {
       onChange(suggestions[index]);
       setTextValue(suggestions[index].name);
+      navigate(`/explore/${suggestions[index].id}`);
     }
     clearSuggestions();
   }
 
   async function getSuggestions(searchTerm: string) {
     if (searchTerm && source) {
+      setBusy(true);
       const options = await source(searchTerm);
       setSuggestions(options);
+      setBusy(false);
     }
   }
 
   function clearSuggestions() {
-    setSuggestions([]);
-    setSelectedIndex(-1);
+    delayInvoke(() => {
+      setSuggestions([]);
+      setSelectedIndex(-1);
+    });
   }
 
   function onTextChange(searchTerm: string) {
@@ -105,7 +114,7 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   return {
     bindOption: {
       onClick: (e) => {
-        let nodes = Array.from(listRef?.current.children);
+        const nodes = Array.from(listRef?.current.children);
         selectOption(nodes.indexOf(e.target.closest("li")));
       },
     },
@@ -120,5 +129,6 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
     isBusy,
     suggestions,
     selectedIndex,
+    textValue,
   };
 }
