@@ -15,7 +15,12 @@ function Hero({ store }: IHeroProps) {
   return (
     <div className="mt-10 mb-16 sm:flex sm:items-start gap-x-8 ">
       <div className="flex justify-center items-center h-full pb-5">
-        <ShopLogo logoImg={store.logo} alt={store.name} size={"default"} />
+        <ShopLogo
+          logoImg={store.logo}
+          alt={store.name}
+          size={"default"}
+          className="sm:w-52 sm:h-52 ring-4 ring-black"
+        />
       </div>
       <div>
         <h1 className="text-xl sm:text-3xl">{store.name}</h1>

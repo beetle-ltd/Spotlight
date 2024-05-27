@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { FC } from "react";
 
 const shopLogoVariants = cva(
-  "border-2 border-gray-700 rounded-full overflow-hidden bg-red-500 flex items-center justify-center",
+  "border-2 border-white rounded-full  overflow-hidden bg-red-500 flex items-center justify-center",
   {
     variants: {
       size: {
@@ -33,7 +33,7 @@ const ShopLogo: FC<ShopLogoProps> = ({
   ...props
 }) => {
   return (
-    <div className={cn(shopLogoVariants({ className, size }))} {...props}>
+    <div className={cn(shopLogoVariants({ size, className }))} {...props}>
       <img
         src={logoImg}
         alt={`${alt}-logo-image`}
