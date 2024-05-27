@@ -5,6 +5,7 @@ import { VscWand } from "react-icons/vsc";
 import IconWithText from "../icon-with-text";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
+import { stringToSlug } from "@/lib/stringToSlug";
 
 interface IHeroProps {
   store: Store;
@@ -30,7 +31,7 @@ function Hero({ store }: IHeroProps) {
           </IconWithText>
           <IconWithText text={`${window.location.origin}/${store.link}`}>
             <p className="text-sm text-[#62ADF1]">
-              {`${window.location.origin}/${store.link}`}
+              {`${window.location.origin}/${stringToSlug(store.name)}`}
             </p>
           </IconWithText>
           <Button className="flex gap-x-2 items-center" size={"lg"}>
