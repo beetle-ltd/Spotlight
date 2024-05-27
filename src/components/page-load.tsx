@@ -17,9 +17,9 @@ const loadingCircle = {
   strokeWidth: "0.5rem",
 };
 
-const loadingPiece = {
-  fillOpacity: 1,
-};
+// const loadingPiece = {
+//   fillOpacity: 1,
+// };
 
 const Page: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
