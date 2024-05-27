@@ -40,6 +40,7 @@ function SearchBar() {
       ) : (
         <SearchBarMobile handleClick={handleClick} />
       )}
+
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>

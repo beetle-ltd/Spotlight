@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { FC } from "react";
 
 const shopLogoVariants = cva(
-  "border-2 border-white rounded-full  overflow-hidden bg-red-500 flex items-center justify-center",
+  "rounded-full overflow-hidden flex items-center justify-center",
   {
     variants: {
       size: {

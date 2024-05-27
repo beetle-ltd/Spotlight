@@ -5,10 +5,10 @@ import ProductGallery from "@/components/blocks/product-gallery";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
 // import { BASE_URL } from "@/constants/api-constants";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import { BASE_URL } from "@/constants/api-constants";
+import axios from "axios";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Home() {
   const { storeName } = useParams();
@@ -50,7 +50,7 @@ export default function Home() {
   }
 
   if (isLoading) {
-    return "lOADING PLEASE WAIT";
+    return "loading please wait";
   }
 
   const store = data.data;

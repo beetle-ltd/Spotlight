@@ -1,10 +1,11 @@
 import { Suspense } from "react";
 import Router from "./routes";
+import Page from "./components/page-load";
 
 const App: React.FC = () => {
   return (
     <div>
-      <Suspense fallback="loading">
+      <Suspense fallback={<Page />}>
         <Router />
       </Suspense>
     </div>

@@ -13,13 +13,13 @@ interface IHeroProps {
 
 function Hero({ store }: IHeroProps) {
   return (
-    <div className="mt-10 mb-16 sm:flex sm:items-start gap-x-8 ">
+    <div className="mt-10 mb-16 sm:flex sm:items-center gap-x-8 ">
       <div className="flex justify-center items-center h-full pb-5">
         <ShopLogo
           logoImg={store.logo}
           alt={store.name}
           size={"default"}
-          className="sm:w-52 sm:h-52 ring-4 ring-black"
+          className="sm:w-52 sm:h-52  shadow-xl"
         />
       </div>
       <div>
