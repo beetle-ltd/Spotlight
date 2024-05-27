@@ -1,5 +1,5 @@
 import { IProduct } from "@/models/Products";
-import { useState, useRef, RefObject } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const KEY_CODES = {
@@ -11,9 +11,10 @@ const KEY_CODES = {
   ENTER: 13,
 };
 export function useAutoComplete({ delay = 500, source, onChange }) {
-  const [myTimeout, setMyTimeOut] = useState(setTimeout(() => {}, 0));
-  // const listRef = useRef<HTMLDataListElement>();
-  const listRef = useRef<RefObject<HTMLUListElement>>();
+  const [myTimeout, setMyTimeOut] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const [suggestions, setSuggestions] = useState<IProduct[]>([]);
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
