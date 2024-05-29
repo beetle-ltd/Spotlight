@@ -93,7 +93,7 @@ export default function Explore() {
               {textValue && (
                 <ul
                   {...bindOptions}
-                  className="w-full bg-white scroll-smooth absolute left-0 top-10 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto"
+                  className="shadow-lg w-full bg-white scroll-smooth absolute left-0 top-12 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto"
                 >
                   {isBusy && (
                     <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto my-5"></div>

@@ -18,7 +18,7 @@ function Hero({ store }: IHeroProps) {
           logoImg={store.logo}
           alt={store.name}
           size={"default"}
-          className="sm:w-52 sm:h-52  border-2 border-gray-800 shadow-xl"
+          className="sm:w-52 sm:h-52 h-44 w-44 grid place-items-center border-2 border-gray-800 shadow-xl"
         />
       </div>
       <div>

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
-import { FC } from "react";
+import {FC,useState } from "react";
 
 const shopLogoVariants = cva(
   "rounded-full overflow-hidden flex items-center justify-center",
@@ -32,13 +32,20 @@ const ShopLogo: FC<ShopLogoProps> = ({
   alt,
   ...props
 }) => {
+    const [loading, setLoading] = useState(true);
+    const handleLoad = () => setLoading(false);
   return (
     <div className={cn(shopLogoVariants({ size, className }))} {...props}>
-      <img
-        src={logoImg}
-        alt={`${alt}-logo-image`}
-        className="w-full h-full object-cover"
-      />
+        {loading && (
+            <div className="sm:w-52 sm:h-52 h-44 w-44 rounded-full bg-gray-200 animate-pulse"></div>
+        )}
+        <img
+            src={logoImg}
+                alt={`${alt}-logo-image`}
+                className="w-full h-full object-cover"
+                loading={"lazy"}
+                onLoad={handleLoad}
+            />
     </div>
   );
 };
