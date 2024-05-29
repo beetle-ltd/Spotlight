@@ -11,6 +11,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
+import {toast} from "@/components/ui/use-toast.ts";
+import axios from "axios";
+import {BASE_URL} from "@/constants/api-constants.ts";
 
 type TProductDetailsProps = {
   item: IProduct;
@@ -20,7 +23,20 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const [popup, setPopup] = useState<boolean>(false);
   const location = useLocation();
   const attachmentType = item.attachments[0].type;
-  const shareUrl = `${window.location.origin}/explore/${item.id}`;
+  const [link, setLink] = useState<string>("");
+  const shareUrl = `${window.location.origin}/explore/${link}`;
+  const genShareLink =async () => {
+    try{
+      const res = await axios.post(`${BASE_URL}/api/v1/stores/links/generate-link`,{
+        storeUsername:item.store.username,
+        productId:item.id
+      })
+        setLink(res.data.data.link)
+    }catch (e) {
+      toast({description: "Error couldn't generate link"})
+      throw new Error(e.message)
+    }
+  }
 
   return (
     <div className="sm:grid grid-cols-[55%,45%] h-full border-0 ">
@@ -72,6 +88,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
                 variant={"ghost"}
                 size={"default"}
                 className="gap-x-3 items-center bg-gray-200"
+                onClick={genShareLink}
               >
                 <IoShareSocialOutline size={18} />
                 Share

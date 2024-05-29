@@ -8,7 +8,7 @@ const Logo: React.FC<TLogoProps> = ({ url }) => {
   return (
     <>
       <Link to={url}>
-        <img src={LogoImg} alt="spotlight logo" className="w-28 sm:w-30" />
+        <img src={LogoImg} alt="spotlight logo" className="w-28 sm:w-32" />
       </Link>
     </>
   );

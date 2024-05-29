@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 function Header() {
   return (
-    <div className="w-full flex justify-between items-center py-5 sm:py-10">
+    <div className="w-full flex justify-between items-center py-5 sm:py-7">
       <Logo url="/" />
       <Link to={"/explore"}>
         <Button
