@@ -88,14 +88,14 @@ export default function Explore() {
               {textValue && (
                 <ul
                   {...bindOptions}
-                  className="w-full bg-white scroll-smooth absolute left-0 top-10 sm:top-16 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto"
+                  className="w-full bg-white scroll-smooth absolute left-0 top-10 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto"
                 >
                   {isBusy && (
                     <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto"></div>
                   )}
-                  {suggestions.length === 0 && !isBusy && (
-                    <li className="text-center">Not Found</li>
-                  )}
+                  {/*{suggestions.length === 0 && !isBusy && (*/}
+                  {/*  <li classname="text-center">not found</li>*/}
+                  {/*)}*/}
                   {suggestions.map((_, index) => (
                     <li
                       className={
