@@ -24,7 +24,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
 
   return (
     <div className="sm:grid grid-cols-[55%,45%] h-full border-0 ">
-      <div className="w-full h-full sm:h-[700px] relative rounded-md mb-5 sm:mb-0">
+      <div className="w-full h-full relative rounded-md mb-5 sm:mb-0">
         {attachmentType === AttachmentType.VIDEO ? (
           <VideoDetail
             src={item.attachments[0].url}
@@ -49,15 +49,15 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
         <p className="text-[#222] text-sm sm:text-md leading-6 py-2">
           {item.description}
         </p>
-        <div className="text-[#031734] text-xs">
+        <div className="text-[#031734] flex flex-wrap text-xs text-justify">
           {item.categories &&
             item?.categories.map((c, idx) => (
-              <span key={c + "-" + idx} className="pr-2">
-                #{c}
-              </span>
+              <p key={c + "-" + idx} className={"pr-1"}>
+                #{c.trim()}
+              </p>
             ))}
         </div>
-        <div className="flex items-center text-[#222] font-semibold text-lg sm:text-xl gap-x-3 py-3 sm:py-5">
+        <div className="flex items-center text-[#222] font-semibold text-lg sm:text-xl gap-x-3 py-3 sm:py-3">
           <IoPricetag />
           <p> &#8358;{item.price}</p>
         </div>

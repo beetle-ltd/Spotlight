@@ -39,6 +39,6 @@ export default function ModalManager({ productId }: { productId: string }) {
       <DrawerContent>
         <ProductDetailsDynamic />
       </DrawerContent>
-    </Drawer>
+   </Drawer>
   );
 }

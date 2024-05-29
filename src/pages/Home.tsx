@@ -25,9 +25,10 @@ export default function Home() {
   const fetchUserStore = async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/api/v1/stores/links?storeUsername=${storeName}`
+        `${BASE_URL}/api/v1/stores/links/search-username?username=${storeName}`
       );
       if (response.statusText === "OK") {
+       localStorage.setItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES", response.data.data.categories);
         return response.data;
       }
     } catch (error) {

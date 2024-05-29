@@ -3,5 +3,5 @@ export function stringToSlug(str: string) {
   const slug = str.replace(/\W+/g, "-");
 
   // Remove leading and trailing hyphens
-  return slug.replace(/^-+|-+$/g, "").toLowerCase();
+  return slug.replace(/^-+|-+$/g, "")
 }

@@ -10,12 +10,22 @@ const KEY_CODES = {
   PAGE_UP: 33,
   ENTER: 13,
 };
+
+
+type TSuggestions = {
+  stores:{
+    name: string;
+    username: string;
+    logo: string;
+  }[];
+  products: IProduct[];
+}
 export function useAutoComplete({ delay = 500, source, onChange }) {
   const [myTimeout, setMyTimeOut] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const [suggestions, setSuggestions] = useState<IProduct[]>([]);
+  const [suggestions, setSuggestions] = useState<TSuggestions>({stores:[], products:[]});
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [textValue, setTextValue] = useState("");
@@ -31,25 +41,29 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
 
   function selectOption(index: number) {
     if (index > -1) {
-      onChange(suggestions[index]);
-      setTextValue(suggestions[index].name);
-      navigate(`/explore/${suggestions[index].id}`);
-    }
+      onChange(suggestions.products[index] || suggestions?.stores[index]);
+      if(suggestions.products.length > 0)  {
+        setTextValue(suggestions.products[index].name)
+        navigate(`/explore/${suggestions.products[index].id}`)
+      }
+      setTextValue(suggestions.stores[index].name)
+      navigate(`/${suggestions.stores[index].username}`)
     clearSuggestions();
+    }
   }
 
   async function getSuggestions(searchTerm: string) {
     if (searchTerm && source) {
       setBusy(true);
-      const options = await source(searchTerm);
-      setSuggestions(options);
+      const {stores,products} = await source(searchTerm);
+      setSuggestions( {stores, products});
       setBusy(false);
     }
   }
 
   function clearSuggestions() {
     delayInvoke(() => {
-      setSuggestions([]);
+      setSuggestions({stores:[], products:[]})
       setSelectedIndex(-1);
     });
   }
@@ -76,7 +90,7 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   }
 
   function scrollDown() {
-    if (selectedIndex < suggestions.length - 1) {
+    if (selectedIndex < suggestions.stores.length + suggestions.products.length - 1) {
       setSelectedIndex(selectedIndex + 1);
     }
     if (!listRef.current) return;
@@ -84,10 +98,10 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   }
 
   function pageDown() {
-    setSelectedIndex(suggestions.length - 1);
+    setSelectedIndex(suggestions.stores.length + suggestions.products.length - 1);
 
     if (!listRef.current) return;
-    listRef.current.scrollTop = suggestions.length * optionHeight;
+    listRef.current.scrollTop = (suggestions.stores.length + suggestions.products.length-1) * optionHeight;
   }
 
   function pageUp() {

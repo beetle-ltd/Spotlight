@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
   const { productId } = useParams();
+  const categories = localStorage.getItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES")
 
   const {
     textValue,
@@ -28,10 +29,14 @@ export default function Explore() {
     source: async (search) => {
       try {
         const res = await axios.get(
-          `${BASE_URL}/api/v1/stores/links/search-products?storeUsername=${storeUsername}&name=${search}`
+          `${BASE_URL}/api/v1/stores/explore?name=${search}`
         );
-        const data = await res.data.data;
-        return data;
+        const products = await res.data.data.products;
+        const stores = await res.data.data.stores;
+        return {
+          products,
+          stores,
+        };
       } catch (e) {
         return [];
       }
@@ -41,7 +46,7 @@ export default function Explore() {
   const fetchRecommendedProducts = async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/api/v1/stores/links/product-recommendations?storeUsername=${storeUsername}&page=1&perPage=300`
+        `${BASE_URL}/api/v1/stores/links/product-recommendations?categories=${categories}&page=1&perPage=300`
       );
       if (response.statusText === "OK") {
         return response.data;
@@ -91,14 +96,10 @@ export default function Explore() {
                   className="w-full bg-white scroll-smooth absolute left-0 top-10 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto"
                 >
                   {isBusy && (
-                    <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto"></div>
+                    <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto my-5"></div>
                   )}
-                  {/*{suggestions.length === 0 && !isBusy && (*/}
-                  {/*  <li classname="text-center">not found</li>*/}
-                  {/*)}*/}
-                  {suggestions.map((_, index) => (
-                    <li
-                      className={
+                  {suggestions.products && suggestions.products.map((_, index) => (
+                    <li className={
                         `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
                         (selectedIndex === index && "bg-gray-200")
                       }
@@ -106,19 +107,34 @@ export default function Explore() {
                       {...bindOption}
                     >
                       <div className="flex items-center space-x-2">
-                        {/* <HiUser /> */}
-
                         <div>
-                          <img
-                            src={suggestions[index].store.logo}
-                            alt={suggestions[index].store.name}
-                            className="h-6 w-6 rounded-full"
-                          />
+                         <LuSearch size={20} />
                         </div>
-                        <p className="text-sm">{suggestions[index].name}</p>
+                        <p className="text-sm">{suggestions.products[index].name}</p>
                       </div>
                     </li>
                   ))}
+                  {suggestions.stores && suggestions.stores.map((_, index) => (
+                    <li className={
+                        `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
+                        (selectedIndex === index && "bg-gray-200")
+                      }
+                      key={index}
+                      {...bindOption}
+                    >
+                        <div className="flex items-center space-x-2">
+                            <div>
+                              <img
+                                src={suggestions.stores[index].logo}
+                                alt={suggestions.stores[index].name}
+                                className={"w-6 h-6 rounded-full"}
+                              />
+                            </div>
+                            <p className="text-sm">{suggestions.stores[index].name}</p>
+                        </div>
+                    </li>
+                    ))
+                    }
                 </ul>
               )}
             </div>

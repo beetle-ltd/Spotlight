@@ -23,7 +23,7 @@ export interface Store {
    * @example
    * +2348167554639
    */
-  readonly phoneNumber: string;
+  readonly phoneNumber?: string;
   /**
    * `bio` describes the description of the store
    * @example
@@ -39,6 +39,7 @@ export interface Store {
    * `products` describes the products of the store
    * @description It is optionally included on read, update and delete operation for a store
    */
+  readonly username: string;
   readonly products: IProduct[];
   /**
    * `link` describes the unique link generated for store
@@ -49,4 +50,5 @@ export interface Store {
    */
 
   readonly link?: string;
+  readonly categories: string[];
 }
