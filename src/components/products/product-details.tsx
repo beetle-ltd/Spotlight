@@ -2,7 +2,7 @@ import { IProduct } from "@/models/Products";
 import { useState } from "react";
 import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
-import { useLocation } from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
 import { AttachmentType } from "@/models/enums";
 import ShopLogo from "../shop-logo";
@@ -25,10 +25,11 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const attachmentType = item.attachments[0].type;
   const [link, setLink] = useState<string>("");
   const shareUrl = `${window.location.origin}/explore/${link}`;
+  const {storeName} = useParams();
   const genShareLink =async () => {
     try{
       const res = await axios.post(`${BASE_URL}/api/v1/stores/links/generate-link`,{
-        storeUsername:item.store.username,
+        storeUsername: item.store.username ? item .store.username :  storeName,
         productId:item.id
       })
         setLink(res.data.data.link)
@@ -57,7 +58,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
         {location.pathname === "/explore" && (
           <div className="flex self-start items-center gap-x-2 pb-5">
             <ShopLogo size={"sm"} logoImg={item.store.logo} alt="d" className={"w-8 h-8"} />
-            <p className="text-sm sm:text-xl">{item.store.name}</p>
+            <p className="text-sm sm:text-base">{item.store.name}</p>
           </div>
         )}
 
