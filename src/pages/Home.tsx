@@ -8,11 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "@/constants/api-constants";
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export default function Home() {
   const { storeName } = useParams();
   const { toast } = useToast();
+  const navigate = useNavigate()
 
   // store storeName in local storage
   useEffect(() => {
@@ -32,7 +33,6 @@ export default function Home() {
         return response.data;
        }
     } catch (error) {
-      console.log(error);
       toast({
         description: "An error occured" + error,
       });
@@ -52,6 +52,10 @@ export default function Home() {
 
   if (isLoading) {
     return "loading please wait";
+  }
+
+  if(!data) {
+    navigate("/404")
   }
 
   const store = data.data;

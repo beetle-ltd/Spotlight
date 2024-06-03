@@ -14,6 +14,7 @@ export default function Router() {
       <Route path="/explore/:productId" element={<Explore />} />
         <Route path={"/explore/shared/:linkId"} element={<Explore />} />
       <Route path="/*" element={<Page404 />} />
+        <Route path="/404" element={<Page404 />} />
     </Routes>
   );
 }

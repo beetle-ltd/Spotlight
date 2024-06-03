@@ -8,7 +8,7 @@ const loadingContainer = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "#000000",
+  backgroundColor: "#000",
 };
 
 const loadingCircle = {
