@@ -30,7 +30,7 @@ export default function Home() {
       if (response.statusText === "OK") {
        localStorage.setItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES", response.data.data.categories);
         return response.data;
-      }
+       }
     } catch (error) {
       console.log(error);
       toast({
