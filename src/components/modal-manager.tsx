@@ -6,19 +6,19 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ModalManager({ productId }: { productId: string }) {
+export default function ModalManager({shouldOpen }: { shouldOpen: string }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (productId) {
+    if (shouldOpen) {
       setOpen(true);
     }
   }, []);
 
   const handleClose = () => {
     setOpen(false);
-    if (productId) {
+    if (shouldOpen) {
       navigate("/explore", { replace: true });
     }
   };

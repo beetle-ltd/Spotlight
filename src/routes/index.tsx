@@ -10,6 +10,7 @@ export default function Router() {
       <Route path="/:storeName" element={<Home />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/explore/:productId" element={<Explore />} />
+        <Route path={"/explore/shared/:linkId"} element={<Explore />} />
       <Route path="/*" element={<Page404 />} />
     </Routes>
   );

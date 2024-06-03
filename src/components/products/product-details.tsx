@@ -56,9 +56,9 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
       </div>
       <div className="container mx-auto text-justify block sm:flex flex-col justify-center">
         {location.pathname === "/explore" && (
-          <div className="flex self-start items-center gap-x-2 pb-5">
+          <div className="flex self-start items-center gap-x-2 pb-5 py-3">
             <ShopLogo size={"sm"} logoImg={item.store.logo} alt="d" className={"w-8 h-8"} />
-            <p className="text-sm sm:text-base">{item.store.name}</p>
+            <p className="text-sm sm:text-base hover:underline cursor-pointer">{item.store.name}</p>
           </div>
         )}
 

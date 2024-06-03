@@ -13,6 +13,9 @@ import { useParams } from "react-router-dom";
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
   const { productId } = useParams();
+  const { linkId} = useParams();
+
+  const shouldOpenModal = productId || linkId;
   const categories = localStorage.getItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES")
 
   const {
@@ -44,10 +47,9 @@ export default function Explore() {
   });
 
   const fetchRecommendedProducts = async () => {
+    const RECOMMENDED_URL = categories ? `${BASE_URL}/api/v1/stores/links/product-recommendations?categories=${categories}&page=1&perPage=300`: `${BASE_URL}/api/v1/stores/links/product-recommendations?page=1&perPage=300`;
     try {
-      const response = await axios.get(
-        `${BASE_URL}/api/v1/stores/links/product-recommendations?categories=${categories}&page=1&perPage=300`
-      );
+      const response = await axios.get(RECOMMENDED_URL);
       if (response.statusText === "OK") {
         return response.data;
       }
@@ -74,13 +76,13 @@ export default function Explore() {
 
   return (
     <div>
-      {productId && <ModalManager productId={productId} />}
+      {shouldOpenModal && <ModalManager shouldOpen={shouldOpenModal} />}
       <Container>
         <div className="flex flex-col gap-y-10 items-center py-5 sm:py-10">
           <div className="block">
             <Logo url={`/${storeUsername}`} />
           </div>
-          <div className="flex items-center relative bg-gray-100 p-2 sm:p-4 w-full rounded-md text-gray-500">
+          <div className="flex items-center relative bg-gray-100 p-3 sm:p-4 w-full rounded-md text-gray-500">
             <div className="w-full">
               <div className="flex items-center gap-x-2 w-full">
                 <LuSearch size={20} />
