@@ -9,7 +9,7 @@ function Page404() {
         You seem to be lost click the link below to go back to the home page
       </p>
       <Button size={"lg"}>
-        <Link to="/hayes-clothing">Go Home</Link>
+        <Link to="/">Go Home</Link>
       </Button>
     </div>
   );
