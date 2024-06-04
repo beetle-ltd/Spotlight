@@ -23,13 +23,31 @@ export default function Home() {
     localStorage.setItem("store_name", storeName);
   }, [storeName]);
 
+  function addOrUpdateStore(storeName, categories) {
+    const storeData = localStorage.getItem('storeData');
+    const data = storeData ? JSON.parse(storeData) : {};
+
+    if (data[storeName]) {
+      // Store exists, add new categories if they don't exist
+      categories.forEach(category => {
+        if (!data[storeName].includes(category)) {
+          data[storeName].push(category);
+        }
+      });
+    } else {
+      // Store doesn't exist, add it with its categories
+      data[storeName] = categories;
+    }
+
+    localStorage.setItem('storeData', JSON.stringify(data));
+  }
   const fetchUserStore = async () => {
     try {
       const response = await axios.get(
         `${BASE_URL}/api/v1/stores/links/search-username?username=${storeName}`
       );
       if (response.statusText === "OK") {
-       localStorage.setItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES", response.data.data.categories);
+       addOrUpdateStore(storeName, response.data.data.categories);
         return response.data;
        }
     } catch (error) {
@@ -45,9 +63,10 @@ export default function Home() {
   });
 
   if (error) {
-    toast({
-      description: error.message,
-    });
+    console.log(error.message)
+    // toast({
+    //   description: error.message,
+    // });
   }
 
   if (isLoading) {
