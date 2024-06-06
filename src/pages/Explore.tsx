@@ -12,11 +12,15 @@ import { useParams } from "react-router-dom";
 
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
+  const storeData = localStorage.getItem("storeData") || {};
   const { productId } = useParams();
-  const { linkId} = useParams();
+  const { linkId } = useParams();
+  const PRODUCTS_PERPAGE = 100;
 
   const shouldOpenModal = productId || linkId;
-  const categories = localStorage.getItem("SPOTLIGHT_RECOMMENDATION_CATEGORIES")
+  const categories = localStorage.getItem(
+    "SPOTLIGHT_RECOMMENDATION_CATEGORIES"
+  );
 
   const {
     textValue,
@@ -47,9 +51,13 @@ export default function Explore() {
   });
 
   const fetchRecommendedProducts = async () => {
-    const RECOMMENDED_URL = categories ? `${BASE_URL}/api/v1/stores/links/product-recommendations?categories=${categories}&page=1&perPage=300`: `${BASE_URL}/api/v1/stores/links/product-recommendations?page=1&perPage=300`;
+    const RECOMMENDED_URL = `${BASE_URL}/api/v1/stores/links/product-recommendations`;
     try {
-      const response = await axios.get(RECOMMENDED_URL);
+      const response = await axios.post(RECOMMENDED_URL, {
+        storeData,
+        page: 1,
+        perPage: PRODUCTS_PERPAGE,
+      });
       if (response.statusText === "OK") {
         return response.data;
       }
@@ -100,43 +108,50 @@ export default function Explore() {
                   {isBusy && (
                     <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto my-5"></div>
                   )}
-                  {suggestions.products && suggestions.products.map((_, index) => (
-                    <li className={
-                        `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
-                        (selectedIndex === index && "bg-gray-200")
-                      }
-                      key={index}
-                      {...bindOption}
-                    >
-                      <div className="flex items-center space-x-2">
-                        <div>
-                         <LuSearch size={20} />
-                        </div>
-                        <p className="text-sm">{suggestions.products[index].name}</p>
-                      </div>
-                    </li>
-                  ))}
-                  {suggestions.stores && suggestions.stores.map((_, index) => (
-                    <li className={
-                        `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
-                        (selectedIndex === index && "bg-gray-200")
-                      }
-                      key={index}
-                      {...bindOption}
-                    >
+                  {suggestions.products &&
+                    suggestions.products.map((_, index) => (
+                      <li
+                        className={
+                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
+                          (selectedIndex === index && "bg-gray-200")
+                        }
+                        key={index}
+                        {...bindOption}
+                      >
                         <div className="flex items-center space-x-2">
-                            <div>
-                              <img
-                                src={suggestions.stores[index].logo}
-                                alt={suggestions.stores[index].name}
-                                className={"w-6 h-6 rounded-full"}
-                              />
-                            </div>
-                            <p className="text-sm">{suggestions.stores[index].name}</p>
+                          <div>
+                            <LuSearch size={20} />
+                          </div>
+                          <p className="text-sm">
+                            {suggestions.products[index].name}
+                          </p>
                         </div>
-                    </li>
-                    ))
-                    }
+                      </li>
+                    ))}
+                  {suggestions.stores &&
+                    suggestions.stores.map((_, index) => (
+                      <li
+                        className={
+                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
+                          (selectedIndex === index && "bg-gray-200")
+                        }
+                        key={index}
+                        {...bindOption}
+                      >
+                        <div className="flex items-center space-x-2">
+                          <div>
+                            <img
+                              src={suggestions.stores[index].logo}
+                              alt={suggestions.stores[index].name}
+                              className={"w-6 h-6 rounded-full"}
+                            />
+                          </div>
+                          <p className="text-sm">
+                            {suggestions.stores[index].name}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
                 </ul>
               )}
             </div>
