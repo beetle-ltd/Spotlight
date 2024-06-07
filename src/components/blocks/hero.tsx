@@ -21,21 +21,21 @@ function Hero({ store }: IHeroProps) {
           className="sm:w-52 sm:h-52 h-44 w-44 grid place-items-center border-2 border-gray-800 shadow-xl"
         />
       </div>
-      <div>
+      <div className={"max-w-[700px]"}>
         <h1 className="text-xl sm:text-3xl">{store.name}</h1>
         <Paragraph>{store.bio}</Paragraph>
         <div className="py-2 flex flex-col gap-y-2 justify-start sm:items-start">
-          { store.phoneNumber && (
-          <IconWithText text={store.phoneNumber}>
-            <FiPhone />
-             <p className="text-sm">{store.phoneNumber}</p>
-          </IconWithText>
-              )}
+          {store.phoneNumber && (
+            <IconWithText text={store.phoneNumber}>
+              <FiPhone />
+              <p className="text-sm">{store.phoneNumber}</p>
+            </IconWithText>
+          )}
           <IconWithText text={store.email}>
             <MdMailOutline />
             <p className="text-sm">{store.email}</p>
           </IconWithText>
-          <IconWithText text={`${window.location.origin}/${store.link}`}>
+          <IconWithText text={`${window.location.origin}/${store.username}`}>
             <p className="text-sm text-[#62ADF1]">
               {`${window.location.origin}/${store.username}`}
             </p>

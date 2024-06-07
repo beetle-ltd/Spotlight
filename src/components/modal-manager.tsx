@@ -6,9 +6,9 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ModalManager({shouldOpen }: { shouldOpen: string }) {
+export default function ModalManager({ shouldOpen }: { shouldOpen: boolean }) {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     if (shouldOpen) {
@@ -18,9 +18,9 @@ export default function ModalManager({shouldOpen }: { shouldOpen: string }) {
 
   const handleClose = () => {
     setOpen(false);
-    if (shouldOpen) {
-      navigate("/explore", { replace: true });
-    }
+    // if (shouldOpen) {
+    //   navigate("/explore", { replace: true });
+    // }
   };
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -39,6 +39,6 @@ export default function ModalManager({shouldOpen }: { shouldOpen: string }) {
       <DrawerContent>
         <ProductDetailsDynamic />
       </DrawerContent>
-   </Drawer>
+    </Drawer>
   );
 }

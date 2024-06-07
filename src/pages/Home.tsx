@@ -10,11 +10,22 @@ import { BASE_URL } from "@/constants/api-constants";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ModalManager from "@/components/modal-manager";
+import NoProducts from "@/components/no-products.tsx";
+
+interface IStoreData {
+  [key: string]: {
+    visits: number;
+    timestamp: Date;
+    cat: string[];
+  };
+}
 
 export default function Home() {
-  const { storeName } = useParams();
+  const { storeName, productId } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const shouldOpenModal = !!productId;
 
   const MAX_QUEUE_HEIGHT = 20;
 
@@ -27,12 +38,12 @@ export default function Home() {
   }, [storeName]);
 
   // Function to sort the storage object by timestamp
-  function sortStorageByTimestamp(storage: any) {
+  function sortStorageByTimestamp(storage: IStoreData) {
     // Convert the object to an array of [key, value] pairs
     const entries = Object.entries(storage);
 
     // Sort the array based on the timestamp
-    entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
+    entries.sort((a: any, b: any) => a[1].timestamp - b[1].timestamp);
 
     // Convert the sorted array back to an object
     const sortedStorage = Object.fromEntries(entries);
@@ -40,7 +51,7 @@ export default function Home() {
     return sortedStorage;
   }
 
-  function addOrUpdateStore(storeName, categories) {
+  function addOrUpdateStore(storeName: string, categories: string[]) {
     const data = localStorage.getItem("storeData");
     let storeData = data ? JSON.parse(data) : {};
 
@@ -78,7 +89,7 @@ export default function Home() {
 
         // Split the entries into the first 10 and the rest
         const firstTenEntries = entries.slice(0, 10);
-        const restEntries = entries.slice(10);
+        const restEntries: any = entries.slice(10);
 
         // Sort the second half by the number of visits
         restEntries.sort((a, b) => a[1].visits - b[1].visits);
@@ -87,7 +98,7 @@ export default function Home() {
         restEntries.shift(); // Remove the first element, which has the least visits
 
         // Sore by timestamp
-        const sortedEntries = sortStorageByTimestamp(restEntries);
+        const sortedEntries: any = sortStorageByTimestamp(restEntries);
 
         // Combine the two parts back into a single object
         const combinedEntries = firstTenEntries.concat(sortedEntries);
@@ -141,11 +152,18 @@ export default function Home() {
 
   return (
     <div>
+      {shouldOpenModal && <ModalManager shouldOpen={shouldOpenModal} />}
       <Container>
         <Header />
         <Hero store={store} />
       </Container>
-      <ProductGallery products={products} />
+      {
+        products.length === 0 ? (
+            <NoProducts />
+        ):(
+            <ProductGallery products={products} />
+        )
+      }
     </div>
   );
 }

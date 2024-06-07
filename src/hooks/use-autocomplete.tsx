@@ -1,6 +1,8 @@
-import { IProduct } from "@/models/Products";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {BASE_URL} from "@/constants/api-constants.ts";
+import axios from "axios";
+import {set} from "lodash";
 
 const KEY_CODES = {
   DOWN: 40,
@@ -11,27 +13,45 @@ const KEY_CODES = {
   ENTER: 13,
 };
 
-
 type TSuggestions = {
-  stores:{
+  stores: {
     name: string;
     username: string;
     logo: string;
   }[];
-  products: IProduct[];
-}
+  keywords: { name: string }[];
+};
 export function useAutoComplete({ delay = 500, source, onChange }) {
   const [myTimeout, setMyTimeOut] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-  const listRef = useRef<HTMLUListElement>(null);
-  const [suggestions, setSuggestions] = useState<TSuggestions>({stores:[], products:[]});
+  const keywordsListRef = useRef<HTMLUListElement>(null);
+  const storesListRef = useRef<HTMLUListElement>(null);
+  const [suggestions, setSuggestions] = useState<TSuggestions>({
+    stores: [],
+    keywords: [],
+  });
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [textValue, setTextValue] = useState("");
+  const [isProductLoading, setProductLoading] = useState(false);
+  const [isProductError, setProductError] = useState(false);
+  const [productsByKeyword, setProductByKeyword] = useState([]);
 
   const navigate = useNavigate();
 
+  async function getProductByKeyword(keyword: string) {
+      const url = `${BASE_URL}/api/v1/stores/search-products-by-keyword?search=${keyword}&page=1&perPage=20`;
+      setProductLoading(true);
+      try {
+       const response = await axios.get(url);
+         setProductByKeyword(response.data.data);
+         setProductLoading(false)
+      }catch (error) {
+        setProductError(true);
+        setProductLoading(false)
+      }
+  }
   function delayInvoke(callback: () => void) {
     if (myTimeout) {
       clearTimeout(myTimeout);
@@ -39,31 +59,39 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
     setMyTimeOut(setTimeout(callback, delay));
   }
 
-  function selectOption(index: number) {
+  function selectOption(index: number, id: string) {
     if (index > -1) {
-      onChange(suggestions.products[index] || suggestions?.stores[index]);
-      if(suggestions.products.length > 0)  {
-        setTextValue(suggestions.products[index].name)
-        navigate(`/explore/${suggestions.products[index].id}`)
+      console.log(index, id);
+      if(id.startsWith("store")) {
+        setTextValue(suggestions.stores[index].name);
+        navigate(`/${suggestions.stores[index].username}`);
       }
-      setTextValue(suggestions.stores[index].name)
-      navigate(`/${suggestions.stores[index].username}`)
-    clearSuggestions();
+      if(id.startsWith("keyword")) {
+        setTextValue(suggestions.keywords[index].name);
+        getProductByKeyword(suggestions.keywords[index].name);
+      }
+
+      // onChange(suggestions.keywords[index] || suggestions?.stores[index]);
+      // if (suggestions.keywords.length > 0) {
+      //   setTextValue(suggestions.keywords[index].name);
+      // }
+      // setTextValue(suggestions.stores[index].name);
+      // clearSuggestions();
     }
   }
 
   async function getSuggestions(searchTerm: string) {
     if (searchTerm && source) {
       setBusy(true);
-      const {stores,products} = await source(searchTerm);
-      setSuggestions( {stores, products});
+      const { stores, keywords } = await source(searchTerm);
+      setSuggestions({ stores, keywords });
       setBusy(false);
     }
   }
 
   function clearSuggestions() {
     delayInvoke(() => {
-      setSuggestions({stores:[], products:[]})
+      setSuggestions({ stores: [], keywords: [] });
       setSelectedIndex(-1);
     });
   }
@@ -79,36 +107,50 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   }
 
   // research what this code does
-  const optionHeight = listRef?.current?.children[0]?.clientHeight;
+  const optionHeight =
+    keywordsListRef?.current?.children[0]?.clientHeight +
+    storesListRef.current?.children[0]?.clientHeight;
 
   function scrollUp() {
     if (selectedIndex > 0) {
       setSelectedIndex(selectedIndex - 1);
     }
-    if (!listRef.current) return;
-    listRef.current.scrollTop -= optionHeight;
+    if (!keywordsListRef.current) return;
+    keywordsListRef.current.scrollTop -= optionHeight;
+
+    if (!storesListRef.current) return;
+    storesListRef.current.scrollTop -= optionHeight;
   }
 
   function scrollDown() {
-    if (selectedIndex < suggestions.stores.length + suggestions.products.length - 1) {
+    if (
+      selectedIndex <
+      suggestions.stores.length + suggestions.keywords.length - 1
+    ) {
       setSelectedIndex(selectedIndex + 1);
     }
-    if (!listRef.current) return;
-    listRef.current.scrollTop = selectedIndex * optionHeight;
+    if (!keywordsListRef.current) return;
+    keywordsListRef.current.scrollTop = selectedIndex * optionHeight;
+    if (!storesListRef.current) return;
+    storesListRef.current.scrollTop = selectedIndex * optionHeight;
   }
 
-  function pageDown() {
-    setSelectedIndex(suggestions.stores.length + suggestions.products.length - 1);
+  // function pageDown() {
+  //   setSelectedIndex(
+  //     suggestions.stores.length + suggestions.keywords.length - 1
+  //   );
 
-    if (!listRef.current) return;
-    listRef.current.scrollTop = (suggestions.stores.length + suggestions.products.length-1) * optionHeight;
-  }
+  //   if (!listRef.current) return;
+  //   listRef.current.scrollTop =
+  //     (suggestions.stores.length + suggestions.keywords.length - 1) *
+  //     optionHeight;
+  // }
 
-  function pageUp() {
-    setSelectedIndex(0);
-    if (!listRef.current) return;
-    listRef.current.scrollTop = 0;
-  }
+  // function pageUp() {
+  //   setSelectedIndex(0);
+  //   if (!listRef.current) return;
+  //   listRef.current.scrollTop = 0;
+  // }
 
   function onKeyDown(e) {
     const keyOperation = {
@@ -116,8 +158,8 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
       [KEY_CODES.UP]: scrollUp,
       [KEY_CODES.ENTER]: () => selectOption(selectedIndex),
       [KEY_CODES.ESCAPE]: clearSuggestions,
-      [KEY_CODES.PAGE_DOWN]: pageDown,
-      [KEY_CODES.PAGE_UP]: pageUp,
+      // [KEY_CODES.PAGE_DOWN]: pageDown,
+      // [KEY_CODES.PAGE_UP]: pageUp,
     };
     if (keyOperation[e.keyCode]) {
       keyOperation[e.keyCode]();
@@ -127,10 +169,16 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   }
 
   return {
-    bindOption: {
+    bindOptionKey: {
       onClick: (e) => {
-        const nodes = Array.from(listRef?.current.children);
-        selectOption(nodes.indexOf(e.target.closest("li")));
+        const nodes = Array.from(keywordsListRef?.current.children);
+        selectOption(nodes.indexOf(e.target.closest("li")),e.target.id);
+      },
+    },
+    bindOptionStore: {
+      onClick: (e) => {
+        const nodes = Array.from(storesListRef?.current.children);
+        selectOption(nodes.indexOf(e.target.closest("li")), e.target.id);
       },
     },
     bindInput: {
@@ -138,12 +186,18 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
       onChange: (e) => onTextChange(e.target.value),
       onKeyDown,
     },
-    bindOptions: {
-      ref: listRef,
+    bindOptionsKey: {
+      ref: keywordsListRef,
+    },
+    bindOptionsStores: {
+      ref: storesListRef,
     },
     isBusy,
     suggestions,
     selectedIndex,
     textValue,
+    isProductLoading,
+    isProductError,
+    productsByKeyword,
   };
 }

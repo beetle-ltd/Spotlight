@@ -2,7 +2,7 @@ import { IProduct } from "@/models/Products";
 import { useState } from "react";
 import { IoPricetag, IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
-import {useLocation, useParams} from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
 import { AttachmentType } from "@/models/enums";
 import ShopLogo from "../shop-logo";
@@ -11,9 +11,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
-import {toast} from "@/components/ui/use-toast.ts";
-import axios from "axios";
-import {BASE_URL} from "@/constants/api-constants.ts";
 
 type TProductDetailsProps = {
   item: IProduct;
@@ -23,21 +20,11 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const [popup, setPopup] = useState<boolean>(false);
   const location = useLocation();
   const attachmentType = item.attachments[0].type;
-  const [link, setLink] = useState<string>("");
-  const shareUrl = `${window.location.origin}/explore/${link}`;
-  const {storeName} = useParams();
-  const genShareLink =async () => {
-    try{
-      const res = await axios.post(`${BASE_URL}/api/v1/stores/links/generate-link`,{
-        storeUsername: item.store.username ? item .store.username :  storeName,
-        productId:item.id
-      })
-        setLink(res.data.data.link)
-    }catch (e) {
-      toast({description: "Error couldn't generate link"})
-      throw new Error(e.message)
-    }
-  }
+  const currentPath = location.pathname;
+  const { storeName } = useParams();
+  const shareUrl = `${window.location.origin}/${
+    currentPath === "/explore" ? item.store.username : storeName
+  }/shared/${item.id}`;
 
   return (
     <div className="sm:grid grid-cols-[55%,45%] h-full border-0 ">
@@ -55,10 +42,17 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
         {/* <InStock /> */}
       </div>
       <div className="container mx-auto text-justify block sm:flex flex-col justify-center">
-        {location.pathname === "/explore" && (
+        {currentPath === "/explore" && (
           <div className="flex self-start items-center gap-x-2 pb-5 py-3">
-            <ShopLogo size={"sm"} logoImg={item.store.logo} alt="d" className={"w-8 h-8"} />
-            <p className="text-sm sm:text-base hover:underline cursor-pointer">{item.store.name}</p>
+            <ShopLogo
+              size={"sm"}
+              logoImg={item.store.logo}
+              alt="d"
+              className={"w-8 h-8"}
+            />
+            <p className="text-sm sm:text-base hover:underline cursor-pointer">
+              {item.store.name}
+            </p>
           </div>
         )}
 
@@ -86,10 +80,10 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
           <Popover open={popup} onOpenChange={setPopup}>
             <PopoverTrigger asChild>
               <Button
+                type="button"
                 variant={"ghost"}
                 size={"default"}
                 className="gap-x-3 items-center bg-gray-200"
-                onClick={genShareLink}
               >
                 <IoShareSocialOutline size={18} />
                 Share

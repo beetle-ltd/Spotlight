@@ -5,8 +5,6 @@ import { useParams } from "react-router-dom";
 
 export const useProductDetails = () => {
   const { productId } = useParams();
-  const {linkId} = useParams()
-  console.log(linkId, productId)
 
   const fetchProductById = async () => {
     try {
@@ -20,21 +18,9 @@ export const useProductDetails = () => {
     }
   };
 
-  const fetchProductByLinkId = async () => {
-    try {
-        const response = await axios.get(
-            `${BASE_URL}/api/v1/stores/links/product-share?link=${linkId}`)
-      console.log(response)
-        return response.data;
-    }catch (error:any) {
-        throw new Error(error.message);
-    }
-  }
-  const qFn = linkId ? fetchProductByLinkId : fetchProductById
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["fetchProductByLinkId"],
-    queryFn:qFn,
+    queryFn: fetchProductById,
     enabled: !!productId,
   });
 
