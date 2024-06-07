@@ -220,8 +220,11 @@ export default function Explore() {
 
       <div className="w-full sm:w-[70%] mt-10 mx-auto ">
         {productsByKeyword &&
+        // @ts-ignore
         productsByKeyword.data &&
+        // @ts-ignore
         productsByKeyword?.data.length > 0 ? (
+          // @ts-ignore
           <Gallery products={productsByKeyword?.data} />
         ) : (
           <Gallery products={products} />

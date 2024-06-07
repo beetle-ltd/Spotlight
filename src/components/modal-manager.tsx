@@ -4,7 +4,6 @@ import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import withProductData from "@/hoc/with-product-data";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function ModalManager({ shouldOpen }: { shouldOpen: boolean }) {
   const [open, setOpen] = useState(false);
