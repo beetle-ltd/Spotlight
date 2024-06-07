@@ -32,6 +32,7 @@ export function useAutoComplete({ delay = 500, source }) {
   });
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndexId, setSelectedIndexId] = useState("");
   const [textValue, setTextValue] = useState("");
   const [isProductLoading, setProductLoading] = useState(false);
   const [isProductError, setProductError] = useState(false);
@@ -155,7 +156,7 @@ export function useAutoComplete({ delay = 500, source }) {
     const keyOperation = {
       [KEY_CODES.DOWN]: scrollDown,
       [KEY_CODES.UP]: scrollUp,
-      [KEY_CODES.ENTER]: () => selectOption(selectedIndex),
+      [KEY_CODES.ENTER]: () => selectOption(selectedIndex, selectedIndexId),
       [KEY_CODES.ESCAPE]: clearSuggestions,
       // [KEY_CODES.PAGE_DOWN]: pageDown,
       // [KEY_CODES.PAGE_UP]: pageUp,
@@ -172,12 +173,14 @@ export function useAutoComplete({ delay = 500, source }) {
       onClick: (e) => {
         const nodes = Array.from(keywordsListRef?.current.children);
         selectOption(nodes.indexOf(e.target.closest("li")), e.target.id);
+        setSelectedIndexId(e.target.id);
       },
     },
     bindOptionStore: {
       onClick: (e) => {
         const nodes = Array.from(storesListRef?.current.children);
         selectOption(nodes.indexOf(e.target.closest("li")), e.target.id);
+        setSelectedIndexId(e.target.id);
       },
     },
     bindInput: {

@@ -27,7 +27,7 @@ export default function Explore() {
     isProductLoading,
     productsByKeyword,
   } = useAutoComplete({
-    onChange: (value) => console.log(value),
+    // onChange: (value) => console.log(value),
     delay: 1000,
     source: async (search) => {
       try {
@@ -219,7 +219,9 @@ export default function Explore() {
       </Container>
 
       <div className="w-full sm:w-[70%] mt-10 mx-auto ">
-        {productsByKeyword && productsByKeyword?.data.length > 0 ? (
+        {productsByKeyword &&
+        productsByKeyword.data &&
+        productsByKeyword?.data.length > 0 ? (
           <Gallery products={productsByKeyword?.data} />
         ) : (
           <Gallery products={products} />
