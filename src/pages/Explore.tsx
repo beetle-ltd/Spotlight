@@ -23,9 +23,9 @@ export default function Explore() {
     isBusy,
     suggestions,
     selectedIndex,
-      isProductError,
-        isProductLoading,
-      productsByKeyword
+    isProductError,
+    isProductLoading,
+    productsByKeyword,
   } = useAutoComplete({
     onChange: (value) => console.log(value),
     delay: 1000,
@@ -77,7 +77,6 @@ export default function Explore() {
   }
   const store = data.data;
   const products = store.data;
-
 
   return (
     <div>
@@ -220,12 +219,11 @@ export default function Explore() {
       </Container>
 
       <div className="w-full sm:w-[70%] mt-10 mx-auto ">
-        {
-          productsByKeyword?.data.length > 0 ? (
-            <Gallery products={productsByKeyword.data} />
-
-          ):(<Gallery products={products} />)
-        }
+        {productsByKeyword && productsByKeyword?.data.length > 0 ? (
+          <Gallery products={productsByKeyword?.data} />
+        ) : (
+          <Gallery products={products} />
+        )}
       </div>
     </div>
   );

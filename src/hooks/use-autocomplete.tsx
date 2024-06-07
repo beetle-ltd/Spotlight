@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {BASE_URL} from "@/constants/api-constants.ts";
+import { BASE_URL } from "@/constants/api-constants.ts";
 import axios from "axios";
-import {set} from "lodash";
 
 const KEY_CODES = {
   DOWN: 40,
@@ -21,7 +20,7 @@ type TSuggestions = {
   }[];
   keywords: { name: string }[];
 };
-export function useAutoComplete({ delay = 500, source, onChange }) {
+export function useAutoComplete({ delay = 500, source }) {
   const [myTimeout, setMyTimeOut] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
@@ -41,16 +40,16 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   const navigate = useNavigate();
 
   async function getProductByKeyword(keyword: string) {
-      const url = `${BASE_URL}/api/v1/stores/search-products-by-keyword?search=${keyword}&page=1&perPage=20`;
-      setProductLoading(true);
-      try {
-       const response = await axios.get(url);
-         setProductByKeyword(response.data.data);
-         setProductLoading(false)
-      }catch (error) {
-        setProductError(true);
-        setProductLoading(false)
-      }
+    const url = `${BASE_URL}/api/v1/stores/search-products-by-keyword?search=${keyword}&page=1&perPage=20`;
+    setProductLoading(true);
+    try {
+      const response = await axios.get(url);
+      setProductByKeyword(response.data.data);
+      setProductLoading(false);
+    } catch (error) {
+      setProductError(true);
+      setProductLoading(false);
+    }
   }
   function delayInvoke(callback: () => void) {
     if (myTimeout) {
@@ -62,11 +61,11 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
   function selectOption(index: number, id: string) {
     if (index > -1) {
       console.log(index, id);
-      if(id.startsWith("store")) {
+      if (id.startsWith("store")) {
         setTextValue(suggestions.stores[index].name);
         navigate(`/${suggestions.stores[index].username}`);
       }
-      if(id.startsWith("keyword")) {
+      if (id.startsWith("keyword")) {
         setTextValue(suggestions.keywords[index].name);
         getProductByKeyword(suggestions.keywords[index].name);
       }
@@ -172,7 +171,7 @@ export function useAutoComplete({ delay = 500, source, onChange }) {
     bindOptionKey: {
       onClick: (e) => {
         const nodes = Array.from(keywordsListRef?.current.children);
-        selectOption(nodes.indexOf(e.target.closest("li")),e.target.id);
+        selectOption(nodes.indexOf(e.target.closest("li")), e.target.id);
       },
     },
     bindOptionStore: {
