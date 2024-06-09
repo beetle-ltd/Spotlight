@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@/App";
 import Gallery from "@/components/gallery";
 import Logo from "@/components/logo";
@@ -7,11 +8,10 @@ import { useAutoComplete } from "@/hooks/use-autocomplete";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { LuSearch } from "react-icons/lu";
-import { IStoreData } from "./Home";
 
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
-  const storeData: IStoreData | null = localStorage.getItem("storeData") || {};
+  const storeData: any = localStorage.getItem("storeData") || {};
   const PRODUCTS_PERPAGE = 100;
 
   const {
