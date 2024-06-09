@@ -47,10 +47,12 @@ export default function Explore() {
     },
   });
 
-  function transformData(inputData: string) {
+  function transformData(inputData) {
     return Object.entries(JSON.parse(inputData)).map(([key, value]) => ({
       username: key,
+      //@ts-ignore
       visits: value?.visits,
+      //@ts-ignore
       categories: value?.cat,
     }));
   }
