@@ -7,10 +7,11 @@ import { useAutoComplete } from "@/hooks/use-autocomplete";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { LuSearch } from "react-icons/lu";
+import { IStoreData } from "./Home";
 
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
-  const storeData = localStorage.getItem("storeData") || {};
+  const storeData: IStoreData | null = localStorage.getItem("storeData") || {};
   const PRODUCTS_PERPAGE = 100;
 
   const {
@@ -46,11 +47,20 @@ export default function Explore() {
     },
   });
 
+  function transformData(inputData: string) {
+    return Object.entries(JSON.parse(inputData)).map(([key, value]) => ({
+      username: key,
+      visits: value?.visits,
+      categories: value?.cat,
+    }));
+  }
+
   const fetchRecommendedProducts = async () => {
     const RECOMMENDED_URL = `${BASE_URL}/api/v1/stores/links/product-recommendations`;
     try {
+      const postData = transformData(storeData);
       const response = await axios.post(RECOMMENDED_URL, {
-        storeData,
+        storeData: postData,
         page: 1,
         perPage: PRODUCTS_PERPAGE,
       });

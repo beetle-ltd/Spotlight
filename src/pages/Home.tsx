@@ -13,7 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ModalManager from "@/components/modal-manager";
 import NoProducts from "@/components/no-products.tsx";
 
-interface IStoreData {
+export interface IStoreData {
   [key: string]: {
     visits: number;
     timestamp: Date;
@@ -27,7 +27,7 @@ export default function Home() {
   const navigate = useNavigate();
   const shouldOpenModal = !!productId;
 
-  const MAX_QUEUE_HEIGHT = 20;
+  const MAX_QUEUE_HEIGHT = 10;
 
   // store storeName in local storage
   useEffect(() => {
@@ -157,13 +157,11 @@ export default function Home() {
         <Header />
         <Hero store={store} />
       </Container>
-      {
-        products.length === 0 ? (
-            <NoProducts />
-        ):(
-            <ProductGallery products={products} />
-        )
-      }
+      {products.length === 0 ? (
+        <NoProducts />
+      ) : (
+        <ProductGallery products={products} />
+      )}
     </div>
   );
 }

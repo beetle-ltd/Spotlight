@@ -11,7 +11,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
-
 type TProductDetailsProps = {
   item: IProduct;
 };
@@ -22,9 +21,9 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const attachmentType = item.attachments[0].type;
   const currentPath = location.pathname;
   const { storeName } = useParams();
-  const shareUrl = `${window.location.origin}/${
-    currentPath === "/explore" ? item.store.username : storeName
-  }/shared/${item.id}`;
+  const _storeName =
+    currentPath === "/explore" ? item.store.username : storeName;
+  const shareUrl = `${window.location.origin}/${_storeName}/shared/${item.id}`;
 
   return (
     <div className="sm:grid grid-cols-[55%,45%] h-full border-0 ">
@@ -90,7 +89,12 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent>
-              <Share closePopUp={(val) => setPopup(val)} shareUrl={shareUrl} />
+              <Share
+                closePopUp={(val) => setPopup(val)}
+                shareUrl={shareUrl}
+                storeName={_storeName}
+                item={item}
+              />
             </PopoverContent>
           </Popover>
         </div>

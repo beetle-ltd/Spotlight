@@ -1,9 +1,13 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
+import notify, {
+  TEvent,
+} from "@/lib/notification-service/notification.service";
 import { IProduct } from "@/models/Products";
 import { AttachmentType } from "@/models/enums";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoVideocam } from "react-icons/io5";
 import { PiImagesFill } from "react-icons/pi";
+import { useParams } from "react-router-dom";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import ProductDetails from "./product-details";
@@ -16,6 +20,24 @@ type Props = {
 function Product({ item }: Props) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const currentPath = location.pathname;
+  const { storeName } = useParams();
+
+  useEffect(() => {
+    const handleNotify = async () => {
+      if (open) {
+        await notify(TEvent.VIEWED, {
+          storeUsername:
+            currentPath === "/explore" ? item.store.username : storeName,
+          productId: item.id,
+          productName: item.name,
+        });
+      }
+    };
+
+    handleNotify();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   if (isDesktop) {
     return (
