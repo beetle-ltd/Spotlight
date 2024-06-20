@@ -12,7 +12,7 @@ export default function IconWithText({
     <Tooltip>
       <TooltipTrigger>
         <div
-          className="flex items-center text-[#555] gap-x-3 cursor-pointer"
+          className="flex text-center items-center text-[#555] gap-x-3 cursor-pointer"
           onClick={() => {
             copyToClipboard(text);
           }}

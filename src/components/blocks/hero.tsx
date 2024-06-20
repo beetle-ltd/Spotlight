@@ -1,6 +1,6 @@
 import { Store } from "@/models/Store";
-import { FiPhone } from "react-icons/fi";
-import { MdMailOutline } from "react-icons/md";
+import { Dot } from "lucide-react";
+import { BsWhatsapp } from "react-icons/bs";
 import { VscWand } from "react-icons/vsc";
 import IconWithText from "../icon-with-text";
 import ShopLogo from "../shop-logo";
@@ -12,38 +12,48 @@ interface IHeroProps {
 
 function Hero({ store }: IHeroProps) {
   return (
-    <div className="mt-10 mb-16 sm:flex sm:items-center gap-x-8 ">
-      <div className="flex justify-center items-center h-full pb-5">
+    <div className="mt-10 mb-16 flex flex-col items-center justify-center">
+      <div className="flex justify-center items-center h-full pb-10">
         <ShopLogo
           logoImg={store.logo}
           alt={store.name}
           size={"default"}
-          className="sm:w-52 sm:h-52 h-44 w-44 grid place-items-center border-2 border-gray-800 shadow-xl"
+          className="sm:w-52 sm:h-52 h-44 w-44 grid place-items-center border-4 border-black"
         />
       </div>
-      <div className={"max-w-[700px]"}>
-        <h1 className="text-xl sm:text-3xl">{store.name}</h1>
+      <div className={"max-w-[700px] text-center"}>
+        <h1 className="text-3xl sm:text-3xl font-bold">{store.name}</h1>
         <Paragraph>{store.bio}</Paragraph>
-        <div className="py-2 flex flex-col gap-y-2 justify-start sm:items-start">
-          {store.phoneNumber && (
-            <IconWithText text={store.phoneNumber}>
-              <FiPhone />
-              <p className="text-sm">{store.phoneNumber}</p>
+        <div className="py-2 text-center flex flex-col justify-center items-center gap-y-5">
+          <div className="flex gap-x-1 items-center">
+            {store.phoneNumber && (
+              <IconWithText text={store.phoneNumber}>
+                <p className="text-xs text-gray-400">{store.phoneNumber}</p>
+              </IconWithText>
+            )}
+            <Dot className="mb-1 text-gray-400" />
+            <IconWithText text={store.email}>
+              <p className="text-xs text-gray-400">{store.email}</p>
             </IconWithText>
-          )}
-          <IconWithText text={store.email}>
-            <MdMailOutline />
-            <p className="text-sm">{store.email}</p>
-          </IconWithText>
-          <IconWithText text={`${window.location.origin}/${store.username}`}>
-            <p className="text-sm text-[#62ADF1]">
-              {`${window.location.origin}/${store.username}`}
-            </p>
-          </IconWithText>
-          <Button className="flex gap-x-2 items-center" size={"lg"}>
-            <VscWand size={18} />
-            Get business card
-          </Button>
+          </div>
+
+          <div className="flex items-center gap-x-5">
+            <Button
+              className="flex gap-x-2 items-center rounded-full"
+              size={"lg"}
+            >
+              <VscWand size={18} />
+              Get business card
+            </Button>
+            <Button
+              className="flex gap-x-2 items-center rounded-full"
+              size={"lg"}
+              variant="outline"
+            >
+              <BsWhatsapp size={18} className="mb-1" />
+              Send a Message
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -52,7 +62,9 @@ function Hero({ store }: IHeroProps) {
 
 function Paragraph({ children }: { children: string }) {
   return (
-    <p className="text-[#555] leading-7 text-sm sm:text-md pb-1">{children}</p>
+    <p className="text-[#555] leading-7 text-sm sm:text-md pt-2 pb-1">
+      {children}
+    </p>
   );
 }
 

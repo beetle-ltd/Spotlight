@@ -5,7 +5,7 @@ import notify, {
 import { IProduct } from "@/models/Products";
 import { AttachmentType } from "@/models/enums";
 import { useEffect, useState } from "react";
-import { IoVideocam } from "react-icons/io5";
+import { FaPlay } from "react-icons/fa";
 import { PiImagesFill } from "react-icons/pi";
 import { useParams } from "react-router-dom";
 import { Dialog, DialogContent } from "../ui/dialog";
@@ -74,7 +74,7 @@ export function ProductIcon({
   }
   return (
     <div className="text-white text-xl">
-      {type === AttachmentType.PICTURE ? <PiImagesFill /> : <IoVideocam />}
+      {type === AttachmentType.PICTURE ? <PiImagesFill /> : <FaPlay />}
     </div>
   );
 }

@@ -1,27 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@/App";
-import Header from "@/components/blocks/header";
-import Hero from "@/components/blocks/hero";
-import ProductGallery from "@/components/blocks/product-gallery";
+import TopSection from "@/components/blocks/top-section";
 import { useToast } from "@/components/ui/use-toast";
-import { useQuery } from "@tanstack/react-query";
-// import { BASE_URL } from "@/constants/api-constants";
 import { BASE_URL } from "@/constants/api-constants";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { IStoreData } from "./Home";
+import ProductGallery from "@/components/blocks/product-gallery";
+import NoProducts from "@/components/no-products";
+import Footer from "@/components/blocks/footer";
 import ModalManager from "@/components/modal-manager";
-import NoProducts from "@/components/no-products.tsx";
 
-export interface IStoreData {
-  [key: string]: {
-    visits: number;
-    timestamp: Date;
-    cat: string[];
-  };
-}
-
-export default function Home() {
+const HomeNew = () => {
   const { storeName, productId } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -148,20 +140,21 @@ export default function Home() {
   }
 
   const store = data.data;
-  const { logo, products } = store;
 
   return (
     <div>
       {shouldOpenModal && <ModalManager shouldOpen={shouldOpenModal} />}
       <Container>
-        <Header logoImg={logo} name={store.name} />
-        <Hero store={store} />
+        <TopSection store={store} />
       </Container>
-      {products.length === 0 ? (
+      {store.products.length === 0 ? (
         <NoProducts />
       ) : (
-        <ProductGallery products={products} />
+        <ProductGallery products={store.products} />
       )}
+      <Footer />
     </div>
   );
-}
+};
+
+export default HomeNew;
