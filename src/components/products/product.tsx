@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 import notify, {
   TEvent,
-} from "@/lib/notification-service/notification.service";
+} from "@/services/notification-service/notification.service";
 import { IProduct } from "@/models/Products";
 import { AttachmentType } from "@/models/enums";
 import { useEffect, useState } from "react";
@@ -43,7 +43,7 @@ function Product({ item }: Props) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <ProductSingle item={item} handleClick={(val) => setOpen(val)} />
-        <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
+        <DialogContent className="sm:max-w-[1000px] p-0 overflow-hidden">
           <ProductDetails item={item} />
         </DialogContent>
       </Dialog>

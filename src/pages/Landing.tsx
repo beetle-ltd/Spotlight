@@ -12,8 +12,8 @@ const LandingPage = () => {
       <h1>Welcome to Spotlight!</h1>
       <p>
         visit a store e.g{" "}
-        <Link to={"/hayes-clothing"} className={"text-blue-500"}>
-          /hayes-clothing
+        <Link to={"/ttreasures"} className={"text-blue-500"}>
+          /ttreasures
         </Link>
       </p>
     </div>

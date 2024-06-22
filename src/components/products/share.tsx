@@ -11,7 +11,7 @@ import {
 import { copyToClipboard } from "@/lib/copyToClipboard";
 import notify, {
   TEvent,
-} from "@/lib/notification-service/notification.service";
+} from "@/services/notification-service/notification.service";
 import { IProduct } from "@/models/Products";
 
 type TShareProps = {

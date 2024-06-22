@@ -12,12 +12,8 @@ const Tab = ({ activeTab, handleTabClick, children, tab }: Props) => {
   return (
     <Button
       variant="ghost"
-      className={`px-7 mr-2 rounded-full font-medium text-xs  ${
-        activeTab === tab ? "bg-gray-200 " : "text-gray-500"
-      }`}
-      style={{
-        padding: "0 !important",
-      }}
+      className={`px-4 sm:px-4 md:px-7 rounded-full font-medium text-xs whitespace-nowrap
+      ${activeTab === tab ? "bg-gray-200" : "text-gray-500"}`}
       onClick={() => handleTabClick(tab)}
     >
       {children}

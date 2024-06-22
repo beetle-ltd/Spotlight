@@ -6,7 +6,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { useProductDetails } from "@/hooks/use-product-data";
 import notify, {
   TEvent,
-} from "@/lib/notification-service/notification.service";
+} from "@/services/notification-service/notification.service";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 

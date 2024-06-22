@@ -37,8 +37,8 @@ const ImageDetail = ({ productName, attachments }: TImageDetailProps) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="ml-14" />
-      <CarouselNext className="mr-14" />
+      <CarouselPrevious className="ml-14 bg-white" />
+      <CarouselNext className="mr-14 bg-white" />
     </Carousel>
   );
 };

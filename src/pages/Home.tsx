@@ -12,14 +12,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ModalManager from "@/components/modal-manager";
 import NoProducts from "@/components/no-products.tsx";
-
-export interface IStoreData {
-  [key: string]: {
-    visits: number;
-    timestamp: Date;
-    cat: string[];
-  };
-}
+import HomeSkeletonLoader from "@/components/loaders/home-skeleton-loader";
 
 export default function Home() {
   const { storeName, productId } = useParams();
@@ -30,12 +23,11 @@ export default function Home() {
   const MAX_QUEUE_HEIGHT = 10;
 
   // store storeName in local storage
-  useEffect(() => {
-    if (!storeName) {
-      return;
-    }
-    localStorage.setItem("store_name", storeName);
-  }, [storeName]);
+  // useEffect(() => {
+  //   if (!storeName) {
+  //     return;
+  //   }
+  // }, [storeName]);
 
   // Function to sort the storage object by timestamp
   function sortStorageByTimestamp(storage: IStoreData) {
@@ -118,6 +110,8 @@ export default function Home() {
       );
       if (response.statusText === "OK") {
         addOrUpdateStore(storeName, response.data.data.categories);
+        localStorage.setItem("store_name", storeName);
+        console.log(response.statusText);
         return response.data;
       }
     } catch (error) {
@@ -140,7 +134,7 @@ export default function Home() {
   }
 
   if (isLoading) {
-    return "loading please wait";
+    return <HomeSkeletonLoader />;
   }
 
   if (!data) {

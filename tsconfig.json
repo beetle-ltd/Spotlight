@@ -27,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/lib/notification-service/.service.ts"],
+  "include": ["src", "src/services/notification-service/.service.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
