@@ -20,7 +20,7 @@ function Header({ logoImg, name }: THeaderProps) {
           {/* Search Bar */}
           <div
             id="search__bar"
-            className="w-[60%] md:max-w-[800px] flex items-center gap-x-5 mx-auto border hover:border-gray-300 rounded-full border-gray-300 py-3 px-4"
+            className="w-[60%] md:max-w-[800px] flex items-center gap-x-5 mx-auto border hover:border-gray-400 rounded-full border-gray-300 py-3 px-4"
           >
             <input
               type="search"
@@ -29,7 +29,7 @@ function Header({ logoImg, name }: THeaderProps) {
               placeholder={`Search ${name} Stores`}
               className="appearance-none bg-transparent w-full h-full outline-none text-xs"
             />
-            <SearchIcon className="text-gray-200 hover:text-gray-300 cursor-pointer" />
+            <SearchIcon className="text-gray-300 hover:text-gray-400 cursor-pointer" />
           </div>
 
           {/* Explore Button  */}

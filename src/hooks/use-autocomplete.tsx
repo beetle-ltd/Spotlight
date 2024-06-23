@@ -97,13 +97,19 @@ export function useAutoComplete({ delay = 500, source }) {
   }
 
   function onTextChange(searchTerm: string) {
-    setBusy(true);
     setTextValue(searchTerm);
-    clearSuggestions();
-    delayInvoke(() => {
-      getSuggestions(searchTerm);
+
+    if (searchTerm.trim()) {
+      setBusy(true);
+      clearSuggestions();
+      delayInvoke(() => {
+        getSuggestions(searchTerm);
+        setBusy(false);
+      });
+    } else {
+      clearSuggestions();
       setBusy(false);
-    });
+    }
   }
 
   // research what this code does
@@ -156,7 +162,14 @@ export function useAutoComplete({ delay = 500, source }) {
     const keyOperation = {
       [KEY_CODES.DOWN]: scrollDown,
       [KEY_CODES.UP]: scrollUp,
-      [KEY_CODES.ENTER]: () => selectOption(selectedIndex, selectedIndexId),
+      [KEY_CODES.ENTER]: () => {
+        if (suggestions.keywords.length || suggestions.stores.length) {
+          selectOption(selectedIndex, selectedIndexId);
+        }
+        if (textValue.trim()) {
+          getProductByKeyword(textValue);
+        }
+      },
       [KEY_CODES.ESCAPE]: clearSuggestions,
       // [KEY_CODES.PAGE_DOWN]: pageDown,
       // [KEY_CODES.PAGE_UP]: pageUp,
@@ -196,6 +209,7 @@ export function useAutoComplete({ delay = 500, source }) {
     },
     isBusy,
     suggestions,
+    setSuggestions,
     selectedIndex,
     textValue,
     isProductLoading,

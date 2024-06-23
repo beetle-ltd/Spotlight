@@ -8,13 +8,11 @@ import SpinnerLoader from "@/components/loaders/spinner-loader";
 import ModalManager from "@/components/modal-manager";
 import NoProducts from "@/components/no-products";
 import { useGetStore } from "@/hooks/api/use-store";
-import { isNull, isUndefined } from "lodash";
 import { useEffect, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const HomeNew = () => {
   const { storeName, productId } = useParams();
-  const navigate = useNavigate();
   const shouldOpenModal = !!productId;
 
   // store storeName in local storage

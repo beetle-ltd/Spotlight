@@ -1,23 +1,19 @@
 import { IProduct } from "@/models/Products";
-import { useState } from "react";
-import { IoShareSocialOutline } from "react-icons/io5";
 import { VscWand } from "react-icons/vsc";
 import { Link, useLocation, useParams } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
+import { trimAndCapitalize } from "@/lib/trimAndCapitalize";
 import { AttachmentType, CurrencyToSymbolMapping } from "@/models/enums";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
-import { trimAndCapitalize } from "@/lib/trimAndCapitalize";
 type TProductDetailsProps = {
   item: IProduct;
 };
 
 const ProductDetails = ({ item }: TProductDetailsProps) => {
-  const [popup, setPopup] = useState<boolean>(false);
   const location = useLocation();
   const attachmentType = item.attachments[0].type;
   const currentPath = location.pathname;
@@ -75,27 +71,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
             <VscWand size={18} className="hidden md:block" />
             Download Card
           </Button>
-          <Popover open={popup} onOpenChange={setPopup}>
-            <PopoverTrigger asChild>
-              <Button
-                type="button"
-                variant={"outline"}
-                size={"lg"}
-                className="gap-x-3 items-center rounded-full p-0"
-              >
-                <IoShareSocialOutline size={18} className="hidden md:block" />
-                Share
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <Share
-                closePopUp={(val) => setPopup(val)}
-                shareUrl={shareUrl}
-                storeName={_storeName}
-                item={item}
-              />
-            </PopoverContent>
-          </Popover>
+          <Share shareUrl={shareUrl} storeName={_storeName} item={item} />
         </div>
       </div>
     </div>

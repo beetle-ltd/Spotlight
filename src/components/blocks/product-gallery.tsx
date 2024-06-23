@@ -36,7 +36,7 @@ function ProductGallery({ products, categories }: IProductsGalleryProps) {
         );
 
   return (
-    <div className="w-full mt-10 mx-auto pb-10 ">
+    <div className="w-full min-h-[40dvh] mt-10 mx-auto pb-10 ">
       <div className="mx-auto w-full md:w-[90%]">
         <div className="w-[90%] mx-auto sm:w-full">
           <div className="flex flex-col sm:flex-row w-full gap-y-4 sm:gap-y-0 sm:gap-x-4 mb-4 justify-between">

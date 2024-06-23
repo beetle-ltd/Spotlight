@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@/App";
 import Footer from "@/components/blocks/footer";
@@ -9,6 +10,7 @@ import { BASE_URL } from "@/constants/api-constants.ts";
 import { useAutoComplete } from "@/hooks/use-autocomplete";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useRef } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { LuSearch } from "react-icons/lu";
 
@@ -34,6 +36,7 @@ export default function Explore() {
     bindOptionStore,
     isBusy,
     suggestions,
+    setSuggestions,
     selectedIndex,
     isProductError,
     isProductLoading,
@@ -58,6 +61,25 @@ export default function Explore() {
     },
   });
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setSuggestions({
+          keywords: [],
+          stores: [],
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setSuggestions]);
   function transformData(
     inputData: InputData
   ): Array<{ username: string; visits?: number; categories?: string[] }> {
@@ -122,12 +144,15 @@ export default function Explore() {
           </div>
         </div>
       </Container>
-      <div className="flex flex-col items-center justify-center gap-y-10 py-10 max-h-[300px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
+      <div className="flex flex-col items-center justify-center gap-y-20 py-10 min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
         <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold">
           Find products and brands you love
           <FaHeart className="hidden md:block" />
         </h1>
-        <div className="flex items-center relative border bg-white border-gray-300 p-3 sm:p-4 w-[90%] md:w-[50%] mx-auto rounded-full text-gray-500">
+        <div
+          ref={containerRef}
+          className="flex items-center relative border bg-white border-gray-300 p-3 sm:p-4 w-[90%] md:w-[50%] mx-auto rounded-full text-gray-500"
+        >
           <div className="w-full">
             <div className="flex items-center gap-x-2 w-full">
               <LuSearch size={20} />
@@ -138,7 +163,7 @@ export default function Explore() {
               />
             </div>
             {textValue && (
-              <div className="shadow-lg w-full bg-white scroll-smooth absolute left-0 top-12 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto">
+              <div className="shadow-lg w-full bg-white scroll-smooth absolute left-0 top-12 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto rounded-md">
                 {isBusy && (
                   <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto my-5"></div>
                 )}
@@ -204,14 +229,11 @@ export default function Explore() {
           </p>
         </div>
       </div>
-      <div className="w-full mt-10 mx-auto pb-10 ">
+      <div className="w-full min-h-[700px]  mx-auto pb-10 ">
         <div className="mx-auto w-full md:w-[90%]">
           {productsByKeyword &&
-          // @ts-ignore
           productsByKeyword.data &&
-          // @ts-ignore
           productsByKeyword?.data.length > 0 ? (
-            // @ts-ignore
             <Gallery products={productsByKeyword?.data} />
           ) : (
             <Gallery products={products} />

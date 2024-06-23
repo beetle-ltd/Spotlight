@@ -1,50 +1,47 @@
-import { MdCancel } from "react-icons/md";
-import { Button } from "../ui/button";
 import { shareMediums } from "@/constants/data-constants";
-import Medium from "./medium";
+import { copyToClipboard } from "@/lib/copyToClipboard";
+import { IProduct } from "@/models/Products";
+import { MdCancel } from "react-icons/md";
 import {
-  TwitterShareButton,
-  TelegramShareButton,
   EmailShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
-import { copyToClipboard } from "@/lib/copyToClipboard";
-import notify, {
-  TEvent,
-} from "@/services/notification-service/notification.service";
-import { IProduct } from "@/models/Products";
+import { Button } from "../../ui/button";
+import { toast } from "../../ui/use-toast";
+import Medium from "../medium";
+import { ShareMedium } from "@/hooks/use-share";
 
-type TShareProps = {
+type TDesktopShareProps = {
   shareUrl: string;
   closePopUp: (val: boolean) => void;
+  handleShare: ({ name }: { name: ShareMedium }) => void;
   storeName: string;
   item: IProduct;
 };
 
-const Share = ({ closePopUp, shareUrl, storeName, item }: TShareProps) => {
+const DesktopShare = ({
+  closePopUp,
+  shareUrl,
+  handleShare,
+}: TDesktopShareProps) => {
   const medium = shareMediums[0];
 
-  const handleShare = async (medium: { name: string }) => {
-    await notify(TEvent.SHARED, {
-      storeUsername: storeName,
-      productId: item.id,
-      productName: item.name,
-      medium: medium.name,
-    });
-  };
-
   const handleInstagramShare = () => {
-    window.open(
-      `https://www.instagram.com/share?url=${encodeURIComponent(shareUrl)}`,
-      "_blank"
-    );
     handleShare({ name: "Instagram" });
+    if (!/Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      toast({
+        description:
+          "Instagram sharing works best on mobile devices. We've opened Instagram for you, but you'll need to manually copy and paste the content to share.",
+      });
+    }
   };
 
   return (
-    <div>
+    <div className="">
       <div className="flex items-center justify-between pb-3">
-        <p className="text-md">Share Post</p>
+        <p className="text-base">Share Post</p>
         <Button variant={"ghost"} size={"sm"} onClick={() => closePopUp(false)}>
           <MdCancel size={20} />
         </Button>
@@ -90,4 +87,4 @@ const Share = ({ closePopUp, shareUrl, storeName, item }: TShareProps) => {
   );
 };
 
-export default Share;
+export default DesktopShare;

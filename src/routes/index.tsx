@@ -6,6 +6,7 @@ const Explore = lazy(() => import("../pages/Explore"));
 const Landing = lazy(() => import("../pages/Landing"));
 const Page404 = lazy(() => import("../pages/Page404"));
 const StoreNotFound = lazy(() => import("../pages/StoreNotFound"));
+
 export default function Router() {
   return (
     <Routes>
