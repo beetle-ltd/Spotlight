@@ -1,3 +1,4 @@
+import { useSearch } from "@/hooks/use-search";
 import { IProduct } from "@/models/Products";
 import { AttachmentType } from "@/models/enums";
 import { useState } from "react";
@@ -14,6 +15,7 @@ interface IProductsGalleryProps {
 function ProductGallery({ products, categories }: IProductsGalleryProps) {
   const [activeTab, setActiveTab] = useState<TTab>("ALL");
   const [category, setCategory] = useState<string>("");
+  const { searchTerm } = useSearch();
 
   const handleTabClick = (tab: TTab) => {
     setActiveTab(tab);
@@ -23,17 +25,41 @@ function ProductGallery({ products, categories }: IProductsGalleryProps) {
     setCategory(e.target.value);
   };
 
+  // filter by tabs
   const filteredProductsByTabs =
     activeTab === "ALL"
       ? products
       : products.filter((product) => product.attachments[0].type === activeTab);
 
+  // filter by categories
   const filteredProductsByCategories =
     category === ""
       ? filteredProductsByTabs
       : filteredProductsByTabs.filter((product) =>
           product.categories.includes(category)
         );
+
+  // filter by search
+  const filteredProducts =
+    searchTerm === ""
+      ? filteredProductsByCategories
+      : filteredProductsByCategories.filter(
+          (product) =>
+            product.name.includes(searchTerm?.toLowerCase()) ||
+            product.description.includes(searchTerm?.toLowerCase())
+        );
+
+  const getNoResultsMessage = () => {
+    if (searchTerm) {
+      return `No products found matching "${searchTerm}".`;
+    } else if (activeTab !== "ALL") {
+      return `No ${activeTab.toLowerCase()} products found.`;
+    } else if (category !== "") {
+      return `No products found in the "${category}" category.`;
+    } else {
+      return "No products found matching your criteria.";
+    }
+  };
 
   return (
     <div className="w-full min-h-[40dvh] mt-10 mx-auto pb-10 ">
@@ -86,7 +112,10 @@ function ProductGallery({ products, categories }: IProductsGalleryProps) {
             </div>
           </div>
         </div>
-        <Gallery products={filteredProductsByCategories} />
+        <Gallery
+          products={filteredProducts}
+          getNoResultsMessage={getNoResultsMessage}
+        />
       </div>
     </div>
   );

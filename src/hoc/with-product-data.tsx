@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useProductDetails } from "@/hooks/use-product-data";
+import { useProductDetails } from "@/hooks/api/use-product-data";
 
 const withProductData = (WrappedComponent: any) => {
   const HOC = (props: any) => {

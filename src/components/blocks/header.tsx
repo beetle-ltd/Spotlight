@@ -1,9 +1,12 @@
+import { Container } from "@/App";
+import { useSearch } from "@/hooks/use-search";
+import { debounce } from "lodash";
+import { SearchIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { FaRegCompass } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
 import ShopLogo from "../shop-logo";
-import { SearchIcon } from "lucide-react";
-import { Container } from "@/App";
+import { Button } from "../ui/button";
 
 type THeaderProps = {
   logoImg: string;
@@ -11,6 +14,27 @@ type THeaderProps = {
 };
 
 function Header({ logoImg, name }: THeaderProps) {
+  const { setSearchTerm } = useSearch();
+  const [inputVal, setInputVal] = useState<string>("");
+
+  // Create a debounced version of setSearchTerm
+  const debouncedSetSearchTerm = debounce((value: string) => {
+    setSearchTerm(value);
+  }, 300);
+
+  // Update the debounced search term whenever inputVal changes
+  useEffect(() => {
+    debouncedSetSearchTerm(inputVal);
+    // Cleanup function to cancel the debounce on unmount
+    return () => {
+      debouncedSetSearchTerm.cancel();
+    };
+  }, [inputVal, debouncedSetSearchTerm]);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputVal(event.target.value);
+  };
+
   return (
     <div className="fixed left-0 bg-white w-full z-20 py-5 border-b border-gray-100">
       <Container>
@@ -25,9 +49,11 @@ function Header({ logoImg, name }: THeaderProps) {
             <input
               type="search"
               name="search"
-              id=""
+              id="search__input"
+              value={inputVal}
               placeholder={`Search ${name} Stores`}
               className="appearance-none bg-transparent w-full h-full outline-none text-xs"
+              onChange={handleSearchChange}
             />
             <SearchIcon className="text-gray-300 hover:text-gray-400 cursor-pointer" />
           </div>

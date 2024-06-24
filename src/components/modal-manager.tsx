@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import withProductData from "@/hoc/with-product-data";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { useProductDetails } from "@/hooks/use-product-data";
+import { useProductDetails } from "@/hooks/api/use-product-data";
 import notify, {
   TEvent,
 } from "@/services/notification-service/notification.service";

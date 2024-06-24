@@ -70,13 +70,6 @@ export function useAutoComplete({ delay = 500, source }) {
         setTextValue(suggestions.keywords[index].name);
         getProductByKeyword(suggestions.keywords[index].name);
       }
-
-      // onChange(suggestions.keywords[index] || suggestions?.stores[index]);
-      // if (suggestions.keywords.length > 0) {
-      //   setTextValue(suggestions.keywords[index].name);
-      // }
-      // setTextValue(suggestions.stores[index].name);
-      // clearSuggestions();
     }
   }
 

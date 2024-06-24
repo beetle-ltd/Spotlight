@@ -9,14 +9,17 @@ import { TooltipProvider } from "./components/ui/tooltip.tsx";
 import "./index.css";
 import { queryClient } from "./lib/queryClient.ts";
 import "./normalize.css";
+import { SearchProvider } from "./contexts/search-context.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <Toaster />
-          <App />
+          <SearchProvider>
+            <Toaster />
+            <App />
+          </SearchProvider>
         </TooltipProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
