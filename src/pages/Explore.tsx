@@ -86,7 +86,7 @@ export default function Explore() {
   if (isLoading || isProductLoading) {
     return <SpinnerLoader delay={0} timeout={15000} />;
   }
-  const products = store?.data;
+  const products = store?.data?.data;
 
   return (
     <div>
