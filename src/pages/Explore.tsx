@@ -5,27 +5,17 @@ import Footer from "@/components/blocks/footer";
 import Gallery from "@/components/gallery";
 import SpinnerLoader from "@/components/loaders/spinner-loader";
 import Logo from "@/components/logo";
-import { toast } from "@/components/ui/use-toast.ts";
 import { BASE_URL } from "@/constants/api-constants.ts";
+import { useRecommendedProducts } from "@/hooks/api/use-recommended-products";
 import { useAutoComplete } from "@/hooks/use-autocomplete";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { LuSearch } from "react-icons/lu";
+import ErrorOccured from "@/components/error";
 
-interface InputDataValue {
-  visits?: number;
-  cat?: string[];
-}
-
-interface InputData {
-  [key: string]: InputDataValue;
-}
 export default function Explore() {
   const storeUsername = localStorage.getItem("store_name") || "";
-  const storeData: any = localStorage.getItem("storeData") || {};
-  const PRODUCTS_PERPAGE = 100;
 
   const {
     textValue,
@@ -80,60 +70,23 @@ export default function Explore() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setSuggestions]);
-  function transformData(
-    inputData: InputData
-  ): Array<{ username: string; visits?: number; categories?: string[] }> {
-    // Check if inputData is empty
-    if (Object.keys(inputData).length === 0) {
-      return []; // Return an empty array if inputData is empty
-    }
 
-    return Object.entries(inputData).map(([key, value]) => ({
-      username: key,
-      visits: value?.visits,
-      categories: value?.cat,
-    }));
-  }
-  const fetchRecommendedProducts = async () => {
-    const RECOMMENDED_URL = `${BASE_URL}/api/v1/stores/links/product-recommendations`;
-    try {
-      const postData = transformData(storeData);
-      const response = await axios.post(RECOMMENDED_URL, {
-        data: postData,
-        page: 1,
-        perPage: PRODUCTS_PERPAGE,
-      });
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        // If the status is not 200, throw an error
-        throw new Error(`Unexpected response status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error fetching recommended products:", error);
-      // Return a default value or rethrow the error
-      return { error: "Failed to fetch recommended products" };
-      // Alternatively, you could rethrow the error:
-      // throw error;
-    }
-  };
+  const {
+    data: store,
+    isError,
+    isLoading,
+    error,
+    refetch,
+  } = useRecommendedProducts();
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["fetchRecommendedProducts"],
-    queryFn: fetchRecommendedProducts,
-  });
-
-  if (error || isProductError) {
-    toast({
-      description: error.message,
-    });
+  if (isError || isProductError) {
+    return <ErrorOccured error={error} onRetry={refetch} />;
   }
 
   if (isLoading || isProductLoading) {
     return <SpinnerLoader delay={0} timeout={15000} />;
   }
-  const store = data.data;
-  const products = store.data;
+  const products = store?.data;
 
   return (
     <div>

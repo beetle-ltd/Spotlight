@@ -6,6 +6,15 @@ export interface IStoreData {
     cat: string[];
   };
 }
+interface InputDataValue {
+  visits?: number;
+  cat?: string[];
+}
+
+interface InputData {
+  [key: string]: InputDataValue;
+}
+
 const MAX_QUEUE_HEIGHT = 10;
 // Function to sort the storage object by timestamp
 function sortStorageByTimestamp(storage: IStoreData) {
@@ -79,4 +88,19 @@ export function addOrUpdateStore(storeName: string, categories: string[]) {
   }
 
   localStorage.setItem("storeData", JSON.stringify(storeData));
+}
+
+export function transformData(
+  inputData: InputData
+): Array<{ username: string; visits?: number; categories?: string[] }> {
+  // Check if inputData is empty
+  if (Object.keys(inputData).length === 0) {
+    return []; // Return an empty array if inputData is empty
+  }
+
+  return Object.entries(inputData).map(([username, userData]) => ({
+    username,
+    visits: userData.visits,
+    categories: userData.cat,
+  }));
 }

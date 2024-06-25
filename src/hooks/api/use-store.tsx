@@ -11,7 +11,7 @@ export const useGetStore = (
     queryKey: ["fetchStore", username],
     queryFn: () =>
       api
-        .get(`/api/v1/stores/links/search-username?username=${username}`)
+        .get(`/api/v1/stores/search-username?name=${username}&data=true`)
         .then((res) => {
           addOrUpdateStore(username, res.data.data?.categories);
           return res.data.data;
