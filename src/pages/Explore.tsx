@@ -97,7 +97,7 @@ export default function Explore() {
           </div>
         </div>
       </Container>
-      <div className="flex flex-col items-center justify-center gap-y-20 py-10 min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
+      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20 py-5 md:py-10 h-[250px] md:min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
         <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold">
           Find products and brands you love
           <FaHeart className="hidden md:block" />
