@@ -4,6 +4,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
 import { trimAndCapitalize } from "@/lib/trimAndCapitalize";
 import { AttachmentType, CurrencyToSymbolMapping } from "@/models/enums";
+import { SEO } from "@/seo";
 import { Helmet } from "react-helmet-async";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
@@ -45,6 +46,20 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
         />
         <meta property="og:type" content="product-item" />
       </Helmet>
+      <SEO
+        title={trimAndCapitalize(item.name)}
+        description={trimAndCapitalize(item.description)}
+        image={
+          item.attachments[0].type === AttachmentType.VIDEO
+            ? item.attachments[0].pictureUrl
+            : item.attachments[0].url
+        }
+        url={`https://myspotlight.me/${item?.store?.name || storeName}/shared/${
+          item.id
+        }`}
+        currency={CurrencyToSymbolMapping[item.currency]}
+        price={item.price}
+      />
       <div className="sm:grid grid-cols-[60%,40%] h-full border-0 ">
         <div className="w-full h-full relative mb-5 sm:mb-0">
           {attachmentType === AttachmentType.VIDEO ? (
