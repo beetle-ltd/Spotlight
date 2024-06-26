@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Container } from "@/App";
 import Footer from "@/components/blocks/footer";
+import ErrorOccured from "@/components/error";
 import Gallery from "@/components/gallery";
 import SpinnerLoader from "@/components/loaders/spinner-loader";
 import Logo from "@/components/logo";
@@ -12,11 +13,8 @@ import axios from "axios";
 import { useEffect, useRef } from "react";
 import { FaHeart } from "react-icons/fa6";
 import { LuSearch } from "react-icons/lu";
-import ErrorOccured from "@/components/error";
 
 export default function Explore() {
-  const storeUsername = localStorage.getItem("store_name") || "";
-
   const {
     textValue,
     bindInput,
