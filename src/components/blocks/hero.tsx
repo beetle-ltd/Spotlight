@@ -52,7 +52,7 @@ function Hero({ store }: IHeroProps) {
               className="flex gap-x-2 items-center rounded-full  text-xs md:text-base"
               size={"lg"}
             >
-              <VscWand size={18} />
+              <VscWand size={18} className="hidden md:block" />
               Get business card
             </Button>
             <Button
@@ -61,7 +61,7 @@ function Hero({ store }: IHeroProps) {
               variant="outline"
               onClick={handleSendMessage}
             >
-              <BsWhatsapp size={18} />
+              <BsWhatsapp size={18} className="hidden md:block" />
               Send a Message
             </Button>
           </div>
@@ -73,7 +73,7 @@ function Hero({ store }: IHeroProps) {
 
 function Paragraph({ children }: { children: string }) {
   return (
-    <p className="text-[#555] leading-7 text-xs sm:text-base pt-2 pb-1">
+    <p className="text-[#555] leading-7 text-sm sm:text-base pt-2 pb-1">
       {children}
     </p>
   );

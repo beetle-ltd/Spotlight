@@ -93,12 +93,12 @@ export default function Explore() {
       <Container>
         <div className="">
           <div className="block py-5">
-            <Logo url={`/${storeUsername}`} />
+            <Logo url={"/"} />
           </div>
         </div>
       </Container>
-      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20 py-5 md:py-10 h-[250px] md:min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
-        <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold">
+      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20   py-5 md:py-10 h-[250px] md:min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
+        <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold max-w-[300px] md:max-w-full">
           Find products and brands you love
           <FaHeart className="hidden md:block" />
         </h1>

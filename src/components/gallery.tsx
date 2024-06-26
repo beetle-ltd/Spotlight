@@ -32,7 +32,7 @@ function Gallery({ products, getNoResultsMessage }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 sm:gap-1 gap-x-[2px] gap-y-[1px]">
+    <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 sm:gap-1 gap-x-[2px] gap-y-[1px]">
       {products.map((product) => (
         <Product item={product} key={product.id} />
       ))}

@@ -9,7 +9,7 @@ const LandingPage = () => {
       }
     >
       <Logo url={"#"} />
-      <h1>Welcome to Spotlight!</h1>
+      <h1 className="text-2xl md:text-4xl">Welcome to Spotlight!</h1>
       <p>
         visit a store e.g{" "}
         <Link to={"/ttreasures"} className={"text-blue-500"}>
