@@ -30,7 +30,13 @@ const Share = ({ shareUrl, item, storeName }: TShareProps) => {
   if (isMobile) {
     return (
       <div className="flex justify-center">
-        <Button onClick={mobileShare} aria-label="Share this product">
+        <Button
+          onClick={mobileShare}
+          aria-label="Share this product"
+          variant="outline"
+          type="button"
+          size={"lg"}
+        >
           <IoShareSocialOutline size={18} className="hidden md:block" />
           Share
         </Button>
