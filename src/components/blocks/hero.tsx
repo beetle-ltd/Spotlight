@@ -13,8 +13,10 @@ interface IHeroProps {
 }
 
 function Hero({ store }: IHeroProps) {
+  const message =
+    "Hey there! 👋 I just spotted your awesome store on Spotlight and couldn't resist checking it out. 🛍️✨ I'm really interested in one of your products. Can we chat about it? 😊 #SpotlightShopper";
   const handleSendMessage = () => {
-    const whaLink = getWhatsAppLink(store.phoneNumber);
+    const whaLink = getWhatsAppLink(store.phoneNumber, message);
     if (whaLink == "no-link") {
       toast({
         description: "No Phone Number",
