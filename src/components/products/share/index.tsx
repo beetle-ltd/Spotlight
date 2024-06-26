@@ -36,6 +36,7 @@ const Share = ({ shareUrl, item, storeName }: TShareProps) => {
           variant="outline"
           type="button"
           size={"lg"}
+          className="gap-x-3 items-center rounded-full p-0"
         >
           <IoShareSocialOutline size={18} className="hidden md:block" />
           Share
