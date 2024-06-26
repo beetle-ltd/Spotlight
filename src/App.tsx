@@ -13,6 +13,6 @@ const App: React.FC = () => {
 };
 
 export function Container({ children }: { children: React.ReactNode }) {
-  return <div className="w-[90%] mx-auto">{children}</div>;
+  return <div className="w-[95%] mx-auto">{children}</div>;
 }
 export default App;

@@ -9,7 +9,7 @@ const shopLogoVariants = cva(
       size: {
         default: "w-40 h-40",
         sm: "w-10 h-10",
-        lg: "sm:w-52 sm:h-52 w-44 h-44 border-4 border-black",
+        lg: "sm:w-52 sm:h-52 w-36 h-36 border-4 border-black",
       },
     },
     defaultVariants: {

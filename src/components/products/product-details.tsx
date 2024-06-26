@@ -5,7 +5,6 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { trimAndCapitalize } from "@/lib/trimAndCapitalize";
 import { AttachmentType, CurrencyToSymbolMapping } from "@/models/enums";
 import { SEO } from "@/seo";
-import { Helmet } from "react-helmet-async";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import ImageDetail from "./attachments/image-detail";
@@ -26,26 +25,6 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
 
   return (
     <>
-      <Helmet>
-        <title>{trimAndCapitalize(item.name)}</title>
-        <meta property="og:title" content={trimAndCapitalize(item.name)} />
-        <meta property="og:description" content={item.description} />
-        <meta
-          property="og:image"
-          content={
-            item.attachments[0].type === AttachmentType.VIDEO
-              ? item.attachments[0].pictureUrl
-              : item.attachments[0].url
-          }
-        />
-        <meta
-          property="og:url"
-          content={`https://myspotlight.com/${
-            item?.store?.name || storeName
-          }/shared/${item.id}`}
-        />
-        <meta property="og:type" content="product-item" />
-      </Helmet>
       <SEO
         title={trimAndCapitalize(item.name)}
         description={trimAndCapitalize(item.description)}

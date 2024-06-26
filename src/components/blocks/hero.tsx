@@ -30,7 +30,7 @@ function Hero({ store }: IHeroProps) {
         <ShopLogo logoImg={store.logo} alt={store.name} size={"lg"} />
       </div>
       <div className={"w-full md:max-w-[700px] text-center"}>
-        <h1 className="text-3xl sm:text-4xl font-bold">{store.name}</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold">{store.name}</h1>
         <Paragraph>{store.bio}</Paragraph>
         <div className="py-1 sm:py-2 text-center flex flex-col justify-center items-center gap-y-5">
           <div className="flex gap-x-1 items-center">

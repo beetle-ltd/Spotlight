@@ -65,10 +65,10 @@ function ProductGallery({ products, categories }: IProductsGalleryProps) {
     <div className="w-full min-h-[40dvh] mt-10 mx-auto pb-10 ">
       <div className="mx-auto w-full md:w-[90%]">
         <div className="w-[90%] mx-auto sm:w-full">
-          <div className="flex flex-col sm:flex-row w-full gap-y-4 sm:gap-y-0 sm:gap-x-4 mb-4 justify-between">
+          <div className="flex sm:flex-row w-full gap-y-4 sm:gap-y-0 sm:gap-x-4 mb-4 justify-between">
             <div
               id="tabs"
-              className="flex flex-wrap items-cente gap-x-5 md:gap-x-2 w-full md:w-auto"
+              className="flex items-center gap-x-1 md:gap-x-2 w-full md:w-auto"
             >
               <Tab
                 activeTab={activeTab}

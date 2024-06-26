@@ -36,7 +36,7 @@ function Header({ logoImg, name }: THeaderProps) {
   };
 
   return (
-    <div className="fixed left-0 bg-white w-full z-20 py-5 border-b border-gray-100">
+    <div className="fixed left-0 bg-white w-full z-20 py-2 md:py-5 border-b border-gray-100">
       <Container>
         <div className="flex justify-between items-center">
           <ShopLogo logoImg={logoImg} alt="Shop logo" size="sm" />
