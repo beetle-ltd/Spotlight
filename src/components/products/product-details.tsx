@@ -82,7 +82,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
             </p>
           </div>
 
-          <div className="flex items-center text-[#222]  text-xl sm:text-3xl gap-x-3">
+          <div className="flex items-center text-[#222]  text-3xl sm:text-3xl gap-x-3">
             <p>
               {CurrencyToSymbolMapping[item.currency]} {item?.price}
             </p>

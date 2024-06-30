@@ -1,12 +1,11 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { IProduct } from "@/models/Products";
+import { AttachmentType } from "@/models/enums";
 import notify, {
   TEvent,
 } from "@/services/notification-service/notification.service";
-import { IProduct } from "@/models/Products";
-import { AttachmentType } from "@/models/enums";
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
-import { PiImagesFill } from "react-icons/pi";
 import { useParams } from "react-router-dom";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
@@ -74,7 +73,7 @@ export function ProductIcon({
   }
   return (
     <div className="text-white text-xl">
-      {type === AttachmentType.PICTURE ? <PiImagesFill /> : <FaPlay />}
+      {type === AttachmentType.PICTURE ? null : <FaPlay />}
     </div>
   );
 }

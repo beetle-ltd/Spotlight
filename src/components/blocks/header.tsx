@@ -16,6 +16,7 @@ type THeaderProps = {
 function Header({ logoImg, name }: THeaderProps) {
   const { setSearchTerm } = useSearch();
   const [inputVal, setInputVal] = useState<string>("");
+  const [scrolled, setScrolled] = useState(true);
 
   // Create a debounced version of setSearchTerm
   const debouncedSetSearchTerm = debounce((value: string) => {
@@ -31,12 +32,25 @@ function Header({ logoImg, name }: THeaderProps) {
     };
   }, [inputVal, debouncedSetSearchTerm]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputVal(event.target.value);
   };
 
   return (
-    <div className="fixed left-0 bg-white w-full z-20 py-2 md:py-5 border-b border-gray-100">
+    <div
+      className={`fixed left-0 bg-white w-full z-20 py-2 md:py-5  ${
+        scrolled && "border-b border-gray-100"
+      }`}
+    >
       <Container>
         <div className="flex justify-between items-center">
           <ShopLogo logoImg={logoImg} alt="Shop logo" size="sm" />
