@@ -47,7 +47,7 @@ function Header({ logoImg, name }: THeaderProps) {
 
   return (
     <div
-      className={`fixed left-0 bg-white w-full z-20 py-2 md:py-5  ${
+      className={`fixed left-0 bg-white w-full z-20 py-2  ${
         scrolled && "border-b border-gray-100"
       }`}
     >
@@ -58,7 +58,7 @@ function Header({ logoImg, name }: THeaderProps) {
           {/* Search Bar */}
           <div
             id="search__bar"
-            className="w-[60%] md:max-w-[800px] flex items-center gap-x-5 mx-auto border hover:border-gray-400 rounded-full border-gray-300 py-3 px-4"
+            className="w-[60%] md:max-w-[800px] flex items-center gap-x-5 mx-auto border hover:border-gray-400 rounded-full border-gray-300 py-2 px-4"
           >
             <input
               type="search"

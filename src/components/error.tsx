@@ -20,7 +20,7 @@ const ErrorOccured = ({ error, onRetry }: Props) => {
     if (error instanceof AxiosError && error.response?.data) {
       const { errorCode } = error.response.data;
       switch (errorCode) {
-        case "S_000_0011":
+        case "U_000_0012":
           navigate("/store-not-found");
           break;
         // Handle other error codes a needed

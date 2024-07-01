@@ -95,7 +95,7 @@ export default function Explore() {
           </div>
         </div>
       </Container>
-      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20   py-5 md:py-10 h-[250px] md:min-h-[350px] bg-[url('/src/assets/explore-header.png')] bg-cover md:bg-center">
+      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20   py-5 md:py-10 h-[250px] md:min-h-[350px] sm:bg-[url('/src/assets/explore-header.png')] bg-cover bg-transparent backdrop-filter backdrop-blur-md ">
         <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold max-w-[300px] md:max-w-full">
           Find products and brands you love
           <FaHeart className="hidden md:block" />
@@ -123,21 +123,15 @@ export default function Explore() {
                     {suggestions.keywords.map((_, index) => (
                       <li
                         className={
-                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
+                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-y gap-x-2 ` +
                           (selectedIndex === index && "bg-gray-200")
                         }
                         key={index}
                         id={`keywordListItem-${index}`}
                         {...bindOptionKey}
                       >
-                        <div className="flex items-center space-x-2">
-                          <div>
-                            <LuSearch size={20} />
-                          </div>
-                          <p className="text-sm">
-                            {suggestions.keywords[index].name}
-                          </p>
-                        </div>
+                        <LuSearch size={20} />
+                        {suggestions.keywords[index].name}
                       </li>
                     ))}
                   </ul>
@@ -147,25 +141,19 @@ export default function Explore() {
                     {suggestions.stores.map((_, index) => (
                       <li
                         className={
-                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 ` +
+                          `flex items-center h-[40px] p-2 hover:bg-gray-200 cursor-pointer py-2 gap-x-2 ` +
                           (selectedIndex === index && "bg-gray-200")
                         }
                         key={index}
                         id={`storeListItem-${index}`}
                         {...bindOptionStore}
                       >
-                        <div className="flex items-center space-x-2">
-                          <div>
-                            <img
-                              src={suggestions.stores[index].logo}
-                              alt={suggestions.stores[index].name}
-                              className={"w-6 h-6 rounded-full"}
-                            />
-                          </div>
-                          <p className="text-sm">
-                            {suggestions.stores[index].name}
-                          </p>
-                        </div>
+                        <img
+                          src={suggestions.stores[index].logo}
+                          alt={suggestions.stores[index].name}
+                          className={"w-6 h-6 rounded-full"}
+                        />
+                        {suggestions.stores[index].name}
                       </li>
                     ))}
                   </ul>
@@ -173,11 +161,6 @@ export default function Explore() {
               </div>
             )}
           </div>
-          <p>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded bg-none px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </p>
         </div>
       </div>
       <div className="w-full min-h-[700px]  mx-auto pb-10 ">
