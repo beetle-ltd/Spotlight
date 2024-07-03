@@ -9,6 +9,7 @@ import {
 import { useMemo, useState } from "react";
 import { IoShareSocialOutline } from "react-icons/io5";
 import DesktopShare from "./desktop-share";
+import { AttachmentType } from "@/models/enums";
 
 type TShareProps = {
   shareUrl: string;
@@ -18,6 +19,10 @@ type TShareProps = {
 
 const Share = ({ shareUrl, item, storeName }: TShareProps) => {
   const [popup, setPopup] = useState<boolean>(false);
+  const imgUrl =
+    item.attachments[0].type === AttachmentType.VIDEO
+      ? item.attachments[0].pictureUrl
+      : item.attachments[0].url;
   const isMobile = useMemo(
     () =>
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -30,7 +35,7 @@ const Share = ({ shareUrl, item, storeName }: TShareProps) => {
     shareUrl,
     item,
     storeName,
-    item.attachments[0].url
+    imgUrl
   );
 
   if (isMobile) {
