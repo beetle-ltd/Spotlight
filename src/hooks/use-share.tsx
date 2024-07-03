@@ -26,7 +26,6 @@ export const useShare = (
   shareUrl: string,
   item: IProduct,
   storeName: string,
-  url: string,
   imageUrl: string
 ) => {
   const handleShare = useCallback(
@@ -62,7 +61,7 @@ export const useShare = (
         const shareData: TShareData = {
           title: `${storeName} on Spotlight`,
           text: `Checkout ${item.name} by ${storeName} on Spotlight. Spotlight helps you find the brands and products you love easily and fast.`,
-          url: url,
+          url: shareUrl,
         };
 
         // Check if sharing files is supported
@@ -83,7 +82,7 @@ export const useShare = (
       // Send error to your logging service
       fallbackShare();
     }
-  }, [imageUrl, item.name, storeName, url, handleShare, fallbackShare]);
+  }, [imageUrl, item.name, storeName, handleShare, fallbackShare]);
 
   return { handleShare, mobileShare, fallbackShare };
 };

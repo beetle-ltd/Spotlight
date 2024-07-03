@@ -26,7 +26,12 @@ const Share = ({ shareUrl, item, storeName }: TShareProps) => {
     []
   );
 
-  const { mobileShare, handleShare } = useShare(shareUrl, item, storeName);
+  const { mobileShare, handleShare } = useShare(
+    shareUrl,
+    item,
+    storeName,
+    item.attachments[0].url
+  );
 
   if (isMobile) {
     return (
