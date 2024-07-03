@@ -82,7 +82,7 @@ export const useShare = (
       // Send error to your logging service
       fallbackShare();
     }
-  }, [imageUrl, item.name, storeName, handleShare, fallbackShare]);
+  }, [imageUrl, item.name, storeName, shareUrl, handleShare, fallbackShare]);
 
   return { handleShare, mobileShare, fallbackShare };
 };
