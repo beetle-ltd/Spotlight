@@ -25,6 +25,7 @@ const Share = ({ shareUrl, item, storeName }: TShareProps) => {
       ),
     []
   );
+
   const { mobileShare, handleShare } = useShare(shareUrl, item, storeName);
 
   if (isMobile) {

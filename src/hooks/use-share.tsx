@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IProduct } from "@/models/Products";
 import notify, {
   TEvent,
@@ -13,10 +14,20 @@ export type ShareMedium =
   | "Instagram"
   | "Link"
   | "Mobile Share";
+
+type TShareData = {
+  title: string;
+  text: string;
+  url: string;
+  files?: any;
+};
+
 export const useShare = (
   shareUrl: string,
   item: IProduct,
-  storeName: string
+  storeName: string,
+  url: string,
+  imageUrl: string
 ) => {
   const handleShare = useCallback(
     async ({ name }: { name: ShareMedium }) => {
@@ -30,14 +41,39 @@ export const useShare = (
     [item, storeName]
   );
 
+  const fallbackShare = useCallback(() => {
+    window.open(shareUrl, "_blank");
+    handleShare({ name: "Link" });
+  }, [shareUrl, handleShare]);
+
   const mobileShare = useCallback(async () => {
     try {
       if (navigator.share) {
-        await navigator.share({
-          title: item.name,
-          text: `Check out this product: ${item.name}`,
-          url: shareUrl,
+        // fetch the image
+        const imgResponse = await fetch(imageUrl);
+        const imgBlob = await imgResponse.blob();
+
+        // Create a File object from the Blob
+        const imgFile = new File([imgBlob], `${item.name}.jpg`, {
+          type: imgBlob.type,
         });
+
+        // Prepare the share data
+        const shareData: TShareData = {
+          title: `${storeName} on Spotlight`,
+          text: `Checkout ${item.name} by ${storeName} on Spotlight. Spotlight helps you find the brands and products you love easily and fast.`,
+          url: url,
+        };
+
+        // Check if sharing files is supported
+        if (navigator.canShare && navigator.canShare({ files: [imgFile] })) {
+          shareData.files = [imgFile];
+        }
+
+        // Attempt to share
+        await navigator.share(shareData);
+
+        // send notification
         await handleShare({ name: "Mobile Share" });
       } else {
         throw new Error("Web Share API not supported");
@@ -47,12 +83,7 @@ export const useShare = (
       // Send error to your logging service
       fallbackShare();
     }
-  }, [shareUrl, item, handleShare]);
-
-  const fallbackShare = useCallback(() => {
-    window.open(shareUrl, "_blank");
-    handleShare({ name: "Link" });
-  }, [shareUrl, handleShare]);
+  }, [imageUrl, item.name, storeName, url, handleShare, fallbackShare]);
 
   return { handleShare, mobileShare, fallbackShare };
 };
