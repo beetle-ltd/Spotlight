@@ -67,6 +67,7 @@ export const useShare = (
         // Check if sharing files is supported
         if (navigator.canShare && navigator.canShare({ files: [imgFile] })) {
           shareData.files = [imgFile];
+          await navigator.share(shareData);
         }
 
         // Attempt to share
