@@ -95,7 +95,7 @@ export default function Explore() {
           </div>
         </div>
       </Container>
-      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20   py-5 md:py-10 h-[250px] md:min-h-[350px] sm:bg-[url('/src/assets/explore-header.png')] bg-cover bg-transparent backdrop-filter backdrop-blur-md ">
+      <div className="flex flex-col items-center justify-center gap-y-10 md:gap-y-20 py-5 md:py-10 h-[250px] md:min-h-[350px] sm:bg-[url('/src/assets/explore-header.png')] bg-cover bg-transparent backdrop-filter backdrop-blur-md ">
         <h1 className="flex items-center text-center md:gap-x-2 text-2xl md:text-4xl font-semibold max-w-[300px] md:max-w-full">
           Find products and brands you love
           <FaHeart className="hidden md:block" />
@@ -114,7 +114,7 @@ export default function Explore() {
               />
             </div>
             {textValue && (
-              <div className="shadow-lg w-full bg-white scroll-smooth absolute left-0 top-12 sm:top-14 z-20 max-h-[260px] overflow-x-hidden overflow-y-auto rounded-md">
+              <div className="shadow-lg w-full bg-white scroll-smooth absolute left-0 top-12 sm:top-14 max-h-[260px] overflow-x-hidden overflow-y-auto rounded-md">
                 {isBusy && (
                   <div className="w-4 h-4 border-2 border-dashed rounded-full border-gray-500 animate-spin mx-auto my-5"></div>
                 )}
@@ -163,7 +163,7 @@ export default function Explore() {
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[700px]  mx-auto pb-10 ">
+      <div className="w-full min-h-[700px] mx-auto pb-10 ">
         <div className="mx-auto w-full md:w-[90%]">
           {productsByKeyword &&
           productsByKeyword.data &&
