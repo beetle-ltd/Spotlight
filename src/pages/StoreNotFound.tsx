@@ -19,7 +19,7 @@ function StoreNotFound() {
       <div className="max-h-[500px] pt-5">
         <img
           src={NoStoreSvg}
-          alt="store_not_found_image"
+          alt="store_not_found"
           className="max-w-full max-h-full"
         />
       </div>

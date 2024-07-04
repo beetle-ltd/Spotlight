@@ -6,6 +6,7 @@ import ErrorOccured from "@/components/error";
 import Gallery from "@/components/gallery";
 import SpinnerLoader from "@/components/loaders/spinner-loader";
 import Logo from "@/components/logo";
+import Page from "@/components/page-load";
 import { BASE_URL } from "@/constants/api-constants.ts";
 import { useRecommendedProducts } from "@/hooks/api/use-recommended-products";
 import { useAutoComplete } from "@/hooks/use-autocomplete";
@@ -82,7 +83,7 @@ export default function Explore() {
   }
 
   if (isLoading || isProductLoading) {
-    return <SpinnerLoader delay={0} timeout={15000} />;
+    return <SpinnerLoader delay={0} timeout={5000} />;
   }
   const products = store?.data?.data;
 

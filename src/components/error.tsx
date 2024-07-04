@@ -45,7 +45,7 @@ const ErrorOccured = ({ error, onRetry }: Props) => {
     <div className="w-full text-center min-h-dvh flex flex-col space-y-10 justify-center items-center">
       <p className="text-lg text-gray-800">{errorMessage}</p>
       {onRetry && (
-        <Button variant={"default"} onClick={onRetry}>
+        <Button variant={"default"} onClick={onRetry} className="rounded-full">
           Retry
         </Button>
       )}

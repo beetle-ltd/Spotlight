@@ -45,7 +45,7 @@ const HomeNew = () => {
     return <ErrorOccured error={error} onRetry={refetch} />;
   }
   if (isLoading) {
-    return <SpinnerLoader delay={50} timeout={15000} />;
+    return <SpinnerLoader delay={50} timeout={5000} />;
   }
 
   return (
