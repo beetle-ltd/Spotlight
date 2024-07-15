@@ -3,13 +3,13 @@ import { Container } from "@/App";
 import SpotlightLogoWhite from "../../assets/spotlight-white.svg";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-const Footer = () => {
+const Footer = ({ isLanding }: { isLanding?: boolean }) => {
   return (
     <footer className="py-5 bg-black text-white">
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 md:gap-y-0">
           <div className="flex items-center gap-x-3 order-1 md:order-1">
-            <span className="text-xs">Powered By</span>
+            {!isLanding && <span className="text-xs">Powered By</span>}
             <img
               src={SpotlightLogoWhite}
               alt="white variant of the spotlight logo"

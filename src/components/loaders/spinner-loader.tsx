@@ -29,8 +29,8 @@ const SpinnerLoader: React.FC<SpinnerLoaderProps> = ({
     <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50 fade-in">
       <div className="text-center flex justify-center flex-col items-center space-y-5">
         <div
-          className="w-10 h-10 rounded-full animate-spin
-          border-4 border-dashed border-gray-500 border-t-transparent shadow-sm mb-4"
+          className="w-8 h-8 rounded-full animate-spin
+          border-4 border-dashed border-gray-900 border-t-transparent shadow-sm mb-4"
         ></div>
         {showTimeout && (
           <p className="text-gray-600 fade-in">
@@ -41,5 +41,4 @@ const SpinnerLoader: React.FC<SpinnerLoaderProps> = ({
     </div>
   );
 };
-
 export default SpinnerLoader;

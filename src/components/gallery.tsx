@@ -16,8 +16,8 @@ function Gallery({ products, getNoResultsMessage }: Props) {
 
   if (!products.length) {
     return (
-      <div className="flex flex-col items-center justify-center h-auto gap-y-3 py-10 ">
-        <div className="w-[200px] mx-auto ">
+      <div className="flex flex-col items-center justify-center h-auto gap-y-3 py-10">
+        <div className="w-[200px] mx-auto">
           {noResultsMessage?.includes("video") ? (
             <img src={NoProdVid} alt="" className="max-h-full " />
           ) : (

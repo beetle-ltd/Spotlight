@@ -10,11 +10,13 @@ import { Button } from "../ui/button";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
+import { useState } from "react";
 type TProductDetailsProps = {
   item: IProduct;
 };
 
 const ProductDetails = ({ item }: TProductDetailsProps) => {
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const attachmentType = item.attachments[0].type;
   const currentPath = location.pathname;
@@ -22,6 +24,27 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const _storeName =
     currentPath === "/explore" ? item.store.username : storeName;
   const shareUrl = `${window.location.origin}/${_storeName}/shared/${item.id}`;
+
+  const downloadImage = (imageUrl: string) => {
+    setLoading(true);
+    fetch(imageUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "bloom_main.png"; // or any other name you want
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error downloading image:", error);
+        setLoading(false);
+      });
+  };
 
   return (
     <>
@@ -91,6 +114,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
             <Button
               className="items-center gap-x-3 rounded-full p-0"
               size={"lg"}
+              onClick={() => downloadImage(item?.card)}
             >
               <VscWand size={18} className="hidden md:block" />
               Download Card

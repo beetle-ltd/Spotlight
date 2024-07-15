@@ -4,11 +4,9 @@ import Page from "./components/page-load";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <Suspense fallback={<Page />}>
-        <Router />
-      </Suspense>
-    </div>
+    <Suspense fallback={<Page />}>
+      <Router />
+    </Suspense>
   );
 };
 

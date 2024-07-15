@@ -3,7 +3,7 @@ import { lazy } from "react";
 
 const Home = lazy(() => import("../pages/HomeNew"));
 const Explore = lazy(() => import("../pages/Explore"));
-const Landing = lazy(() => import("../pages/Landing"));
+const Landing = lazy(() => import("../pages/Landing/Landing"));
 const Page404 = lazy(() => import("../pages/Page404"));
 const StoreNotFound = lazy(() => import("../pages/StoreNotFound"));
 

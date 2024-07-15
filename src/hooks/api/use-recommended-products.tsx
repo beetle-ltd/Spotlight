@@ -1,8 +1,11 @@
 // src/hooks/useRecommendedProducts.ts
 
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import api from "@/services/api.service";
 import { transformData } from "@/lib/localstorage";
+import api from "@/services/api.service";
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+} from "@tanstack/react-query";
 
 const PRODUCTS_PERPAGE = 100;
 export interface RecommendedProduct {
@@ -14,31 +17,39 @@ export interface RecommendedProduct {
 
 export interface RecommendedProductsResponse {
   data: RecommendedProduct[];
+  meta: {
+    currentPage: number;
+    lastPage: number;
+  };
   // ... other response properties if any
 }
 
 export const useRecommendedProducts = (
-  options?: UseQueryOptions<RecommendedProductsResponse>
+  options?: UseInfiniteQueryOptions<RecommendedProductsResponse>
 ) => {
-  return useQuery<RecommendedProductsResponse>({
+  return useInfiniteQuery({
     queryKey: ["recommendedProducts"],
     queryFn: async () => {
-      const storeData = JSON.parse(localStorage.getItem("storeData") || "{}");
-      const postData = transformData(storeData);
-
-      const response = await api.post(
-        "/api/v1/stores/anonymous-recommendations",
-        {
-          data: postData,
-          page: 1,
-          perPage: PRODUCTS_PERPAGE,
-        }
-      );
-
-      return response.data;
+      try {
+        const storeData = JSON.parse(localStorage.getItem("storeData") || "{}");
+        const postData = transformData(storeData);
+        const response = await api.post(
+          "/api/v1/stores/anonymous-recommendations",
+          { data: postData, page: 1, perPage: PRODUCTS_PERPAGE }
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching recommended products:", error);
+        // Handle errors appropriately (e.g., display error message)
+      }
     },
-    retry: 1,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    initialPageParam: 1,
     ...options,
+    getNextPageParam: (lastPage) =>
+      lastPage.meta.currentPage < lastPage.meta.lastPage
+        ? lastPage.meta.currentPage + 1
+        : undefined,
+    retry: 3, // Retry up to 3 times
+    retryDelay: (attemptIndex) => Math.min(2000 * 2 ** attemptIndex, 60000), // Adjust delay for retries
   });
 };
