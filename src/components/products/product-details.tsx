@@ -117,7 +117,7 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
               onClick={() => downloadImage(item?.card)}
             >
               <VscWand size={18} className="hidden md:block" />
-              Download Card
+              {loading ? "..." : "Download Card"}
             </Button>
             <Share shareUrl={shareUrl} storeName={_storeName} item={item} />
           </div>
