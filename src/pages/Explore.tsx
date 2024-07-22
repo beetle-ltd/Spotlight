@@ -82,8 +82,8 @@ export default function Explore() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteRecommendedProducts({
-    staleTime: 5000,
-    refetchInterval: 10000,
+    // staleTime: 5000,
+    // refetchInterval: 10000,
   });
 
   useEffect(() => {
