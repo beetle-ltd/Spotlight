@@ -38,7 +38,9 @@ const Bloom = () => {
             <DownloadButton
               text="Get on Android"
               icon={playStore}
-              link={"http://beetleltd.org/test/bloom.apk"}
+              link={
+                "https://play.google.com/store/apps/details?id=com.beetle.bloom"
+              }
             />
           </div>
         </motion.div>
