@@ -1,7 +1,20 @@
 import { IoSearchOutline } from "react-icons/io5";
 import spotlightMobile from "@/assets/spotlight_mobile.png";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const [searchText, setSearchText] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearch = () => {
+    localStorage.setItem("searchTerm", searchText);
+    navigate("/explore");
+  };
   return (
     <div className="w-full h-auto xl:h-[90dvh] py-12 xl:py-32 flex justify-between">
       <div className="w-full max-w-[700px] flex flex-col gap-y-10 pt-20 xl:pt-40">
@@ -62,8 +75,13 @@ const HeroSection = () => {
             id="explore"
             placeholder="What do you want?"
             className="px-5 py-5 appearance-none border border-[#E6E6E6] rounded-full w-[90%] outline-none shadow-sm"
+            value={searchText}
+            onChange={handleSearchChange}
           />
-          <button className="apperance-none bg-black rounded-full flex items-center gap-x-3 px-7 py-5 text-white shadow-lg">
+          <button
+            className="apperance-none bg-black rounded-full flex items-center gap-x-3 px-7 py-5 text-white shadow-lg"
+            onClick={handleSearch}
+          >
             <IoSearchOutline color="#fff" size={20} />
             Search
           </button>

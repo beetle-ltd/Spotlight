@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 import { BASE_URL } from "@/constants/api-constants.ts";
 import axios from "axios";
+import { useRef, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const KEY_CODES = {
   DOWN: 40,
@@ -20,6 +22,7 @@ type TSuggestions = {
   }[];
   keywords: { name: string }[];
 };
+
 export function useAutoComplete({ delay = 500, source }) {
   const [myTimeout, setMyTimeOut] = useState<ReturnType<
     typeof setTimeout
@@ -33,7 +36,9 @@ export function useAutoComplete({ delay = 500, source }) {
   const [isBusy, setBusy] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [selectedIndexId, setSelectedIndexId] = useState("");
-  const [textValue, setTextValue] = useState("");
+  const [textValue, setTextValue] = useState(
+    () => localStorage.getItem("searchTerm") || ""
+  );
   const [isProductLoading, setProductLoading] = useState(false);
   const [isProductError, setProductError] = useState(false);
   const [productsByKeyword, setProductByKeyword] = useState([]);
@@ -41,7 +46,19 @@ export function useAutoComplete({ delay = 500, source }) {
   const navigate = useNavigate();
 
   async function getProductByKeyword(keyword: string) {
-    const url = `${BASE_URL}/api/v1/stores/search-products-by-keyword?search=${keyword}&page=1&perPage=20`;
+    if (keyword === "") {
+      toast({
+        className: "bg-yellow border-none text-black text-bold",
+        description: (
+          <div className="flex space-x-3 items-center">
+            <FaSearch size={20} />
+            <div>"{textValue}" not found on Spotlight!</div>
+          </div>
+        ),
+      });
+      return;
+    }
+    const url = `${BASE_URL}/api/v1/stores/search-products-by-keyword?search=${keyword}&page=1&perPage=100`;
     setProductLoading(true);
     try {
       const response = await axios.get(url);
@@ -77,6 +94,7 @@ export function useAutoComplete({ delay = 500, source }) {
     if (searchTerm && source) {
       setBusy(true);
       const { stores, keywords } = await source(searchTerm);
+
       setSuggestions({ stores, keywords });
       setBusy(false);
     }
@@ -158,9 +176,8 @@ export function useAutoComplete({ delay = 500, source }) {
       [KEY_CODES.ENTER]: () => {
         if (suggestions.keywords.length || suggestions.stores.length) {
           selectOption(selectedIndex, selectedIndexId);
-        }
-        if (textValue.trim()) {
-          getProductByKeyword(textValue);
+        } else if (textValue.trim()) {
+          getProductByKeyword("");
         }
       },
       [KEY_CODES.ESCAPE]: clearSuggestions,

@@ -23,11 +23,23 @@ const Bloom = () => {
           </h1>
           <p className="text-lg md:text-xl">
             Download the <span className="text-[#8C52FF]">Bloom</span> app and
-            get your customized spotlight page immediately.
+            get your customized spotlight page immediately. Get
+            <span className="text-[#8C5CFF]">&nbsp;BETA&nbsp;</span>
+            version
           </p>
           <div className="flex gap-4 md:gap-x-5">
-            <DownloadButton text="Get on iPhone" icon={apple} />
-            <DownloadButton text="Get on Android" icon={playStore} />
+            <DownloadButton
+              text="Get on iPhone"
+              icon={apple}
+              link={
+                "https://apps.apple.com/ng/app/bloom-for-your-business/id6504585209"
+              }
+            />
+            <DownloadButton
+              text="Get on Android"
+              icon={playStore}
+              link={"http://beetleltd.org/test/bloom.apk"}
+            />
           </div>
         </motion.div>
         <motion.div
@@ -47,15 +59,17 @@ const Bloom = () => {
   );
 };
 
-const DownloadButton = ({ icon, text }) => {
+const DownloadButton = ({ icon, text, link }) => {
   return (
     <motion.button
-      className="appearance-none bg-white rounded-lg text-black flex gap-x-2 items-center font-bold px-3 py-4 w-full sm:w-auto"
+      className="appearance-none bg-white rounded-lg text-black  px-3 py-4 w-full sm:w-auto"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <img src={icon} alt={text} className="w-6 h-6" />
-      <span className="text-sm xl:text-base">{text}</span>
+      <a href={link} className="flex gap-x-2 items-center font-bold">
+        <img src={icon} alt={text} className="w-6 h-6" />
+        <span className="text-sm xl:text-base">{text}</span>
+      </a>
     </motion.button>
   );
 };

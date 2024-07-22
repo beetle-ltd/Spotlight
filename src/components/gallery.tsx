@@ -14,7 +14,7 @@ function Gallery({ products, getNoResultsMessage }: Props) {
     noResultsMessage = getNoResultsMessage();
   }
 
-  if (!products.length) {
+  if (!products?.length) {
     return (
       <div className="flex flex-col items-center justify-center h-auto gap-y-3 py-10">
         <div className="w-[200px] mx-auto">
@@ -39,7 +39,7 @@ function Gallery({ products, getNoResultsMessage }: Props) {
 
   return (
     <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 sm:gap-1 gap-x-[2px] gap-y-[1px]">
-      {products.map((product) => (
+      {products?.map((product) => (
         <Product item={product} key={product.id} />
       ))}
     </div>
