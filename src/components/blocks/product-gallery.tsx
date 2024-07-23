@@ -11,8 +11,13 @@ export type TTab = "ALL" | AttachmentType;
 interface IProductsGalleryProps {
   products: IProduct[];
   categories: string[];
+  storePhone: string;
 }
-function ProductGallery({ products, categories }: IProductsGalleryProps) {
+function ProductGallery({
+  products,
+  categories,
+  storePhone,
+}: IProductsGalleryProps) {
   const [activeTab, setActiveTab] = useState<TTab>("ALL");
   const [category, setCategory] = useState<string>("");
   const { searchTerm } = useSearch();
@@ -115,6 +120,7 @@ function ProductGallery({ products, categories }: IProductsGalleryProps) {
         <Gallery
           products={filteredProducts}
           getNoResultsMessage={getNoResultsMessage}
+          storePhone={storePhone}
         />
       </div>
     </div>

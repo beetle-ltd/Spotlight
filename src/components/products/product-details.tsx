@@ -14,9 +14,10 @@ import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
 type TProductDetailsProps = {
   item: IProduct;
+  storePhone: string;
 };
 
-const ProductDetails = ({ item }: TProductDetailsProps) => {
+const ProductDetails = ({ item, storePhone }: TProductDetailsProps) => {
   // const [loading, setLoading] = useState(false);
 
   const location = useLocation();
@@ -30,7 +31,10 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
   const message =
     "Hey there! 👋 I just spotted your awesome store on Spotlight and couldn't resist checking it out. 🛍️✨ I'm really interested in one of your products. Can we chat about it? 😊 #SpotlightShopper";
   const handleSendMessage = () => {
-    const whaLink = getWhatsAppLink(item.store.phoneNumber ?? "", message);
+    const whaLink = getWhatsAppLink(
+      item?.store?.phoneNumber || storePhone,
+      message
+    );
     if (whaLink == "no-link") {
       toast({
         description: "No Phone Number",

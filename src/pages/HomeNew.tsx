@@ -36,7 +36,11 @@ const HomeNew = () => {
     return store.products.length === 0 ? (
       <NoProducts />
     ) : (
-      <ProductGallery products={store.products} categories={store.categories} />
+      <ProductGallery
+        products={store.products}
+        categories={store.categories}
+        storePhone={store.phoneNumber}
+      />
     );
   }, [store?.products, store?.categories]);
 

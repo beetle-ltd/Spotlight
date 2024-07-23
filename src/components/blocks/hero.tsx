@@ -53,18 +53,18 @@ function Hero({ store }: IHeroProps) {
             <Button
               className="flex gap-x-2 items-center rounded-full  text-xs md:text-base"
               size={"lg"}
+              onClick={handleSendMessage}
             >
-              <VscWand size={18} className="hidden md:block" />
-              Get business card
+              <BsWhatsapp size={18} className="hidden md:block" />
+              Send a Message
             </Button>
             <Button
               className="flex gap-x-2 items-center rounded-full text-xs md:text-base"
               size={"lg"}
               variant="outline"
-              onClick={handleSendMessage}
             >
-              <BsWhatsapp size={18} className="hidden md:block" />
-              Send a Message
+              <VscWand size={18} className="hidden md:block" />
+              Get business card
             </Button>
           </div>
         </div>

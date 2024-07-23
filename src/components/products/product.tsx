@@ -14,9 +14,10 @@ import ProductSingle from "./product-single";
 
 type Props = {
   item: IProduct;
+  storePhone: string;
 };
 
-function Product({ item }: Props) {
+function Product({ item, storePhone }: Props) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const currentPath = location.pathname;
@@ -43,7 +44,7 @@ function Product({ item }: Props) {
       <Dialog open={open} onOpenChange={setOpen}>
         <ProductSingle item={item} handleClick={(val) => setOpen(val)} />
         <DialogContent className="sm:max-w-[1000px] p-0 overflow-hidden">
-          <ProductDetails item={item} />
+          <ProductDetails item={item} storePhone={storePhone} />
         </DialogContent>
       </Dialog>
     );
@@ -55,7 +56,7 @@ function Product({ item }: Props) {
         <ProductSingle item={item} handleClick={(val) => setOpen(val)} />
       </DrawerTrigger>
       <DrawerContent>
-        <ProductDetails item={item} />
+        <ProductDetails item={item} storePhone={storePhone} />
       </DrawerContent>
     </Drawer>
   );
