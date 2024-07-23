@@ -1,22 +1,24 @@
 import { IProduct } from "@/models/Products";
-import { VscWand } from "react-icons/vsc";
 import { Link, useLocation, useParams } from "react-router-dom";
 // import videoFile from "../../assets/videos/vid1.mp4";
+import { getWhatsAppLink } from "@/lib/getWhatsappLink";
 import { trimAndCapitalize } from "@/lib/trimAndCapitalize";
 import { AttachmentType, CurrencyToSymbolMapping } from "@/models/enums";
 import { SEO } from "@/seo";
+import { BsWhatsapp } from "react-icons/bs";
 import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
+import { toast } from "../ui/use-toast";
 import ImageDetail from "./attachments/image-detail";
 import VideoDetail from "./attachments/video-detail";
 import Share from "./share";
-import { useState } from "react";
 type TProductDetailsProps = {
   item: IProduct;
 };
 
 const ProductDetails = ({ item }: TProductDetailsProps) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+
   const location = useLocation();
   const attachmentType = item.attachments[0].type;
   const currentPath = location.pathname;
@@ -25,26 +27,39 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
     currentPath === "/explore" ? item.store.username : storeName;
   const shareUrl = `${window.location.origin}/${_storeName}/shared/${item.id}`;
 
-  const downloadImage = (imageUrl: string) => {
-    setLoading(true);
-    fetch(imageUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "bloom_main.png"; // or any other name you want
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error downloading image:", error);
-        setLoading(false);
+  const message =
+    "Hey there! 👋 I just spotted your awesome store on Spotlight and couldn't resist checking it out. 🛍️✨ I'm really interested in one of your products. Can we chat about it? 😊 #SpotlightShopper";
+  const handleSendMessage = () => {
+    const whaLink = getWhatsAppLink(item.store.phoneNumber ?? "", message);
+    if (whaLink == "no-link") {
+      toast({
+        description: "No Phone Number",
       });
+      return;
+    }
+    window.open(whaLink, "_blank");
   };
+
+  // const downloadImage = (imageUrl: string) => {
+  //   setLoading(true);
+  //   fetch(imageUrl)
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const link = document.createElement("a");
+  //       link.href = url;
+  //       link.download = "bloom_main.png"; // or any other name you want
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //       window.URL.revokeObjectURL(url);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error downloading image:", error);
+  //       setLoading(false);
+  //     });
+  // };
 
   return (
     <>
@@ -114,10 +129,10 @@ const ProductDetails = ({ item }: TProductDetailsProps) => {
             <Button
               className="items-center gap-x-3 rounded-full p-0"
               size={"lg"}
-              onClick={() => downloadImage(item?.card)}
+              onClick={handleSendMessage}
             >
-              <VscWand size={18} className="hidden md:block" />
-              {loading ? "..." : "Download Card"}
+              <BsWhatsapp size={18} className="hidden md:block" />
+              Send a Message
             </Button>
             <Share shareUrl={shareUrl} storeName={_storeName} item={item} />
           </div>
