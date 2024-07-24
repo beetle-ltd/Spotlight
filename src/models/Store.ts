@@ -41,6 +41,7 @@ export interface Store {
    */
   readonly username: string;
   readonly products: IProduct[];
+  readonly businessCardUrl: string;
   /**
    * `link` describes the unique link generated for store
    * @description

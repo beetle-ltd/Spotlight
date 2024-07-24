@@ -7,12 +7,23 @@ import ShopLogo from "../shop-logo";
 import { Button } from "../ui/button";
 import { getWhatsAppLink } from "@/lib/getWhatsappLink";
 import { toast } from "../ui/use-toast";
+import { useDownloadImage } from "@/hooks/use-download";
+import SpinnerLoader from "../loaders/spinner-loader";
 
 interface IHeroProps {
   store: Store;
 }
 
 function Hero({ store }: IHeroProps) {
+  const { downloadImage, loading } = useDownloadImage();
+
+  const handleClick = () => {
+    downloadImage(
+      store.businessCardUrl ?? "",
+      `${store.username}-business-card`
+    );
+  };
+
   const message =
     "Hey there! 👋 I just spotted your awesome store on Spotlight and couldn't resist checking it out. 🛍️✨ I'm really interested in one of your products. Can we chat about it? 😊 #SpotlightShopper";
   const handleSendMessage = () => {
@@ -62,9 +73,16 @@ function Hero({ store }: IHeroProps) {
               className="flex gap-x-2 items-center rounded-full text-xs md:text-base"
               size={"lg"}
               variant="outline"
+              onClick={handleClick}
             >
-              <VscWand size={18} className="hidden md:block" />
-              Get business card
+              {loading ? (
+                <SpinnerLoader />
+              ) : (
+                <>
+                  <VscWand size={18} className="hidden md:block" />
+                  Get business card
+                </>
+              )}
             </Button>
           </div>
         </div>
