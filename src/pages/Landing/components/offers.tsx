@@ -3,7 +3,7 @@ import spotlightWeb from "../../../assets/spotlight_webapp.png";
 const Offers = () => {
   return (
     <div className="bg-gradient-to-b from-white to-yellow w-full h-full xl:min-h-screen flex flex-col items-center justify-between pt-20">
-      <div className="w-[95%] md:w-[85%] flex flex-col pt-20 px-4 md:px-8">
+      <div className="w-full 3xl:w-[85%] flex flex-col pt-20 px-4 md:px-8">
         {/* First Text Block */}
         <motion.div
           className="text-black text-center xl:text-justify text-xl sm:text-2xl md:text-4xl w-full flex justify-start mb-10 xl:-mb-20 font-semibold"
@@ -19,7 +19,7 @@ const Offers = () => {
 
         {/* SVG Container */}
         <motion.div
-          className="flex justify-center relative my-10 hidden xl:flex"
+          className="justify-center relative my-10 hidden xl:flex"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -62,7 +62,7 @@ const Offers = () => {
 
         {/* Second Text Block */}
         <motion.div
-          className="text-[#505050] text-center xl:text-justify text-xl md:text-3xl flex w-full justify-end py-5 xl:py-0 xl:-mt-32 xl:pl-20"
+          className="text-[#505050] text-center xl:text-justify text-xl md:text-3xl flex w-full justify-end py-5 xl:py-0 2xl:-mt-32 xl:pl-20"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}

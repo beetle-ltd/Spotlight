@@ -1,6 +1,6 @@
-import { IoSearchOutline } from "react-icons/io5";
 import spotlightMobile from "@/assets/spotlight_mobile.png";
 import { useState } from "react";
+import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
@@ -68,22 +68,22 @@ const HeroSection = () => {
           Spotlight is all about finding and flexing the dopest brands that vibe
           with your style.
         </p>
-        <div className="flex items-center gap-x-10 w-full">
+        <div className="flex items-center w-full">
           <input
             type="text"
             name="explore"
             id="explore"
             placeholder="What do you want?"
-            className="px-5 py-5 appearance-none border border-[#E6E6E6] rounded-full w-[90%] outline-none shadow-sm"
+            className="px-5 py-5 appearance-none border rounded-tr-none rounded-br-none border-[#E6E6E6] rounded-full w-[90%] outline-none shadow-sm"
             value={searchText}
             onChange={handleSearchChange}
           />
           <button
-            className="apperance-none bg-black rounded-full flex items-center gap-x-3 px-7 py-5 text-white shadow-lg"
+            className="apperance-none bg-black rounded-tl-none rounded-bl-none rounded-full flex items-center gap-x-3 px-7 py-5 text-white shadow-lg"
             onClick={handleSearch}
           >
-            <IoSearchOutline color="#fff" size={20} />
-            Search
+            <FiSearch color="#fff" size={20} />
+            <span className="hidden sm:block">Search</span>
           </button>
         </div>
       </div>
