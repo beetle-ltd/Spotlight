@@ -28,13 +28,9 @@ const ProductDetails = ({ item, storePhone }: TProductDetailsProps) => {
     currentPath === "/explore" ? item.store.username : storeName;
   const shareUrl = `${window.location.origin}/${_storeName}/shared/${item.id}`;
 
-  const message =
-    "Hey there! 👋 I just spotted your awesome store on Spotlight and couldn't resist checking it out. 🛍️✨ I'm really interested in one of your products. Can we chat about it? 😊 #SpotlightShopper";
-  const handleSendMessage = () => {
-    const whaLink = getWhatsAppLink(
-      item?.store?.phoneNumber || storePhone,
-      message
-    );
+  const handleSendMessage = (productName: string) => {
+    const message = `Hey there! 👋 I just spotted ${productName} on your website on **Spotlight**. 🛍️✨ Can we chat about it? 😊`;
+    const whaLink = getWhatsAppLink(storePhone ?? "", message);
     if (whaLink == "no-link") {
       toast({
         description: "No Phone Number",
@@ -43,7 +39,6 @@ const ProductDetails = ({ item, storePhone }: TProductDetailsProps) => {
     }
     window.open(whaLink, "_blank");
   };
-
   // const downloadImage = (imageUrl: string) => {
   //   setLoading(true);
   //   fetch(imageUrl)
@@ -133,7 +128,7 @@ const ProductDetails = ({ item, storePhone }: TProductDetailsProps) => {
             <Button
               className="items-center gap-x-3 rounded-full p-0"
               size={"lg"}
-              onClick={handleSendMessage}
+              onClick={() => handleSendMessage(item.name)}
             >
               <BsWhatsapp size={18} className="hidden md:block" />
               Send a Message

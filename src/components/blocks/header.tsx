@@ -28,7 +28,7 @@ function Header({ logoImg, name }: THeaderProps) {
     debouncedSetSearchTerm(inputVal);
     // Cleanup function to cancel the debounce on unmount
     return () => {
-      debouncedSetSearchTerm.cancel();
+      debouncedSetSearchTerm?.cancel();
     };
   }, [inputVal, debouncedSetSearchTerm]);
 
