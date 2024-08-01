@@ -29,7 +29,7 @@ const ProductDetails = ({ item, storePhone }: TProductDetailsProps) => {
   const shareUrl = `${window.location.origin}/${_storeName}/shared/${item.id}`;
 
   const handleSendMessage = (productName: string) => {
-    const message = `Hey there! I just spotted ${productName} on your website on *Spotlight*. Can we chat about it? ${shareUrl}`;
+    const message = `Hey there! I just spotted *${productName}* on your website on *Spotlight*. Can we chat about it? ${shareUrl}`;
     const whaLink = getWhatsAppLink(
       (storePhone || item.store.phoneNumber) ?? "",
       message
