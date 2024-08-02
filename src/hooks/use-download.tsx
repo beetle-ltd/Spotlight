@@ -9,7 +9,7 @@ export const useDownloadImage = () => {
     async (imageUrl: string, fileName: string) => {
       if (!imageUrl) {
         toast({
-          description: "This store had no business card",
+          description: "This store has no business card",
         });
         return;
       }
